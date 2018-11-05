@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import ItemForm from './containers/ItemForm'
 
 
 class App extends Component {
 
   render() {
-    <div>
-    </div>
-    );
+    return(
+      <div>
+        <ItemForm />
+      </div>
+    )
   }
 }
 
