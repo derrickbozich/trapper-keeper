@@ -1,8 +1,9 @@
 import React,{Component} from 'react'
-// import { getCookie } from '../Client'
-import { postItem } from '../Client'
+// import { addItem } from '../Client'
+import { connect } from 'react-redux'
+import { addItem } from '../actions/actions'
 
-export default class ItemForm extends Component {
+class ItemForm extends Component {
   state = {
     name:'',
     price:'',
@@ -16,11 +17,9 @@ export default class ItemForm extends Component {
     })
   }
 
-
-
   handleSubmit = e => {
     e.preventDefault()
-    postItem(this.state)
+    this.props.addItem(this.state)
     this.setState({
       name:'',
       price:'',
@@ -58,3 +57,7 @@ export default class ItemForm extends Component {
     )
   }
 }
+
+
+
+export default connect(null,{ addItem })(ItemForm)

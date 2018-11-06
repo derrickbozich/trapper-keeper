@@ -41,7 +41,7 @@ export function getCookie(cname){
   return "";
 }
 
-export function postItem(state){
+export function addItem(state){
   fetch('/api/items/new', {
     method: 'post',
     body: JSON.stringify(state),
@@ -52,5 +52,5 @@ export function postItem(state){
     },
     credentials: 'same-origin'
   }).then(res => res.json())
-  .then(data => { debugger });
+  .then(data => console.log(data));
 }

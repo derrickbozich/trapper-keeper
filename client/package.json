@@ -4,15 +4,18 @@
   "private": true,
   "proxy": "http://localhost:3001/",
   "devDependencies": {
-    "enzyme": "2.4.1",
-    "react-addons-test-utils": "15.4.0",
     "react-scripts": "0.8.5"
   },
   "dependencies": {
     "babel-plugin-transform-class-properties": "6.22.0",
-    "react": "15.4.0",
-    "react-dom": "15.4.0",
-    "semantic-ui": "2.2.10"
+    "react": "",
+    "react-dom": "",
+    "react-redux": "5.1.0",
+    "react-router-dom": "4.3.1",
+    "redux": "4.0.1",
+    "redux-thunk": "2.3.0",
+    "semantic-ui": "^2.4.2",
+    "semantic-ui-react": ""
   },
   "scripts": {
     "start": "react-scripts start",
