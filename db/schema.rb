@@ -20,7 +20,9 @@ ActiveRecord::Schema.define(version: 20181106065124) do
   create_table "carts", force: :cascade do |t|
     t.date   "date"
     t.float  "total"
-    t.string "payment_method"
+    t.float  "wholesale_total"
+    t.float  "square_total"
+    t.string "payment_type"
   end
 
   create_table "expenses", force: :cascade do |t|

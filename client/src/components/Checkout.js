@@ -2,12 +2,22 @@ import React, { Component } from 'react'
 import { List, Button } from 'semantic-ui-react'
 import CartItem from './CartItem'
 import { connect } from 'react-redux'
-import { checkout } from '../actions/actions'
+import { checkoutCash } from '../actions/actions'
+import { checkoutCredit } from '../actions/actions'
 
 class Checkout extends Component {
 
-  handleClick = () => {
-    this.props.checkout(this.props.cart)
+  handleClickCash = (e, value) => {
+    const payment_type = value.value
+
+    this.props.checkoutCash(this.props.cart)
+    this.props.history.push('/')
+  }
+
+  handleClickCredit = (e, value) => {
+    const payment_type = value.value
+
+    this.props.checkoutCredit(this.props.cart)
     this.props.history.push('/')
   }
 
@@ -28,8 +38,8 @@ class Checkout extends Component {
         <List>
           {items}
         </List>
-        <Button onClick={this.handleClick} secondary>Cash</Button>
-        <Button onClick={this.handleClick} secondary>Card</Button>
+        <Button onClick={this.handleClickCash} value='cash' secondary>Cash</Button>
+        <Button onClick={this.handleClickCredit} value='credit' secondary>Card</Button>
       </div>
     )
   }
@@ -45,4 +55,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { checkout })(Checkout)
+export default connect(mapStateToProps, { checkoutCash, checkoutCredit })(Checkout)

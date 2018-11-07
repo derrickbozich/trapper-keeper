@@ -7,7 +7,7 @@ class ItemForm extends Component {
   state = {
     name:'',
     price:'',
-    wholesalePrice:'',
+    wholesale_price:'',
     kind:''
   }
 
@@ -19,11 +19,12 @@ class ItemForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
+    let s = this.state
     this.props.addItem(this.state)
     this.setState({
       name:'',
       price:'',
-      wholesalePrice:'',
+      wholesale_price:'',
       kind:''
     })
   }
@@ -44,7 +45,7 @@ class ItemForm extends Component {
 
         <div className="field">
           <label>Wholesale Price</label>
-          <input type="text" id="wholesalePrice" name="item[wholesalePrice]" placeholder="Wholesale Price" value={this.state.wholesalePrice} onChange={this.handleChange} />
+          <input type="text" id="wholesale_price" name="item[wholesale_price]" placeholder="Wholesale Price" value={this.state.wholesale_price} onChange={this.handleChange} />
         </div>
 
         <div className="field">

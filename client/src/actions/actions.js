@@ -33,9 +33,24 @@ export function addExpense(state){
   };
 }
 
-export function checkout(state){
+export function checkoutCash(state){
   return (dispatch) => {
-    return fetch('/api/carts/new', {
+    return fetch('/api/carts/new/cash', {
+      method: 'post',
+      body: JSON.stringify(state),
+      headers: {
+        'Content-Type': 'application/json',
+        // 'X-CSRF-Token': Rails.csrfToken()
+        'X-CSRF-Token': getCookie('my_csrf_token')
+      },
+      credentials: 'same-origin'
+    }).then(res => res.json())
+    .then(dispatch({ type: 'CHECKOUT' }));
+  };
+}
+export function checkoutCredit(state){
+  return (dispatch) => {
+    return fetch('/api/carts/new/credit', {
       method: 'post',
       body: JSON.stringify(state),
       headers: {
