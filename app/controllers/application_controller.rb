@@ -2,6 +2,13 @@ class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
 
+  def index
+    expenses = Expense.all
+    items = Item.all
+    carts = Cart.all
+    data_hash = {expenses: expenses, items: items, carts: carts }
+    render json: data_hash, status: 200
+  end
 
   before_action :set_csrf_cookie
 

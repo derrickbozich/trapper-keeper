@@ -1,9 +1,10 @@
-export function itemsReducer(state=[], action){
+export function expensesReducer(state=[], action){
   switch (action.type) {
     case 'ADD_EXPENSE':
-      debugger
       let newState = state.push(action.payload)
       return newState
+    case 'GET_EXPENSES':
+      return action.payload
     default:
       return state
   }

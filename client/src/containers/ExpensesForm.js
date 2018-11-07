@@ -2,7 +2,7 @@ import React,{Component} from 'react'
 import { connect } from 'react-redux'
 import { addExpense } from '../actions/actions'
 import { Dropdown } from 'semantic-ui-react'
-import { Form, Checkbox } from 'semantic-ui-react'
+// import { Form, Checkbox } from 'semantic-ui-react'
 
 import { expenseOptions } from '../common'
 import { paymentTypes } from '../common'
@@ -13,14 +13,15 @@ import { paymentTypes } from '../common'
 class ExpensesForm extends Component {
   date = () => {
     const d = new Date();
-    return d.getDate()
+    const date = `${d.getMonth()+1}/${d.getDate()}/${d.getFullYear()}`
+    return date
   }
   state = {
     description:'',
     amount:'',
-    date:'',
-    paymentType:'',
-    type:''
+    date:this.date(),
+    payment_type:'',
+    kind:''
   }
 
   handleChange = e => {
@@ -44,9 +45,9 @@ class ExpensesForm extends Component {
     this.setState({
       description:'',
       amount:'',
-      date:'',
-      paymentType:'',
-      type:''
+      date:this.date(),
+      payment_type:'',
+      kind:''
     })
   }
 
@@ -55,8 +56,8 @@ class ExpensesForm extends Component {
       <form className="ui form" onSubmit={this.handleSubmit}>
 
         <div className="field">
-          <label>Type</label>
-          <Dropdown placeholder='Type' id='type' name="expense[type]"  onChange={this.handleSelect}fluid search selection options={expenseOptions} />
+          <label>Kind</label>
+          <Dropdown placeholder='Kind' id='kind' name="expense[kind]"  onChange={this.handleSelect}fluid search selection options={expenseOptions} />
         </div>
 
         <div className="field">
@@ -76,7 +77,7 @@ class ExpensesForm extends Component {
 
         <div className="field">
           <label>Payment Type</label>
-          <Dropdown placeholder='Payment Type' name="expense[payment_type]" id='paymentType'  onChange={this.handleSelect}fluid search selection options={paymentTypes} />
+          <Dropdown placeholder='Payment Type' name="expense[payment_type]" id='payment_type'  onChange={this.handleSelect}fluid search selection options={paymentTypes} />
         </div>
         <button className="ui button" type="submit">Submit</button>
       </form>

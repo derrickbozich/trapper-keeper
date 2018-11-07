@@ -33,6 +33,28 @@ export function addExpense(state){
   };
 }
 
+export function checkout(state){
+  return (dispatch) => {
+    return fetch('/api/carts/new', {
+      method: 'post',
+      body: JSON.stringify(state),
+      headers: {
+        'Content-Type': 'application/json',
+        // 'X-CSRF-Token': Rails.csrfToken()
+        'X-CSRF-Token': getCookie('my_csrf_token')
+      },
+      credentials: 'same-origin'
+    }).then(res => res.json())
+    .then(dispatch({ type: 'CHECKOUT' }));
+  };
+}
+
+export function addItemToCart(item){
+  return (dispatch) => {
+    return dispatch({ type: 'ADD_ITEM_TO_CART', payload: item });
+  }
+}
+
 export function getItems(){
   return dispatch => {
     return fetch('/api/items')
@@ -40,6 +62,15 @@ export function getItems(){
     .then(items => dispatch({ type: 'GET_ITEMS', payload: items }));
   }
 }
+
+export function getExpenses(){
+  return dispatch => {
+    return fetch('/api/expenses')
+    .then(res => res.json())
+    .then(expenses => dispatch({ type: 'GET_EXPENSES', payload: expenses }));
+  }
+}
+
 
 export function getCookie(cname){
   const name = cname + "=";

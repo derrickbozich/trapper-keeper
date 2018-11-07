@@ -8,7 +8,7 @@ class ItemForm extends Component {
     name:'',
     price:'',
     wholesalePrice:'',
-    style:''
+    kind:''
   }
 
   handleChange = e => {
@@ -24,7 +24,7 @@ class ItemForm extends Component {
       name:'',
       price:'',
       wholesalePrice:'',
-      style:''
+      kind:''
     })
   }
 
@@ -49,7 +49,7 @@ class ItemForm extends Component {
 
         <div className="field">
           <label>Style</label>
-          <input type="text" id="style" name="item[style]" placeholder="Style" value={this.state.style} onChange={this.handleChange} />
+          <input type="text" id="kind" name="item[kind]" placeholder="Type" value={this.state.kind} onChange={this.handleChange} />
         </div>
 
         <button className="ui button" type="submit">Submit</button>

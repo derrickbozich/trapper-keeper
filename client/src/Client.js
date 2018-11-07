@@ -25,32 +25,32 @@
 // const Client = { search };
 // export default Client;
 
-export function getCookie(cname){
-  const name = cname + "=";
-  const decodedCookie = decodeURIComponent(document.cookie);
-  const ca = decodedCookie.split(';');
-  for(let i = 0; i <ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === ' ') {
-          c = c.substring(1);
-      }
-      if (c.indexOf(name) === 0) {
-          return c.substring(name.length, c.length);
-      }
-  }
-  return "";
-}
-
-export function addItem(state){
-  fetch('/api/items/new', {
-    method: 'post',
-    body: JSON.stringify(state),
-    headers: {
-      'Content-Type': 'application/json',
-      // 'X-CSRF-Token': Rails.csrfToken()
-      'X-CSRF-Token': getCookie('my_csrf_token')
-    },
-    credentials: 'same-origin'
-  }).then(res => res.json())
-  .then(data => console.log(data));
-}
+// export function getCookie(cname){
+//   const name = cname + "=";
+//   const decodedCookie = decodeURIComponent(document.cookie);
+//   const ca = decodedCookie.split(';');
+//   for(let i = 0; i <ca.length; i++) {
+//       let c = ca[i];
+//       while (c.charAt(0) === ' ') {
+//           c = c.substring(1);
+//       }
+//       if (c.indexOf(name) === 0) {
+//           return c.substring(name.length, c.length);
+//       }
+//   }
+//   return "";
+// }
+//
+// export function addItem(state){
+//   fetch('/api/items/new', {
+//     method: 'post',
+//     body: JSON.stringify(state),
+//     headers: {
+//       'Content-Type': 'application/json',
+//       // 'X-CSRF-Token': Rails.csrfToken()
+//       'X-CSRF-Token': getCookie('my_csrf_token')
+//     },
+//     credentials: 'same-origin'
+//   }).then(res => res.json())
+//   .then(data => console.log(data));
+// }

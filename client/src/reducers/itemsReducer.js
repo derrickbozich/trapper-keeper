@@ -1,10 +1,9 @@
 export function itemsReducer(state=[], action){
   switch (action.type) {
     case 'GET_ITEMS':
-      let newState = state.push(action.payload)
-      return newState
+      return action.payload
     case 'ADD_ITEM':
-      newState = state.push(action.payload)
+      let newState = [...state, action.payload]
       return newState
     default:
       return state

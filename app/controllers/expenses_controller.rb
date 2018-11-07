@@ -4,9 +4,14 @@ class ExpensesController < ApplicationController
     render json: @expense, status: 201
   end
 
+  def index
+    @expenses = Expense.all
+    render json: @expenses, status: 200
+  end
+
   private
 
   def expense_params
-    params.require(:expense).permit(:name, :price, :wholesale_price, :style)
+    params.require(:expense).permit(:kind, :amount, :payment_type, :description, :date)
   end
 end
