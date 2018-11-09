@@ -2,6 +2,9 @@ import React,{Component} from 'react'
 import { connect } from 'react-redux'
 import { addExpense } from '../actions/actions'
 import { getTotals } from '../actions/actions'
+import { getExpenses } from '../actions/actions'
+import { deleteExpense } from '../actions/actions'
+import { toggleEditMode } from '../actions/actions'
 import { Dropdown } from 'semantic-ui-react'
 // import { Form, Checkbox } from 'semantic-ui-react'
 import PropTypes from 'prop-types';
@@ -18,13 +21,17 @@ class ExpensesForm extends Component {
     const date = `${d.getMonth()+1}/${d.getDate()}/${d.getFullYear()}`
     return date
   }
-  state = {
-    description:'',
-    amount:'',
-    date:this.date(),
-    payment_type:'',
-    kind:''
+  constructor(props) {
+    super(props);
+    this.state = {
+      description: props.description || '',
+      amount: props.amount || '',
+      date: this.date(),
+      payment_type: props.payment_type || '',
+      kind: props.kind || ''
+    }
   }
+
 
   handleChange = e => {
 
@@ -39,13 +46,32 @@ class ExpensesForm extends Component {
     })
   }
 
+  handleDelete = e => {
+    e.preventDefault()
+    const id = this.props.id
+    const newState = {...this.state, id}
+    this.props.toggleEditMode(false)
+    this.props.deleteExpense(newState)
+    this.props.getTotals()
+    this.props.getExpenses()
+  }
+
 
 
   handleSubmit = e => {
     e.preventDefault()
-    this.props.addExpense(this.state)
+    if (this.props.editExpense) {
+      const id = this.props.id
+      const newState = {...this.state, id}
+      this.props.toggleEditMode(false)
+      this.props.editExpense(newState)
+    } else {
+      this.props.addExpense(this.state)
+      this.props.history.push('/finances')
+    }
     this.props.getTotals()
-    this.props.history.push('/finances')
+    this.props.getExpenses()
+
     this.setState({
       description:'',
       amount:'',
@@ -83,14 +109,18 @@ class ExpensesForm extends Component {
           <label>Payment Type</label>
           <Dropdown placeholder='Payment Type' name="expense[payment_type]" id='payment_type'  onChange={this.handleSelect}fluid search selection options={paymentTypes} />
         </div>
-        <button className="ui button" type="submit">Submit</button>
+        <button className="ui button" type="submit">{this.props.inEditMode ? "Submit Changes" : "Submit"}</button>
+        <button style={this.props.inEditMode ? {display: 'true'} : {display: 'none'}}
+                className="ui button" onClick={this.handleDelete}>Delete</button>
       </form>
     )
   }
 }
 
 
+const mapStateToProps = state => {
+  return {inEditMode: state.global.inEditMode}
+}
 
 
-
-export default connect(null,{ addExpense, getTotals })(ExpensesForm)
+export default connect(mapStateToProps,{ addExpense, getTotals, getExpenses, toggleEditMode, deleteExpense })(ExpensesForm)

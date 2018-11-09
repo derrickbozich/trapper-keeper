@@ -20,7 +20,7 @@ class ShoppingPage extends React.Component {
   }
 
   render(){
-    let view = this.state.stillShopping ?  <ItemsList /> : <Checkout />
+    let view = this.state.stillShopping ?  <ItemsList buttonContent='Add to Cart' /> : <Checkout />
       return(
         <div>
           {view}

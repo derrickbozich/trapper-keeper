@@ -57,6 +57,86 @@ export function addExpense(state){
   };
 }
 
+export function editExpense(state){
+  return (dispatch) => {
+    return fetch('/api/expenses/:id/edit', {
+      method: 'PATCH',
+      body: JSON.stringify(state),
+      headers: {
+        'Content-Type': 'application/json',
+        // 'X-CSRF-Token': Rails.csrfToken()
+        'X-CSRF-Token': getCookie('my_csrf_token')
+      },
+      credentials: 'same-origin'
+    }).then(res => res.json())
+    .then(expense => dispatch({ type: 'EDIT_EXPENSE', payload: expense }) );
+  };
+}
+
+export function deleteExpense(state){
+  return (dispatch) => {
+    return fetch('/api/expenses/:id/delete', {
+      method: 'DELETE',
+      body: JSON.stringify(state),
+      headers: {
+        'Content-Type': 'application/json',
+        // 'X-CSRF-Token': Rails.csrfToken()
+        'X-CSRF-Token': getCookie('my_csrf_token')
+      },
+      credentials: 'same-origin'
+    }).then(res => res.json())
+    .then(expense => dispatch({ type: 'DELETE_EXPENSE', payload: expense }) );
+  };
+}
+
+export function editShow(state){
+  return (dispatch) => {
+    return fetch('/api/shows/:id/edit', {
+      method: 'PATCH',
+      body: JSON.stringify(state),
+      headers: {
+        'Content-Type': 'application/json',
+        // 'X-CSRF-Token': Rails.csrfToken()
+        'X-CSRF-Token': getCookie('my_csrf_token')
+      },
+      credentials: 'same-origin'
+    }).then(res => res.json())
+    .then(show => dispatch({ type: 'EDIT_SHOW', payload: show }) );
+  };
+}
+
+export function deleteShow(state){
+  return (dispatch) => {
+    return fetch('/api/shows/:id/delete', {
+      method: 'DELETE',
+      body: JSON.stringify(state),
+      headers: {
+        'Content-Type': 'application/json',
+        // 'X-CSRF-Token': Rails.csrfToken()
+        'X-CSRF-Token': getCookie('my_csrf_token')
+      },
+      credentials: 'same-origin'
+    }).then(res => res.json())
+    .then(show => dispatch({ type: 'DELETE_SHOW', payload: show }) );
+  };
+}
+
+export function editItem(state){
+  return (dispatch) => {
+    return fetch('/api/items/:id/edit', {
+      method: 'PATCH',
+      body: JSON.stringify(state),
+      headers: {
+        'Content-Type': 'application/json',
+        // 'X-CSRF-Token': Rails.csrfToken()
+        'X-CSRF-Token': getCookie('my_csrf_token')
+      },
+      credentials: 'same-origin'
+    }).then(res => res.json())
+    .then(item => dispatch({ type: 'EDIT_ITEM', payload: item }) );
+  };
+}
+
 export function addShow(state){
   return (dispatch) => {
     return fetch('/api/shows/new', {
@@ -117,6 +197,19 @@ export function getItems(){
     .then(items => dispatch({ type: 'GET_ITEMS', payload: items }));
   }
 }
+
+export function toggleEditMode(state){
+  return dispatch => {
+    return dispatch({ type: 'TOGGLE_EDIT_MODE', payload: state })
+  }
+}
+
+export function getEditMode(){
+  return dispatch => {
+    return dispatch({ type: 'GET_EDIT_MODE'})
+  }
+}
+
 
 export function getData(){
   return dispatch => {

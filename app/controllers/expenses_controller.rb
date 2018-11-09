@@ -9,9 +9,22 @@ class ExpensesController < ApplicationController
     render json: @expenses, status: 200
   end
 
+  def update
+    @expense = Expense.find_by_id(params['expense']['id'])
+    @expense.update(expense_params)
+    render json: @expense, status: 200
+  end
+
+  def destroy
+    @expense = Expense.find_by_id(params['expense']['id'])
+    @expense_id = @expense.id
+    @expense.destroy
+    render json: @expense_id, status: 202
+  end
+
   private
 
   def expense_params
-    params.require(:expense).permit(:kind, :amount, :payment_type, :description, :date)
+    params.require(:expense).permit(:kind, :amount, :payment_type, :description, :date, :id)
   end
 end

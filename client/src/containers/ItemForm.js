@@ -2,14 +2,19 @@ import React,{Component} from 'react'
 // import { addItem } from '../Client'
 import { connect } from 'react-redux'
 import { addItem } from '../actions/actions'
+import { getItems } from '../actions/actions'
 
 class ItemForm extends Component {
-  state = {
-    name:'',
-    price:'',
-    wholesale_price:'',
-    kind:''
+  constructor(props){
+    super(props)
+    this.state = {
+      name: props.name || '',
+      price: props.price || '',
+      wholesale_price: props.wholesale_price || '',
+      kind: props.kind || ''
+    }
   }
+
 
   handleChange = e => {
     this.setState({
@@ -19,14 +24,24 @@ class ItemForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    this.props.addItem(this.state)
-    this.props.history.push('/sales/new')
-    this.setState({
-      name:'',
-      price:'',
-      wholesale_price:'',
-      kind:''
-    })
+    if (this.props.editItem) {
+      const id = this.props.item.id
+      const newState = {...this.state, id}
+      this.props.editItem(newState)
+
+    } else {
+      this.props.addItem(this.state)
+      this.props.history.push('/sales/new')
+      this.setState({
+        name:'',
+        price:'',
+        wholesale_price:'',
+        kind:''
+      })
+
+    }
+    this.props.getItems()
+
   }
 
   render(){
@@ -61,4 +76,4 @@ class ItemForm extends Component {
 
 
 
-export default connect(null,{ addItem })(ItemForm)
+export default connect(null,{ addItem, getItems })(ItemForm)

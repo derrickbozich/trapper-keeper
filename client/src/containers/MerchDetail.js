@@ -7,6 +7,8 @@ import { getSales } from '../actions/actions'
 
 class MerchDetail extends Component {
 
+  
+
 
   random = () => {
   return Math.floor(Math.random() * 10000000)

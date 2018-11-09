@@ -15,9 +15,15 @@ class ItemsController < ApplicationController
     render json: @sales, status: 200
   end
 
+  def update
+    @item = Item.find_by_id(params['item']['id'])
+    @item.update(item_params)
+    render json: @item, status: 200
+  end
+
   private
 
   def item_params
-    params.require(:item).permit(:name, :price, :wholesale_price, :kind)
+    params.require(:item).permit(:name, :price, :wholesale_price, :kind, :id)
   end
 end

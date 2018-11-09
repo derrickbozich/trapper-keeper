@@ -11,6 +11,8 @@ const NavBar = () => {
       <Link className="item" to="/expenses/new" >New Expense</Link>
       <Link className="item" to="/finances" >Finances</Link>
       <Link className="item" to="/shows/new" >Add a Show</Link>
+      <Link className="item" to="/items" >Items</Link>
+      <Link className="item" to="/shows" >Shows</Link>
 
       <div className="right menu">
         <div className="item">

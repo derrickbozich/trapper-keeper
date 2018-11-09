@@ -7,6 +7,7 @@ import { salesReducer } from './salesReducer'
 import { showsReducer } from './showsReducer'
 import { dataReducer } from './dataReducer'
 import { totalsReducer } from './totalsReducer'
+import { globalReducer } from './globalReducer'
 
 const rootReducer = combineReducers({
   items: itemsReducer,
@@ -16,7 +17,8 @@ const rootReducer = combineReducers({
   sales: salesReducer,
   shows: showsReducer,
   data: dataReducer,
-  totals: totalsReducer
+  totals: totalsReducer,
+  global: globalReducer
 })
 
 export default rootReducer;
