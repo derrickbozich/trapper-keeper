@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181106065124) do
+ActiveRecord::Schema.define(version: 20181108040202) do
 
   create_table "cart_items", force: :cascade do |t|
     t.integer "cart_id"
@@ -19,27 +19,40 @@ ActiveRecord::Schema.define(version: 20181106065124) do
 
   create_table "carts", force: :cascade do |t|
     t.date   "date"
-    t.float  "total"
-    t.float  "wholesale_total"
-    t.float  "square_total"
+    t.float  "total",           default: 0.0
+    t.float  "wholesale_total", default: 0.0
+    t.float  "square_total",    default: 0.0
     t.string "payment_type"
+  end
+
+  create_table "conglomerates", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "expenses", force: :cascade do |t|
     t.string   "kind"
-    t.float    "amount"
+    t.float    "amount",       default: 0.0
     t.text     "description"
     t.string   "date"
     t.string   "payment_type"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "items", force: :cascade do |t|
     t.string  "name"
-    t.integer "wholesale_price"
-    t.integer "price"
+    t.integer "wholesale_price", default: 0
+    t.integer "price",           default: 0
     t.string  "kind"
+  end
+
+  create_table "shows", force: :cascade do |t|
+    t.date    "date"
+    t.string  "venue"
+    t.string  "city"
+    t.string  "state"
+    t.integer "door_deal", default: 0
   end
 
 end

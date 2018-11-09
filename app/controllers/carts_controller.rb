@@ -1,7 +1,7 @@
 class CartsController < ApplicationController
 
   def create_cash
-    
+
     items = cart_params
     total = 0
     wholesale_total = 0
@@ -17,7 +17,7 @@ class CartsController < ApplicationController
     @cart.total = total
     @cart.wholesale_total = wholesale_total
     @cart.square_total = 0
-    @cart.date = Date.today.strftime("%m/%d/%Y")
+    @cart.date = Date.today
     @cart.save
 
 
@@ -44,7 +44,7 @@ class CartsController < ApplicationController
     @cart.total = total
     @cart.wholesale_total = wholesale_total
     @cart.square_total = (total.to_f * 0.0275)
-    @cart.date = Date.today.strftime("%m/%d/%Y")
+    @cart.date = Date.today
     @cart.save
 
     render json: @cart, status: 201

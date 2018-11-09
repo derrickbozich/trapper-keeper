@@ -4,29 +4,28 @@ import CartItem from './CartItem'
 import { connect } from 'react-redux'
 import { checkoutCash } from '../actions/actions'
 import { checkoutCredit } from '../actions/actions'
+import { getSales } from '../actions/actions'
 
 class Checkout extends Component {
 
   handleClickCash = (e, value) => {
-    const payment_type = value.value
-
-    this.props.checkoutCash(this.props.cart)
-    this.props.history.push('/')
+    this.props.checkoutCash(this.props.currentCart)
+    this.props.getSales()
+    this.props.history.push('/finances')
   }
 
   handleClickCredit = (e, value) => {
-    const payment_type = value.value
-
-    this.props.checkoutCredit(this.props.cart)
-    this.props.history.push('/')
+    this.props.checkoutCredit(this.props.currentCart)
+    this.props.getSales()
+    this.props.history.push('/finances')
   }
 
   render(){
     let items
     let total = 0;
-    if (this.props.cart !== undefined) {
-      items = this.props.cart.map(item => <CartItem key={Math.floor(Math.random()*10000)} item={item} />)
-      this.props.cart.forEach(item => total += item.price)
+    if (this.props.currentCart.length !== 0) {
+      items = this.props.currentCart.map(item => <CartItem key={Math.floor(Math.random()*10000)} item={item} />)
+      this.props.currentCart.forEach(item => total += item.price)
     }
 
 
@@ -46,13 +45,14 @@ class Checkout extends Component {
 }
 
 const mapStateToProps = state => {
-  if (state.cart !== undefined) {
+  if (state.currentCart) {
     return {
-      cart: state.cart,
+      currentCart: state.currentCart,
+      sales: state.sales
     }
   } else {
     return {}
   }
 }
 
-export default connect(mapStateToProps, { checkoutCash, checkoutCredit })(Checkout)
+export default connect(mapStateToProps, { checkoutCash, checkoutCredit, getSales })(Checkout)

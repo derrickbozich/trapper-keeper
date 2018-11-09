@@ -10,6 +10,11 @@ class ItemsController < ApplicationController
     render json: @item, status: 201
   end
 
+  def sales
+    @sales = Cart.get_daily_merch_sales
+    render json: @sales, status: 200
+  end
+
   private
 
   def item_params

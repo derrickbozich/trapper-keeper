@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Card, Icon, Image, Button } from 'semantic-ui-react'
+import { Card, Image, Button } from 'semantic-ui-react'
 import { addItemToCart } from '../actions/actions'
 import { connect } from 'react-redux'
 
@@ -9,7 +9,7 @@ class Item extends Component {
 
   handleClick = e => {
     this.props.addItemToCart(this.props.item)
-    alert(`${this.props.item.name} was added to the cart!`)
+    // alert(`${this.props.item.name} was added to the cart!`)
   }
   render(){
     return(

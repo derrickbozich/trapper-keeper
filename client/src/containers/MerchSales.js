@@ -1,19 +1,28 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { Table } from 'semantic-ui-react'
+import { getSales } from '../actions/actions'
+
+// import { uuid } from 'uuid'
 
 class MerchSales extends Component {
 
+
+
+  random = () => {
+  return Math.floor(Math.random() * 10000000)
+  }
+
   render(){
     let rows
-    if (this.props.expenses !== undefined) {
-      rows = this.props.expenses.map(expense => {
-        return <Table.Row>
-                  <Table.HeaderCell> </Table.HeaderCell>
-                  <Table.HeaderCell>The Twin Color</Table.HeaderCell>
-                  <Table.HeaderCell>The Twin Black</Table.HeaderCell>
-                  <Table.HeaderCell>Nostalgia </Table.HeaderCell>
-                  <Table.HeaderCell>{expense.payment_type}</Table.HeaderCell>
+    if (this.props.sales !== undefined) {
+      rows = this.props.sales.map(sale => {
+        return <Table.Row key={this.random()}>
+                  <Table.Cell >{sale.date} </Table.Cell>
+                  <Table.Cell>{sale.total}</Table.Cell>
+                  <Table.Cell>{sale.wholesale_total}</Table.Cell>
+                  <Table.Cell>{sale.square_total} </Table.Cell>
+                  <Table.Cell>{sale.total - sale.wholesale_total - sale.square_total}</Table.Cell>
                </Table.Row>
       })
     }
@@ -40,12 +49,13 @@ class MerchSales extends Component {
 }
 
 const mapStateToProps = state =>{
-  if (state.expenses !== undefined) {
-    return {expenses: state.expenses}
+  if (state.sales.length !== 0) {
+    return {sales: state.sales}
   } else {
     return {}
   }
-
 }
 
-export default connect(mapStateToProps)(MerchSales)
+
+
+export default connect(mapStateToProps, { getSales })(MerchSales)

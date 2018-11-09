@@ -10,6 +10,7 @@ const NavBar = () => {
       <Link className="item" to="/items/new" >New Item</Link>
       <Link className="item" to="/expenses/new" >New Expense</Link>
       <Link className="item" to="/finances" >Finances</Link>
+      <Link className="item" to="/shows/new" >Add a Show</Link>
 
       <div className="right menu">
         <div className="item">

@@ -1,19 +1,24 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { Table } from 'semantic-ui-react'
+import { getExpenses } from '../actions/actions'
 
 class Expenses extends Component {
+
+  random = () => {
+  return Math.floor(Math.random() * 100000)
+  }
 
   render(){
     let rows
     if (this.props.expenses !== undefined) {
       rows = this.props.expenses.map(expense => {
-        return <Table.Row>
-                  <Table.HeaderCell>{expense.date}</Table.HeaderCell>
-                  <Table.HeaderCell>{expense.kind}</Table.HeaderCell>
-                  <Table.HeaderCell>{expense.description}</Table.HeaderCell>
-                  <Table.HeaderCell>{expense.amount}</Table.HeaderCell>
-                  <Table.HeaderCell>{expense.payment_type}</Table.HeaderCell>
+        return <Table.Row key={this.random()}>
+                  <Table.Cell>{expense.date}</Table.Cell>
+                  <Table.Cell>{expense.kind}</Table.Cell>
+                  <Table.Cell>{expense.description}</Table.Cell>
+                  <Table.Cell>{expense.amount}</Table.Cell>
+                  <Table.Cell>{expense.payment_type}</Table.Cell>
                </Table.Row>
       })
     }
@@ -48,4 +53,4 @@ const mapStateToProps = state =>{
 
 }
 
-export default connect(mapStateToProps)(Expenses)
+export default connect(mapStateToProps, { getExpenses })(Expenses)

@@ -19,8 +19,8 @@ class ItemForm extends Component {
 
   handleSubmit = e => {
     e.preventDefault()
-    let s = this.state
     this.props.addItem(this.state)
+    this.props.history.push('/sales/new')
     this.setState({
       name:'',
       price:'',

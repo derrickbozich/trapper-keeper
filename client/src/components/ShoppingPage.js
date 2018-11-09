@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 import {  Button } from 'semantic-ui-react'
 import Checkout from './Checkout'
 import ItemsList from './ItemsList'

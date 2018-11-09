@@ -1,8 +1,7 @@
 export function expensesReducer(state=[], action){
   switch (action.type) {
     case 'ADD_EXPENSE':
-      let newState = state.push(action.payload)
-      return newState
+      return [...state, action.payload]
     case 'GET_EXPENSES':
       return action.payload
     default:

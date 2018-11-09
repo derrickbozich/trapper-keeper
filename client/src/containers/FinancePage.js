@@ -4,13 +4,15 @@ import React from 'react'
 import {  Grid, Menu, Segment } from 'semantic-ui-react'
 import Expenses from './Expenses'
 import MerchSales from './MerchSales'
+import MerchDetail from './MerchDetail'
 import Door from './Door'
 import Totals from './Totals'
+
 
 class FinancePage extends React.Component {
 
 
-  state = { activeItem: 'expenses' }
+  state = { activeItem: 'merchDetail' }
 
   handleItemClick = (e, { name }) => this.setState({ activeItem: name })
 
@@ -31,6 +33,11 @@ class FinancePage extends React.Component {
       case 'totals':
         view =  <Totals />
         break;
+      case 'merchDetail':
+        view =  <MerchDetail />
+        break;
+      default:
+        view = <MerchDetail />
 
 
     }
@@ -40,6 +47,7 @@ class FinancePage extends React.Component {
           <Menu fluid vertical tabular>
             <Menu.Item name='expenses' active={activeItem === 'expenses'} onClick={this.handleItemClick} />
             <Menu.Item name='merchSales' active={activeItem === 'merchSales'} onClick={this.handleItemClick} />
+            <Menu.Item name='merchDetail' active={activeItem === 'merchDetail'} onClick={this.handleItemClick} />
             <Menu.Item name='door'active={activeItem === 'door'}onClick={this.handleItemClick}  />
             <Menu.Item name='totals'active={activeItem === 'totals'} onClick={this.handleItemClick}/>
           </Menu>

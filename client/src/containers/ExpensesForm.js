@@ -1,8 +1,10 @@
 import React,{Component} from 'react'
 import { connect } from 'react-redux'
 import { addExpense } from '../actions/actions'
+import { getTotals } from '../actions/actions'
 import { Dropdown } from 'semantic-ui-react'
 // import { Form, Checkbox } from 'semantic-ui-react'
+import PropTypes from 'prop-types';
 
 import { expenseOptions } from '../common'
 import { paymentTypes } from '../common'
@@ -42,6 +44,8 @@ class ExpensesForm extends Component {
   handleSubmit = e => {
     e.preventDefault()
     this.props.addExpense(this.state)
+    this.props.getTotals()
+    this.props.history.push('/finances')
     this.setState({
       description:'',
       amount:'',
@@ -87,4 +91,6 @@ class ExpensesForm extends Component {
 
 
 
-export default connect(null,{ addExpense })(ExpensesForm)
+
+
+export default connect(null,{ addExpense, getTotals })(ExpensesForm)

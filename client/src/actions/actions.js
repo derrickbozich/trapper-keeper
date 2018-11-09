@@ -17,6 +17,30 @@ export function addItem(state){
   };
 }
 
+// export function getData(){
+//   return (dispatch) => {
+//     // dispatch({ type: 'START_ADDING_CATS_REQUEST' });
+//     return fetch('/api/data', {
+//       method: 'post',
+//       // body: JSON.stringify(state),
+//       headers: {
+//         'Content-Type': 'application/json',
+//         // 'X-CSRF-Token': Rails.csrfToken()
+//         'X-CSRF-Token': getCookie('my_csrf_token')
+//       },
+//       credentials: 'same-origin'
+//     }).then(res => res.json())
+//     .then(data => dispatch({ type: 'GET_DATA', payload: data }) );
+//   };
+// }
+// export function addSale(state){
+//   return (dispatch) => {
+//     debugger
+//     dispatch({ type: 'ADD_SALE', payload: state })
+//   };
+// }
+
+
 export function addExpense(state){
   return (dispatch) => {
     return fetch('/api/expenses/new', {
@@ -33,6 +57,22 @@ export function addExpense(state){
   };
 }
 
+export function addShow(state){
+  return (dispatch) => {
+    return fetch('/api/shows/new', {
+      method: 'post',
+      body: JSON.stringify(state),
+      headers: {
+        'Content-Type': 'application/json',
+        // 'X-CSRF-Token': Rails.csrfToken()
+        'X-CSRF-Token': getCookie('my_csrf_token')
+      },
+      credentials: 'same-origin'
+    }).then(res => res.json())
+    .then(show => dispatch({ type: 'ADD_SHOW', payload: show }) );
+  };
+}
+
 export function checkoutCash(state){
   return (dispatch) => {
     return fetch('/api/carts/new/cash', {
@@ -45,7 +85,7 @@ export function checkoutCash(state){
       },
       credentials: 'same-origin'
     }).then(res => res.json())
-    .then(dispatch({ type: 'CHECKOUT' }));
+    .then(dispatch({ type: 'CHECKOUT'}))
   };
 }
 export function checkoutCredit(state){
@@ -60,7 +100,7 @@ export function checkoutCredit(state){
       },
       credentials: 'same-origin'
     }).then(res => res.json())
-    .then(dispatch({ type: 'CHECKOUT' }));
+    .then(dispatch({ type: 'CHECKOUT'}));
   };
 }
 
@@ -78,11 +118,43 @@ export function getItems(){
   }
 }
 
+export function getData(){
+  return dispatch => {
+    return fetch('/api/data')
+    .then(res => res.json())
+    .then(data => dispatch({ type: 'GET_DATA', payload: data }));
+  }
+}
+
+export function getShows(){
+  return dispatch => {
+    return fetch('/api/shows')
+    .then(res => res.json())
+    .then(shows => dispatch({ type: 'GET_SHOWS', payload: shows }));
+  }
+}
+
 export function getExpenses(){
   return dispatch => {
     return fetch('/api/expenses')
     .then(res => res.json())
     .then(expenses => dispatch({ type: 'GET_EXPENSES', payload: expenses }));
+  }
+}
+
+export function getSales(){
+  return dispatch => {
+    return fetch('/api/items/sales')
+    .then(res => res.json())
+    .then(sales => dispatch({ type: 'GET_SALES', payload: sales }));
+  }
+}
+
+export function getTotals(){
+  return dispatch => {
+    return fetch('/api/totals')
+    .then(res => res.json())
+    .then(totals => dispatch({ type: 'GET_TOTALS', payload: totals }));
   }
 }
 
