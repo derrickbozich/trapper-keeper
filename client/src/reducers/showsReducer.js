@@ -5,9 +5,9 @@ export function showsReducer(state=[], action){
     case 'GET_SHOWS':
       return action.payload
     case 'DELETE_SHOW':
-      return state.filter(show => show.id != action.payload)
+      return state.filter(show => show.id !== parseInt(action.payload, 10))
     case 'EDIT_SHOW':
-      const filteredState = state.filter(show => show.id != action.payload.id)
+      const filteredState = state.filter(show => show.id !== parseInt(action.payload.id, 10))
       return [...filteredState, action.payload]
     default:
       return state

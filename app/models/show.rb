@@ -1,9 +1,12 @@
 class Show < ApplicationRecord
-  def self.calc_door
+  belongs_to :user
+
+  def self.calc_door(id)
+    @current_user = User.find_by_id(id)
     gross_door = 0
     booking_fee = 0
     net_door = 0
-    Show.all.each do |show|
+    @current_user.shows.each do |show|
       gross_door += show.door_deal
     end
     booking_fee = (gross_door * 0.10).to_i

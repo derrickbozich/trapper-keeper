@@ -2,16 +2,21 @@ import React, { Component } from 'react';
 import ItemForm from './containers/ItemForm'
 import ExpensesForm from './containers/ExpensesForm'
 import ShowsForm from './containers/ShowsForm'
-import { BrowserRouter as Router, Route, Match } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import ShoppingPage from './components/ShoppingPage'
 import ItemsPage from './containers/ItemsPage'
 import FinancePage from './containers/FinancePage'
 import ShowsPage from './containers/ShowsPage'
+import LoginForm from './containers/LoginForm'
+import SignUpForm from './containers/SignUpForm'
 import Checkout from './components/Checkout'
 import NavBar from './components/NavBar'
 import { connect } from 'react-redux'
 // import { getItems, getExpenses, getSales} from './actions/actions'
-import { getData} from './actions/actions'
+import { getData } from './actions/actions'
+import { toggleGotData } from './actions/actions'
+import { getCookie } from './actions/actions'
+import { logInUser } from './actions/actions'
 
 
 class App extends Component {
@@ -24,10 +29,17 @@ class App extends Component {
   // }
   componentDidMount(){
     console.log("in App - Component Did Mount")
+    getCookie('my_jwt_token') !== '' ? this.props.logInUser() : null
     this.props.getData()
   }
 
+
   render() {
+    // const cookie = getCookie('my_jwt_cookie')
+    // if (cookie !== '' && !this.props.gotData) {
+    //   this.props.getData()
+    //   this.props.toggleGotData(true)
+    // }
     return (
       <Router>
         <div>
@@ -41,6 +53,8 @@ class App extends Component {
           <Route exact path='/shows/new' component={ShowsForm}/>
           <Route exact path='/items' component={ItemsPage}/>
           <Route exact path='/shows' component={ShowsPage}/>
+          <Route exact path='/register' component={SignUpForm}/>
+          <Route exact path='/users/login' component={LoginForm}/>
         </div>
       </Router>
     );
@@ -49,7 +63,10 @@ class App extends Component {
 
 const mapStateToProps = state => {
   if (state.data.length === 0) {
-    return {}
+    return {
+      loggedIn: state.global.loggedIn,
+      gotData: state.global.gotData
+    }
   } else {
     console.log('in app, rewriting props')
     state.items = state.data.items
@@ -65,4 +82,4 @@ const mapStateToProps = state => {
 }
 
 // export default connect(mapStateToProps, {getItems, getExpenses, getSales })(App);
-export default connect(mapStateToProps, {getData })(App);
+export default connect(mapStateToProps, { getData, toggleGotData, logInUser  })(App);

@@ -40,7 +40,7 @@ class Expenses extends Component {
     }
     if (this.props.inEditMode) {
       const expense = this.props.expenses.find(expense => {
-        return  expense.id == this.state.expenseId
+        return  expense.id === parseInt(this.state.expenseId, 10)
       })
       return(
         <div>

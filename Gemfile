@@ -28,6 +28,12 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'foreman', '~> 0.82.0'
 
+gem 'bcrypt'
+
+gem 'jwt'
+
+gem 'simple_command'
+
 group :development do
   gem 'web-console', '~> 2.0'
 end

@@ -3,15 +3,11 @@ import { connect } from 'react-redux'
 import { Table, Button } from 'semantic-ui-react'
 import ShowsForm from './ShowsForm'
 import { editShow } from '../actions/actions'
-import { deleteShow } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 
 
 class Door extends Component {
 
-  state = {
-    inEditMode: false
-  }
 
   random = () => {
   return Math.floor(Math.random() * 100000)
@@ -27,7 +23,7 @@ class Door extends Component {
   render(){
 
     if (this.props.inEditMode) {
-      const show = this.props.shows.find(show => show.id == this.state.showId)
+      const show = this.props.shows.find(show => show.id === parseInt(this.state.showId, 10))
       return(
         <ShowsForm id={this.state.showId}
                    date={show.date}
@@ -35,9 +31,6 @@ class Door extends Component {
                    city={show.city}
                    state={show.state}
                    door_deal={show.door_deal}
-                   editShow={this.props.editShow}
-                   deleteShow={this.props.deleteShow}
-
                    />
       )
 
@@ -93,4 +86,4 @@ const mapStateToProps = state =>{
 
 }
 
-export default connect(mapStateToProps, { editShow, deleteShow, toggleEditMode })(Door)
+export default connect(mapStateToProps, { editShow, toggleEditMode })(Door)

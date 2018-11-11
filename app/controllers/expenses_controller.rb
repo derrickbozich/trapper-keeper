@@ -1,6 +1,7 @@
 class ExpensesController < ApplicationController
   def create
     @expense = Expense.create(expense_params)
+    @current_user.expenses << @expense
     render json: @expense, status: 201
   end
 

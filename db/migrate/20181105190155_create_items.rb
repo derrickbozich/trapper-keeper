@@ -5,6 +5,7 @@ class CreateItems < ActiveRecord::Migration[5.0]
       t.integer :wholesale_price, default: 0
       t.integer :price, default: 0
       t.string :kind
+      t.integer :user_id
     end
   end
 end

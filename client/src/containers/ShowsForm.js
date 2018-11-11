@@ -4,6 +4,9 @@ import { addShow } from '../actions/actions'
 import { Dropdown } from 'semantic-ui-react'
 
 import { getShows } from '../actions/actions'
+import { getTotals } from '../actions/actions'
+import { deleteShow } from '../actions/actions'
+import { editShow } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 // import { Form, Checkbox } from 'semantic-ui-react'
 
@@ -26,9 +29,7 @@ class ShowsForm extends Component {
     return date
   }
 
-
   handleChange = e => {
-
     this.setState({
       [e.target.id]: e.target.value
     })
@@ -46,18 +47,20 @@ class ShowsForm extends Component {
     const newState = {...this.state,id}
     this.props.toggleEditMode(false)
     this.props.deleteShow(newState)
+    this.props.getTotals()
+
   }
-
-
 
   handleSubmit = e => {
     e.preventDefault()
-    if (this.props.editShow) {
+    if (this.props.inEditMode) {
       const id = this.props.id
       const newState = {...this.state,id}
+      this.props.toggleEditMode(false)
       this.props.editShow(newState)
     } else {
       this.props.addShow(this.state)
+      this.props.getTotals()
       this.props.history.push('/finances')
     }
 
@@ -98,8 +101,8 @@ class ShowsForm extends Component {
           <label>Door Deal</label>
           <input type="text" placeholder='Door Deal' name="show[door_deal]" id='door_deal' value={this.state.door_deal}  onChange={this.handleChange} />
         </div>
-        <button className="ui button" type="submit">{this.props.deleteShow ? 'Submit Changes' : 'Submit'}</button>
-        <button style={this.props.deleteShow ? {display: 'true'} : {display: 'none'}}
+        <button className="ui button" type="submit">{this.props.inEditMode ? 'Submit Changes' : 'Submit'}</button>
+        <button style={this.props.inEditMode? {display: 'true'} : {display: 'none'}}
                 className="ui button" onClick={this.handleDelete}>Delete</button>
       </form>
     )
@@ -111,4 +114,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps,{ addShow, getShows, toggleEditMode })(ShowsForm)
+export default connect(mapStateToProps,{ addShow, getShows, editShow, toggleEditMode, deleteShow, getTotals })(ShowsForm)

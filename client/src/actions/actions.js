@@ -1,3 +1,50 @@
+export function createUser(state){
+  return (dispatch) => {
+    // dispatch({ type: 'START_ADDING_CATS_REQUEST' });
+    return fetch('/api/register', {
+      method: 'post',
+      body: JSON.stringify(state),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token'),
+        'X-CSRF-Token': getCookie('my_csrf_token')
+      },
+      credentials: 'same-origin'
+    }).then(res => res.json())
+    .then(user => dispatch({ type: 'LOG_IN', payload: user }) );
+  };
+}
+
+export function logInUser(state){
+  return (dispatch) => {
+    // dispatch({ type: 'START_ADDING_CATS_REQUEST' });
+    return fetch('/api/users/login', {
+      method: 'post',
+      body: JSON.stringify(state),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token'),
+        'X-CSRF-Token': getCookie('my_csrf_token')
+      },
+      credentials: 'same-origin'
+    }).then(res => dispatch({ type: 'LOG_IN' }));
+  };
+}
+
+export function logOutUser(state){
+  return (dispatch) => {
+    // dispatch({ type: 'START_ADDING_CATS_REQUEST' });
+    return fetch('/api/users/logout', {
+      method: 'get',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token'),
+      },
+      credentials: 'same-origin'
+    }).then(res => res.json())
+    .then(user => dispatch({ type: 'LOG_OUT'}) );
+  };
+}
 
 
 export function addItem(state){
@@ -8,7 +55,7 @@ export function addItem(state){
       body: JSON.stringify(state),
       headers: {
         'Content-Type': 'application/json',
-        // 'X-CSRF-Token': Rails.csrfToken()
+        'Authorization': getCookie('my_jwt_token'),
         'X-CSRF-Token': getCookie('my_csrf_token')
       },
       credentials: 'same-origin'
@@ -17,28 +64,50 @@ export function addItem(state){
   };
 }
 
-// export function getData(){
-//   return (dispatch) => {
-//     // dispatch({ type: 'START_ADDING_CATS_REQUEST' });
-//     return fetch('/api/data', {
-//       method: 'post',
-//       // body: JSON.stringify(state),
-//       headers: {
-//         'Content-Type': 'application/json',
-//         // 'X-CSRF-Token': Rails.csrfToken()
-//         'X-CSRF-Token': getCookie('my_csrf_token')
-//       },
-//       credentials: 'same-origin'
-//     }).then(res => res.json())
-//     .then(data => dispatch({ type: 'GET_DATA', payload: data }) );
-//   };
-// }
-// export function addSale(state){
-//   return (dispatch) => {
-//     debugger
-//     dispatch({ type: 'ADD_SALE', payload: state })
-//   };
-// }
+export function getItems(){
+  return dispatch => {
+    return fetch('/api/items', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token')
+      },
+    })
+    .then(res => res.json())
+    .then(items => dispatch({ type: 'GET_ITEMS', payload: items }));
+  }
+}
+
+export function editItem(state){
+  return (dispatch) => {
+    return fetch('/api/items/:id/edit', {
+      method: 'PATCH',
+      body: JSON.stringify(state),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token'),
+        'X-CSRF-Token': getCookie('my_csrf_token')
+      },
+      credentials: 'same-origin'
+    }).then(res => res.json())
+    .then(item => dispatch({ type: 'EDIT_ITEM', payload: item }) );
+  };
+}
+
+export function deleteItem(state){
+  return (dispatch) => {
+    return fetch('/api/items/:id/delete', {
+      method: 'DELETE',
+      body: JSON.stringify(state),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token'),
+        'X-CSRF-Token': getCookie('my_csrf_token')
+      },
+      credentials: 'same-origin'
+    }).then(res => res.json())
+    .then(item => dispatch({ type: 'DELETE_ITEM', payload: item }) );
+  };
+}
 
 
 export function addExpense(state){
@@ -48,7 +117,7 @@ export function addExpense(state){
       body: JSON.stringify(state),
       headers: {
         'Content-Type': 'application/json',
-        // 'X-CSRF-Token': Rails.csrfToken()
+        'Authorization': getCookie('my_jwt_token'),
         'X-CSRF-Token': getCookie('my_csrf_token')
       },
       credentials: 'same-origin'
@@ -64,7 +133,7 @@ export function editExpense(state){
       body: JSON.stringify(state),
       headers: {
         'Content-Type': 'application/json',
-        // 'X-CSRF-Token': Rails.csrfToken()
+        'Authorization': getCookie('my_jwt_token'),
         'X-CSRF-Token': getCookie('my_csrf_token')
       },
       credentials: 'same-origin'
@@ -80,7 +149,7 @@ export function deleteExpense(state){
       body: JSON.stringify(state),
       headers: {
         'Content-Type': 'application/json',
-        // 'X-CSRF-Token': Rails.csrfToken()
+        'Authorization': getCookie('my_jwt_token'),
         'X-CSRF-Token': getCookie('my_csrf_token')
       },
       credentials: 'same-origin'
@@ -96,7 +165,7 @@ export function editShow(state){
       body: JSON.stringify(state),
       headers: {
         'Content-Type': 'application/json',
-        // 'X-CSRF-Token': Rails.csrfToken()
+        'Authorization': getCookie('my_jwt_token'),
         'X-CSRF-Token': getCookie('my_csrf_token')
       },
       credentials: 'same-origin'
@@ -112,7 +181,7 @@ export function deleteShow(state){
       body: JSON.stringify(state),
       headers: {
         'Content-Type': 'application/json',
-        // 'X-CSRF-Token': Rails.csrfToken()
+        'Authorization': getCookie('my_jwt_token'),
         'X-CSRF-Token': getCookie('my_csrf_token')
       },
       credentials: 'same-origin'
@@ -121,21 +190,7 @@ export function deleteShow(state){
   };
 }
 
-export function editItem(state){
-  return (dispatch) => {
-    return fetch('/api/items/:id/edit', {
-      method: 'PATCH',
-      body: JSON.stringify(state),
-      headers: {
-        'Content-Type': 'application/json',
-        // 'X-CSRF-Token': Rails.csrfToken()
-        'X-CSRF-Token': getCookie('my_csrf_token')
-      },
-      credentials: 'same-origin'
-    }).then(res => res.json())
-    .then(item => dispatch({ type: 'EDIT_ITEM', payload: item }) );
-  };
-}
+
 
 export function addShow(state){
   return (dispatch) => {
@@ -144,7 +199,7 @@ export function addShow(state){
       body: JSON.stringify(state),
       headers: {
         'Content-Type': 'application/json',
-        // 'X-CSRF-Token': Rails.csrfToken()
+        'Authorization': getCookie('my_jwt_token'),
         'X-CSRF-Token': getCookie('my_csrf_token')
       },
       credentials: 'same-origin'
@@ -160,7 +215,7 @@ export function checkoutCash(state){
       body: JSON.stringify(state),
       headers: {
         'Content-Type': 'application/json',
-        // 'X-CSRF-Token': Rails.csrfToken()
+        'Authorization': getCookie('my_jwt_token'),
         'X-CSRF-Token': getCookie('my_csrf_token')
       },
       credentials: 'same-origin'
@@ -176,7 +231,8 @@ export function checkoutCredit(state){
       headers: {
         'Content-Type': 'application/json',
         // 'X-CSRF-Token': Rails.csrfToken()
-        'X-CSRF-Token': getCookie('my_csrf_token')
+        'X-CSRF-Token': getCookie('my_csrf_token'),
+        'Authorization': getCookie('my_jwt_token')
       },
       credentials: 'same-origin'
     }).then(res => res.json())
@@ -184,19 +240,14 @@ export function checkoutCredit(state){
   };
 }
 
+
 export function addItemToCart(item){
   return (dispatch) => {
     return dispatch({ type: 'ADD_ITEM_TO_CART', payload: item });
   }
 }
 
-export function getItems(){
-  return dispatch => {
-    return fetch('/api/items')
-    .then(res => res.json())
-    .then(items => dispatch({ type: 'GET_ITEMS', payload: items }));
-  }
-}
+
 
 export function toggleEditMode(state){
   return dispatch => {
@@ -204,16 +255,22 @@ export function toggleEditMode(state){
   }
 }
 
-export function getEditMode(){
+export function toggleGotData(state){
   return dispatch => {
-    return dispatch({ type: 'GET_EDIT_MODE'})
+    return dispatch({ type: 'TOGGLE_GOT_DATA', payload: state})
   }
 }
 
 
 export function getData(){
   return dispatch => {
-    return fetch('/api/data')
+    return fetch('/api/data', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token')
+      },
+      credentials: 'same-origin'
+    })
     .then(res => res.json())
     .then(data => dispatch({ type: 'GET_DATA', payload: data }));
   }
@@ -221,7 +278,13 @@ export function getData(){
 
 export function getShows(){
   return dispatch => {
-    return fetch('/api/shows')
+    return fetch('/api/shows', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token')
+      },
+      credentials: 'same-origin'
+    })
     .then(res => res.json())
     .then(shows => dispatch({ type: 'GET_SHOWS', payload: shows }));
   }
@@ -229,7 +292,13 @@ export function getShows(){
 
 export function getExpenses(){
   return dispatch => {
-    return fetch('/api/expenses')
+    return fetch('/api/expenses', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token')
+      },
+      credentials: 'same-origin'
+    })
     .then(res => res.json())
     .then(expenses => dispatch({ type: 'GET_EXPENSES', payload: expenses }));
   }
@@ -237,7 +306,13 @@ export function getExpenses(){
 
 export function getSales(){
   return dispatch => {
-    return fetch('/api/items/sales')
+    return fetch('/api/items/sales', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token')
+      },
+      credentials: 'same-origin'
+    })
     .then(res => res.json())
     .then(sales => dispatch({ type: 'GET_SALES', payload: sales }));
   }
@@ -245,7 +320,13 @@ export function getSales(){
 
 export function getTotals(){
   return dispatch => {
-    return fetch('/api/totals')
+    return fetch('/api/totals', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token')
+      },
+      credentials: 'same-origin'
+    })
     .then(res => res.json())
     .then(totals => dispatch({ type: 'GET_TOTALS', payload: totals }));
   }

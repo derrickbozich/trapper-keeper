@@ -1,7 +1,10 @@
 class Expense < ApplicationRecord
-  def self.calc_expenses
+  belongs_to :user
+
+  def self.calc_expenses(id)
+    @current_user = User.find_by_id(id)
     total = 0
-    Expense.all.each do |expense|
+    @current_user.expenses.each do |expense|
       total += expense.amount
     end
     {expenses: total}

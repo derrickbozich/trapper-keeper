@@ -7,7 +7,7 @@ import { deleteExpense } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 import { Dropdown } from 'semantic-ui-react'
 // import { Form, Checkbox } from 'semantic-ui-react'
-import PropTypes from 'prop-types';
+
 
 import { expenseOptions } from '../common'
 import { paymentTypes } from '../common'

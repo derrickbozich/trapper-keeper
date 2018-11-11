@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import {getData} from './actions/actions'
-import { connect } from 'react-redux'
-import { bindActionCreators } from 'redux';
 
 
 

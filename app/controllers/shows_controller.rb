@@ -1,11 +1,12 @@
 class ShowsController < ApplicationController
   def create
     @show = Show.create(show_params)
+    @current_user.shows << @show
     render json: @show, status: 201
   end
 
   def index
-    @shows = Show.all
+    @shows = @current_user.shows
     render json: @shows, status: 200
   end
 
@@ -15,7 +16,7 @@ class ShowsController < ApplicationController
     render json: @show, status: 200
   end
 
-  def delete
+  def destroy
     @show = Show.find_by_id(params['show']['id'])
     @show_id = @show.id
     @show.destroy

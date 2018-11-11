@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
-  resources :conglomerates
-  resources :shows
-  resources :expenses
   scope '/api' do
     get '/items', to: 'items#index'
     post '/items/new', to: 'items#create'
     patch '/items/:id/edit', to: 'items#update'
+    delete '/items/:id/delete', to: 'items#destroy'
 
     get '/expenses', to: 'expenses#index'
     post '/expenses/new', to: 'expenses#create'
@@ -20,12 +18,16 @@ Rails.application.routes.draw do
     get '/shows', to: 'shows#index'
     post '/shows/new', to: 'shows#create'
     patch '/shows/:id/edit', to: 'shows#update'
-    delete '/shows/:id/delete', to: 'shows#delete'
+    delete '/shows/:id/delete', to: 'shows#destroy'
 
     get '/state', to: 'application#index'
 
     get '/totals', to: 'conglomerates#totals'
 
     get '/data', to: 'conglomerates#index'
+
+    post '/register', to: 'users#register'
+    post 'users/login', to: 'users#login'
+    get '/users/logout', to: 'users#logout'
   end
 end

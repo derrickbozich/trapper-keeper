@@ -1,13 +1,16 @@
 class Cart < ApplicationRecord
   has_many :cart_items
   has_many :items, through: :cart_items
+  belongs_to :user
 
-  def self.get_daily_merch_sales
+
+  def self.get_daily_merch_sales(id)
+    @current_user = User.find_by_id(id)
     # define array that will contain all date hashes
     data = []
     # make an array of all dates associated with carts
     dates = []
-    Cart.all.each do |cart|
+    @current_user.carts.each do |cart|
       d = cart.date
       dates << d
     end
@@ -15,7 +18,7 @@ class Cart < ApplicationRecord
     dates.uniq!
     # for each date find all carts associated
     dates.each do |date|
-      carts = Cart.all.select do |cart|
+      carts = @current_user.carts.select do |cart|
         date == cart.date
       end
 
@@ -34,11 +37,8 @@ class Cart < ApplicationRecord
         items_sold << cart.items
       end
 
-
-
-
       sold_items_count = []
-      Item.all.each do |item|
+      @current_user.items.each do |item|
         count = 0
         items_sold.flatten.each do |item_sold|
           if item_sold.id == item.id
@@ -47,13 +47,6 @@ class Cart < ApplicationRecord
         end
         sold_items_count << count
       end
-
-
-
-
-
-
-
 
       # add values to a data hash per date
       date_hash = {}
@@ -69,11 +62,12 @@ class Cart < ApplicationRecord
     data
   end
 
-  def self.calc_merch
+  def self.calc_merch(id)
+    @current_user = User.find_by_id(id)
     total = 0
     wholesale_total = 0
     square_total = 0
-    Cart.all.each do |cart|
+    @current_user.carts.each do |cart|
       total += cart.total
       wholesale_total += cart.wholesale_total
       square_total += cart.square_total

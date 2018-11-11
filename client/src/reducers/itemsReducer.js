@@ -3,8 +3,10 @@ export function itemsReducer(state=[], action){
     case 'GET_ITEMS':
       return action.payload
     case 'EDIT_ITEM':
-      const filteredState = state.filter(item => item.id != action.payload.id)
+      const filteredState = state.filter(item => item.id !== parseInt(action.payload.id, 10))
       return [...filteredState, action.payload]
+    case 'DELETE_ITEM':
+      return state.filter(item => item.id !== parseInt(action.payload.id, 10))
     case 'ADD_ITEM':
       let newState = [...state, action.payload]
       return newState

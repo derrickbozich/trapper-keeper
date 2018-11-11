@@ -1,13 +1,13 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { Table, Header } from 'semantic-ui-react'
+import { Table } from 'semantic-ui-react'
 import { getSales } from '../actions/actions'
 
 // import { uuid } from 'uuid'
 
 class MerchDetail extends Component {
 
-  
+
 
 
   random = () => {

@@ -6,3 +6,8 @@ cart.items << vinyl
 cart.items << vinyl2
 cart2.items << vinyl
 cart2.items << vinyl2
+user = User.create(name: 'Sound of Ceres', email: 'soundofceres@gmail.com', password: 's1')
+user.items << vinyl
+user.items << vinyl2
+user.carts << cart
+user.carts << cart2

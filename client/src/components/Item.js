@@ -1,21 +1,19 @@
 import React, { Component } from 'react'
 import { Card, Image, Button } from 'semantic-ui-react'
 import { addItemToCart } from '../actions/actions'
+import { deleteItem } from '../actions/actions'
+import { toggleEditMode } from '../actions/actions'
+
 import { connect } from 'react-redux'
 import ItemForm from '../containers/ItemForm'
 
 
 class Item extends Component {
 
-  state = {
-    inEditMode: false
-  }
 
   handleClick = e => {
     if (this.props.editItem) {
-      this.setState({
-        inEditMode: true
-      })
+      this.props.toggleEditMode(true)
     } else {
       this.props.addItemToCart(this.props.item)
     }
@@ -25,7 +23,7 @@ class Item extends Component {
   render(){
     // let item = this.props.items.find(item => item.id == this.props.id)
 
-    if (this.state.inEditMode) {
+    if (this.props.inEditMode) {
       return <ItemForm item={this.props.item}
                        name={this.props.item.name}
                        price={this.props.item.price}
@@ -52,7 +50,10 @@ class Item extends Component {
 }
 
 const mapStateToProps = state => {
-  return {items: state.items}
+  return {
+    items: state.items,
+    inEditMode: state.global.inEditMode
+  }
 }
 
-export default connect(mapStateToProps, { addItemToCart })(Item)
+export default connect(mapStateToProps, { addItemToCart, deleteItem, toggleEditMode })(Item)

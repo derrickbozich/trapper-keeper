@@ -19,6 +19,7 @@ class CartsController < ApplicationController
     @cart.square_total = 0
     @cart.date = Date.today
     @cart.save
+    @current_user.carts << @cart
 
 
     render json: @cart, status: 201
@@ -46,6 +47,7 @@ class CartsController < ApplicationController
     @cart.square_total = (total.to_f * 0.0275)
     @cart.date = Date.today
     @cart.save
+    @current_user.carts << @cart
 
     render json: @cart, status: 201
 

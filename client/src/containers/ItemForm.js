@@ -3,6 +3,8 @@ import React,{Component} from 'react'
 import { connect } from 'react-redux'
 import { addItem } from '../actions/actions'
 import { getItems } from '../actions/actions'
+import { toggleEditMode } from '../actions/actions'
+import { deleteItem } from '../actions/actions'
 
 class ItemForm extends Component {
   constructor(props){
@@ -27,6 +29,7 @@ class ItemForm extends Component {
     if (this.props.editItem) {
       const id = this.props.item.id
       const newState = {...this.state, id}
+      this.props.toggleEditMode(false)
       this.props.editItem(newState)
 
     } else {
@@ -41,7 +44,15 @@ class ItemForm extends Component {
 
     }
     this.props.getItems()
+  }
 
+  handleDelete = e => {
+    e.preventDefault()
+    const id = this.props.item.id
+    const newState = {...this.state, id}
+    this.props.toggleEditMode(false)
+    this.props.deleteItem(newState)
+    this.props.getItems()
   }
 
   render(){
@@ -68,12 +79,18 @@ class ItemForm extends Component {
           <input type="text" id="kind" name="item[kind]" placeholder="Type" value={this.state.kind} onChange={this.handleChange} />
         </div>
 
-        <button className="ui button" type="submit">Submit</button>
+        <button className="ui button" type="submit">{this.props.inEditMode ? "Submit Changes" : "Submit"}</button>
+        <button style={this.props.inEditMode ? {display: 'true'} : {display: 'none'}}
+                className="ui button" onClick={this.handleDelete}>Delete</button>
+
       </form>
     )
   }
 }
 
+const mapStateToProps = state => {
+  return {inEditMode: state.global.inEditMode}
+}
 
 
-export default connect(null,{ addItem, getItems })(ItemForm)
+export default connect(mapStateToProps,{ addItem, getItems, toggleEditMode, deleteItem })(ItemForm)

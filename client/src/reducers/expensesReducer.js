@@ -5,10 +5,10 @@ export function expensesReducer(state=[], action){
     case 'GET_EXPENSES':
       return action.payload
     case 'EDIT_EXPENSE':
-      const filteredState = state.filter(expense => expense.id != action.payload.id)
+      const filteredState = state.filter(expense => expense.id !== parseInt(action.payload.id, 10))
       return [...filteredState, action.payload]
     case 'DELETE_EXPENSE':
-      return state.filter(expense => expense.id != action.payload)
+      return state.filter(expense => expense.id !== parseInt(action.payload.id, 10))
     default:
       return state
   }
