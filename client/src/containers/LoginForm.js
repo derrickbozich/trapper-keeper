@@ -7,15 +7,36 @@ class LoginForm extends Component{
 
   state = {
     email: '',
-    password: ''
+    password: '',
+    touched: {
+        email: false,
+        password: false,
+      }
+  }
+
+  handleBlur = (field) => (evt) => {
+    this.setState({
+      touched: { ...this.state.touched, [field]: true },
+    });
   }
 
   handleSubmit = e => {
-    this.props.logInUser(this.state)
-    this.setState({
-      email: '',
-      password: ''
-    })
+    const error = this.validate(this.state.email, this.state.password)
+    const keys = Object.keys(this.state)
+    let readyToSubmit = true;
+    for (let i = 0; i < keys.length - 1; i++){
+      if (error[keys[i]] === true) {
+        readyToSubmit = false
+      }
+    }
+    if (readyToSubmit) {
+      this.props.logInUser(this.state)
+      this.setState({
+        email: '',
+        password: ''
+      })
+    }
+
   }
 
   handleChange = (e, {value}) => {
@@ -25,9 +46,24 @@ class LoginForm extends Component{
   }
 
   handleClick = () => {
-    this.context.history.push('/register')
+    // this.context.history.push('/register')
+    this.props.router.push('/register')
   }
+
+  validate = (email, password) => {
+    return {
+      email: email.length === 0,
+      password: password.length === 0,
+    };
+  }
+
   render(){
+    const errors = this.validate(this.state.email, this.state.password);
+    const shouldMarkError = (field) => {
+      const hasError = errors[field];
+      const shouldShow = this.state.touched[field];
+      return hasError ? shouldShow : false;
+    };
     return(
       <div className='login-form'>
 
@@ -38,7 +74,17 @@ class LoginForm extends Component{
             </Header>
             <Form size='large' onSubmit={this.handleSubmit}>
               <Segment stacked>
-                <Form.Input fluid icon='user' id='email' iconPosition='left' placeholder='E-mail address' name='user[email]' value={this.state.email} onChange={this.handleChange} />
+                <Form.Input fluid icon='user'
+                            id='email'
+                            iconPosition='left'
+                            placeholder='E-mail address'
+                            name='user[email]'
+                            value={this.state.email}
+                            onChange={this.handleChange}
+                            className={shouldMarkError('email') ? "error" : ""}
+                            onBlur={this.handleBlur('email')}
+                             />
+
                 <Form.Input
                   fluid
                   icon='lock'
@@ -49,6 +95,8 @@ class LoginForm extends Component{
                   onChange={this.handleChange}
                   name='user[password]'
                   id='password'
+                  className={shouldMarkError('password') ? "error" : ""}
+                  onBlur={this.handleBlur('password')}
                 />
 
                 <Button color='black' type='submit' fluid size='large'>

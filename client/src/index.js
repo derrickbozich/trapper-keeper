@@ -11,7 +11,7 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 import './index.css';
 
-import '../semantic/dist/semantic.min.css';
+import './semantic/dist/semantic.min.css';
 
 const middleware = [thunk];
 

@@ -15,7 +15,7 @@ import { connect } from 'react-redux'
 // import { getItems, getExpenses, getSales} from './actions/actions'
 import { getData } from './actions/actions'
 import { toggleGotData } from './actions/actions'
-import { getCookie } from './actions/actions'
+// import { getCookie } from './actions/actions'
 import { logInUser } from './actions/actions'
 
 
@@ -29,7 +29,7 @@ class App extends Component {
   // }
   componentDidMount(){
     console.log("in App - Component Did Mount")
-    getCookie('my_jwt_token') !== '' ? this.props.logInUser() : null
+
     this.props.getData()
   }
 
