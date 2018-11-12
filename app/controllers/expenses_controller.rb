@@ -10,6 +10,11 @@ class ExpensesController < ApplicationController
     render json: @expenses, status: 200
   end
 
+  def show
+    @expense = Expense.find_by_id(params[:id])
+    render json: @expense, status: 200
+  end
+
   def update
     @expense = Expense.find_by_id(params['expense']['id'])
     @expense.update(expense_params)

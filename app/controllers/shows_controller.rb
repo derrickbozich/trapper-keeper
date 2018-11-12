@@ -10,6 +10,11 @@ class ShowsController < ApplicationController
     render json: @shows, status: 200
   end
 
+  def show
+    @show = Show.find_by_id(params[:id])
+    render json: @show, status: 200
+  end
+
   def update
     @show = Show.find_by_id(params['show']['id'])
     @show.update(show_params)

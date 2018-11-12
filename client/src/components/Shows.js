@@ -2,15 +2,16 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { Table, Button } from 'semantic-ui-react'
 import ShowsForm from './ShowsForm'
+
 import Spinner from '../components/Spinner'
 import { editShow } from '../actions/actions'
-import { getShow } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 
-class Door extends Component {
+class Shows extends Component {
 
   state = {
-    showId: ''
+    showId: '',
+    view: 'shows'
   }
 
 
@@ -19,14 +20,17 @@ class Door extends Component {
   }
 
   handleClick = (e, { value }) => {
+    // this.updateShowId(value)
+
+    // this.setState({showId: value})
     // this.props.toggleEditMode(true)
-    this.props.getShow(value)
-    this.props.history.push(`/shows/${value}/edit`)
+    // this.props.history.push(`/shows/${value}/edit`)
+    this.setState({view: 'editShow', showId: value})
+
   }
 
 
   render(){
-
 
       let rows
       if (this.props.shows !== undefined) {
@@ -42,7 +46,6 @@ class Door extends Component {
                  </Table.Row>
         })
       }
-
       return(
         <div>
         <Table basic='very'>
@@ -63,6 +66,8 @@ class Door extends Component {
         </Table>
         </div>
       )
+    // }
+
   }
 }
 
@@ -78,4 +83,4 @@ const mapStateToProps = state =>{
 
 }
 
-export default connect(mapStateToProps, { editShow, toggleEditMode, getShow })(Door)
+export default connect(mapStateToProps, { editShow, toggleEditMode })(Shows)

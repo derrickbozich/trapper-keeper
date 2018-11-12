@@ -1,4 +1,4 @@
-export function globalReducer(state={inEditMode: false, loggedIn: false, gotData: false}, action){
+export function globalReducer(state={inEditMode: false, loggedIn: false, gotData: false, editItem: {}}, action){
   switch (action.type) {
     case 'TOGGLE_EDIT_MODE':
       action.payload ? console.log('In Edit Mode') : console.log('Out of Edit Mode')
@@ -8,6 +8,8 @@ export function globalReducer(state={inEditMode: false, loggedIn: false, gotData
       return {gotData: action.payload}
     case 'LOG_IN':
       return {loggedIn: true}
+    case 'ADD_EDIT_ITEM':
+      return {editItem: action.payload}
     case 'LOG_OUT':
       return {loggedIn: false}
     default:

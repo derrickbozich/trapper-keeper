@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-// import ItemForm from './containers/ItemForm'
+import ItemForm from './containers/ItemForm'
 import ExpensesForm from './containers/ExpensesForm'
-// import ShowsForm from './containers/ShowsForm'
+import ShowsForm from './containers/ShowsForm'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 // import ShoppingPage from './components/ShoppingPage'
 // import ItemsPage from './containers/ItemsPage'
@@ -52,7 +52,8 @@ class App extends Component {
       <Router>
         <div>
           <NavBar />
-          <Route exact path='/expenses/new' component={ExpensesForm} />
+          <Route path='/shows/:id/edit' component={ShowsForm} />
+          <Route path='/items/:id/edit' component={ItemForm} />
           {routes.map(({path, component}) => {
             return <Route key={Math.random()*100000}exact path={path} component={component} />
           })}

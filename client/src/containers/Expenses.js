@@ -8,11 +8,9 @@ import ExpensesForm from './ExpensesForm'
 
 class Expenses extends Component {
 
-  handleClick = e => {
-    this.setState({
-      expenseId: e.target.value
-    })
-    this.props.toggleEditMode(true)
+  handleClick = (e, {value }) => {
+    this.props.getExpense(value)
+    this.props.history.push(`/expenses/${value}/edit`)
   }
 
   state = {
@@ -38,25 +36,7 @@ class Expenses extends Component {
                </Table.Row>
       })
     }
-    if (this.props.inEditMode) {
-      const expense = this.props.expenses.find(expense => {
-        return  expense.id === parseInt(this.state.expenseId, 10)
-      })
-      return(
-        <div>
-          <h3>Edit Expense</h3>
-          <ExpensesForm description={expense.description}
-                        amount={expense.amount}
-                        date={expense.date}
-                        payment_type={ expense.payment_type}
-                        kind={expense.kind}
-                        editExpense={this.props.editExpense}
-                        id={this.state.expenseId}
-                        />
-        </div>
-      )
 
-    } else {
       return(
         <div>
         <Table basic='very'>
@@ -77,16 +57,13 @@ class Expenses extends Component {
         </Table>
         </div>
       )
-    }
-
   }
 }
 
 const mapStateToProps = state =>{
   if (state.expenses !== undefined) {
     return {
-      expenses: state.expenses,
-      inEditMode: state.global.inEditMode
+      expenses: state.expenses
     }
   } else {
     return {}

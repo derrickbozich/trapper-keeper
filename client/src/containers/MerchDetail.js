@@ -78,8 +78,10 @@ class MerchDetail extends Component {
 
 const mapStateToProps = state => {
   console.log("MerchDetail mapStateToProps")
-
-  return state
+  return {
+    sales: state.sales,
+    items: state.items
+  }
 }
 
 export default connect(mapStateToProps, { getSales })(MerchDetail)

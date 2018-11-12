@@ -3,8 +3,10 @@ import React,{Component} from 'react'
 import { connect } from 'react-redux'
 import { addItem } from '../actions/actions'
 import { getItems } from '../actions/actions'
+import { editItem } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 import { deleteItem } from '../actions/actions'
+import { getCookie } from '../actions/actions'
 import { Button, Form, Segment, Dropdown} from 'semantic-ui-react'
 
 
@@ -16,6 +18,7 @@ class ItemForm extends Component {
       price: props.price || '',
       wholesale_price: props.wholesale_price || '',
       kind: props.kind || '',
+      inEditMode: false,
       touched: {
           name: false,
           price: false,
@@ -50,24 +53,27 @@ class ItemForm extends Component {
   handleSubmit = e => {
     const error = this.validate(this.state.name, this.state.price, this.state.wholesale_price, this.state.kind)
     const keys = Object.keys(this.state)
+    delete keys.touched
     let readyToSubmit = true;
-    for (let i = 0; i < keys.length - 1; i++){
+    for (let i = 0; i < keys.length; i++){
       if (error[keys[i]] === true) {
         readyToSubmit = false
       }
     }
     if (readyToSubmit) {
       e.preventDefault()
-      if (this.props.editItem) {
-        const id = this.props.item.id
+      if (this.state.inEditMode) {
+        const id = this.props.id
         const newState = {...this.state, id}
-        this.props.toggleEditMode(false)
+        delete newState.touched
+        delete newState.inEditMode
         this.props.editItem(newState)
         .then(() => this.props.getItems())
+        this.props.history.push('/items')
       } else {
         this.props.addItem(this.state)
         .then(() => this.props.getItems())
-        this.props.history.push('/sales/new')
+        this.props.history.push('/items')
         this.setState({
           name:'',
           price:'',
@@ -82,9 +88,32 @@ class ItemForm extends Component {
     e.preventDefault()
     const id = this.props.item.id
     const newState = {...this.state, id}
-    this.props.toggleEditMode(false)
     this.props.deleteItem(newState)
-    this.props.getItems()
+    .then(() => this.props.getItems())
+    this.props.history.push('/items')
+  }
+
+  componentWillReceiveProps(nextProps){
+
+    let item = fetch(`/api/items/${nextProps.match.params.id}`,{
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token')
+      },
+      credentials: 'same-origin'
+    })
+      .then(res => res.json())
+      .then(item => item).then(item => {
+        console.log("in items form componentWillReceiveProps fetch")
+        this.setState({
+          name: item.name || '',
+          price: item.price || '',
+          wholesale_price: item.wholesale_price || '',
+          kind: item.kind || '',
+          inEditMode: true
+        })
+
+      })
   }
 
   render(){
@@ -149,9 +178,8 @@ class ItemForm extends Component {
                          />
           </div>
 
-          <Button className="ui button" type="submit">{this.props.inEditMode ? "Submit Changes" : "Submit"}</Button>
-          <Button style={this.props.inEditMode ? {display: 'true'} : {display: 'none'}}
-                  className="ui button" onClick={this.handleDelete}>Delete</Button>
+          <Button className="ui button" type="submit">{this.state.inEditMode ? "Submit Changes" : "Submit"}</Button>
+          <Button className="ui button" onClick={this.handleDelete}>Delete</Button>
         </Segment>
       </Form>
     )
@@ -159,8 +187,15 @@ class ItemForm extends Component {
 }
 
 const mapStateToProps = state => {
-  return {inEditMode: state.global.inEditMode}
+  if (state.global.editItem) {
+    return {
+      item: state.global.editItem,
+      id: state.global.editItem.id,
+    }
+  } else {
+    return {}
+  }
 }
 
 
-export default connect(mapStateToProps,{ addItem, getItems, toggleEditMode, deleteItem })(ItemForm)
+export default connect(mapStateToProps,{ addItem, getItems, toggleEditMode, deleteItem, editItem })(ItemForm)

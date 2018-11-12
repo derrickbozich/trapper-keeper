@@ -22,7 +22,7 @@ class ItemsPage extends React.Component {
     // }
     return(
       <div>
-        <ItemsList buttonContent="edit" editItem={this.props.editItem} />
+        <ItemsList buttonContent="edit" editItem={true} history={this.props.history} />
 
       </div>
     )

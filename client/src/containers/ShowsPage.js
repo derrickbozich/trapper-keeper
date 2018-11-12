@@ -6,7 +6,7 @@ class ShowsPage extends Component {
   render(){
       return(
         <div>
-          <Door />
+          <Door history={this.props.history} />
         </div>
       )
     }

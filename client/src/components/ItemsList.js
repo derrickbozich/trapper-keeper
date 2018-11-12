@@ -24,7 +24,7 @@ class ItemsList extends React.Component {
     let items;
     if (this.props.items.length !== 0) {
       items = this.props.items.map(item => {
-        return <Item id={item.id} editItem={this.props.editItem} buttonContent={this.props.buttonContent} key={item.id} item={item} />
+        return <Item id={item.id} history={this.props.history} buttonContent={this.props.buttonContent} key={item.id} item={item} />
       })
     } else {
       console.log("no items")

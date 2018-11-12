@@ -77,6 +77,19 @@ export function getItems(){
   }
 }
 
+export function getItem(id){
+  return dispatch => {
+    return fetch(`/api/items/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token')
+      },
+    })
+    .then(res => res.json())
+    .then(item => dispatch({ type: 'ADD_EDIT_ITEM', payload: item }));
+  }
+}
+
 export function editItem(state){
   return (dispatch) => {
     return fetch('/api/items/:id/edit', {
@@ -288,6 +301,20 @@ export function getShows(){
     })
     .then(res => res.json())
     .then(shows => dispatch({ type: 'GET_SHOWS', payload: shows }));
+  }
+}
+
+export function getShow(id){
+  return dispatch => {
+    return fetch(`/api/shows/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token')
+      },
+      credentials: 'same-origin'
+    })
+    .then(res => res.json())
+    .then(show => dispatch({ type: 'ADD_EDIT_ITEM', payload: show }));
   }
 }
 

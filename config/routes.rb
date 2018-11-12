@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
     get '/expenses', to: 'expenses#index'
     post '/expenses/new', to: 'expenses#create'
+    get '/expenses/:id', to: 'expenses#show'
     patch '/expenses/:id/edit', to: 'expenses#update'
     delete '/expenses/:id/delete', to: 'expenses#destroy'
 
@@ -19,6 +20,7 @@ Rails.application.routes.draw do
     get '/items/sales', to: 'items#sales'
 
     get '/shows', to: 'shows#index'
+    get '/shows/:id', to: 'shows#show'
     post '/shows/new', to: 'shows#create'
     patch '/shows/:id/edit', to: 'shows#update'
     delete '/shows/:id/delete', to: 'shows#destroy'

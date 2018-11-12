@@ -22,22 +22,22 @@ class FinancePage extends React.Component {
     let view;
     switch (this.state.activeItem) {
       case 'expenses':
-        view =  <Expenses />
+        view =  <Expenses history={this.props.history} />
         break;
       case 'merchSales':
-        view =  <MerchSales />
+        view =  <MerchSales history={this.props.history} />
         break;
       case 'door':
-        view =  <Door />
+        view =  <Door history={this.props.history} />
         break;
       case 'totals':
-        view =  <Totals />
+        view =  <Totals history={this.props.history} />
         break;
       case 'merchDetail':
-        view =  <MerchDetail />
+        view =  <MerchDetail history={this.props.history} />
         break;
       default:
-        view = <MerchDetail />
+        view = <MerchDetail history={this.props.history} />
 
 
     }

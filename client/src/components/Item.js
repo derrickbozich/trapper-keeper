@@ -3,6 +3,7 @@ import { Card, Image, Button } from 'semantic-ui-react'
 import { addItemToCart } from '../actions/actions'
 import { deleteItem } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
+import { getItem } from '../actions/actions'
 
 import { connect } from 'react-redux'
 import ItemForm from '../containers/ItemForm'
@@ -12,8 +13,10 @@ class Item extends Component {
 
 
   handleClick = e => {
-    if (this.props.editItem) {
-      this.props.toggleEditMode(true)
+    if (this.props.buttonContent === 'edit') {
+      // this.props.toggleEditMode(true)
+      this.props.getItem(this.props.id)
+      this.props.history.push(`/items/${this.props.id}/edit`)
     } else {
       this.props.addItemToCart(this.props.item)
     }
@@ -23,14 +26,7 @@ class Item extends Component {
   render(){
     // let item = this.props.items.find(item => item.id == this.props.id)
 
-    if (this.props.inEditMode) {
-      return <ItemForm item={this.props.item}
-                       name={this.props.item.name}
-                       price={this.props.item.price}
-                       wholesale_price={this.props.item.wholesale_price}
-                       kind={this.props.item.kind}
-                       editItem={this.props.editItem} />
-    } else {
+
       return(
           <div>
             <Card>
@@ -43,7 +39,7 @@ class Item extends Component {
             </Card>
           </div>
       )
-    }
+
 
   }
 
@@ -51,9 +47,8 @@ class Item extends Component {
 
 const mapStateToProps = state => {
   return {
-    items: state.items,
-    inEditMode: state.global.inEditMode
+    items: state.items
   }
 }
 
-export default connect(mapStateToProps, { addItemToCart, deleteItem, toggleEditMode })(Item)
+export default connect(mapStateToProps, { addItemToCart, deleteItem, toggleEditMode, getItem })(Item)

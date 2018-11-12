@@ -2,26 +2,25 @@ import React,{Component} from 'react'
 import { connect } from 'react-redux'
 import { addShow } from '../actions/actions'
 import { Button, Form, Segment, Dropdown} from 'semantic-ui-react'
-
-
 import { getShows } from '../actions/actions'
 import { getTotals } from '../actions/actions'
 import { deleteShow } from '../actions/actions'
 import { editShow } from '../actions/actions'
+import { getCookie } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
-// import { Form, Checkbox } from 'semantic-ui-react'
 
-import { stateOptions } from '../common'
 
 class ShowsForm extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      venue: props.venue || '',
-      city: props.city || '',
+      venue: '',
+      city:  '',
       date: this.date(),
-      door_deal: props.door_deal || '',
-      state: props.state || '',
+      door_deal:  '',
+      state:  '',
+      inEditMode: false,
       touched: {
           venue: false,
           city: false,
@@ -33,7 +32,27 @@ class ShowsForm extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    debugger
+
+    let show = fetch(`/api/shows/${nextProps.match.params.id}`,{
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token')
+      },
+      credentials: 'same-origin'
+    })
+      .then(res => res.json())
+      .then(show => show).then(show => {
+        console.log("in shows form componentWillReceiveProps fetch")
+        this.setState({
+          venue: show.venue || '',
+          city: show.city || '',
+          date: show.date || '',
+          door_deal: show.door_deal || '',
+          state: show.state || '',
+          inEditMode: true
+        })
+
+      })
   }
 
 
@@ -75,9 +94,9 @@ class ShowsForm extends Component {
     e.preventDefault()
     const id = this.props.id
     const newState = {...this.state,id}
-    this.props.toggleEditMode(false)
     this.props.deleteShow(newState)
     this.props.getTotals()
+    this.props.history.push('/shows')
   }
 
   handleSubmit = e => {
@@ -91,15 +110,15 @@ class ShowsForm extends Component {
       }
     }
     if (readyToSubmit) {
-      if (this.props.inEditMode) {
+      if (this.state.inEditMode) {
         const id = this.props.id
         const newState = {...this.state,id}
-        this.props.toggleEditMode(false)
         this.props.editShow(newState)
+        this.props.history.push('/shows')
       } else {
         this.props.addShow(this.state)
         this.props.getTotals()
-        this.props.history.push('/finances')
+        this.props.history.push('/shows')
       }
     }
 
@@ -163,12 +182,12 @@ class ShowsForm extends Component {
 
         <div className="field">
           <label>State</label>
-          <Dropdown fluid search selection
+          <Form.Input
                     placeholder='State'
                     id='state'
                     name="show[state]"
                     onChange={this.handleSelect}
-                    options={stateOptions}
+                    value={this.state.state}
                     className={shouldMarkError('state') ? "error" : ""}
                     onBlur={this.handleBlur('state')}
                      />
@@ -186,9 +205,8 @@ class ShowsForm extends Component {
                  onBlur={this.handleBlur('door_deal')}
                  />
         </div>
-        <Button className="ui button" type="submit">{this.props.inEditMode ? 'Submit Changes' : 'Submit'}</Button>
-        <Button style={this.props.inEditMode? {display: 'true'} : {display: 'none'}}
-                className="ui button" onClick={this.handleDelete}>Delete</Button>
+        <Button className="ui button" type="submit">{this.state.inEditMode ? 'Submit Changes' : 'Submit'}</Button>
+        <Button className="ui button" onClick={this.handleDelete}>Delete</Button>
         </Segment>
       </Form>
     )
@@ -196,7 +214,15 @@ class ShowsForm extends Component {
 }
 
 const mapStateToProps = state => {
-  return {inEditMode: state.global.inEditMode}
+  if (state.global.editItem) {
+    return {
+      show: state.global.editItem,
+      id: state.global.editItem.id,
+      inEditMode: true
+    }
+  } else {
+    return {}
+  }
 }
 
-export default connect(mapStateToProps,{ addShow, getShows, editShow, toggleEditMode, deleteShow, getTotals })(ShowsForm)
+export default connect(mapStateToProps,{ addShow, getShows, editShow, deleteShow, getTotals, toggleEditMode })(ShowsForm)
