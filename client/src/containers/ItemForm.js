@@ -95,25 +95,26 @@ class ItemForm extends Component {
 
   componentWillReceiveProps(nextProps){
 
-    let item = fetch(`/api/items/${nextProps.match.params.id}`,{
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': getCookie('my_jwt_token')
-      },
-      credentials: 'same-origin'
-    })
-      .then(res => res.json())
-      .then(item => item).then(item => {
-        console.log("in items form componentWillReceiveProps fetch")
-        this.setState({
-          name: item.name || '',
-          price: item.price || '',
-          wholesale_price: item.wholesale_price || '',
-          kind: item.kind || '',
-          inEditMode: true
-        })
-
+    if (nextProps.match.params.id) {
+      let item = fetch(`/api/items/${nextProps.match.params.id}`,{
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': getCookie('my_jwt_token')
+        },
+        credentials: 'same-origin'
       })
+        .then(res => res.json())
+        .then(item => item).then(item => {
+          console.log("in items form componentWillReceiveProps fetch")
+          this.setState({
+            name: item.name || '',
+            price: item.price || '',
+            wholesale_price: item.wholesale_price || '',
+            kind: item.kind || '',
+            inEditMode: true
+          })
+        })
+    }
   }
 
   render(){

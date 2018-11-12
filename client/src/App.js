@@ -54,6 +54,8 @@ class App extends Component {
           <NavBar />
           <Route path='/shows/:id/edit' component={ShowsForm} />
           <Route path='/items/:id/edit' component={ItemForm} />
+          <Route path='/expenses/:id/edit' component={ExpensesForm} />
+          <Route path='/expenses/new' component={ExpensesForm} />
           {routes.map(({path, component}) => {
             return <Route key={Math.random()*100000}exact path={path} component={component} />
           })}

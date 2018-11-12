@@ -33,26 +33,27 @@ class ShowsForm extends Component {
 
   componentWillReceiveProps(nextProps){
 
-    let show = fetch(`/api/shows/${nextProps.match.params.id}`,{
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': getCookie('my_jwt_token')
-      },
-      credentials: 'same-origin'
-    })
-      .then(res => res.json())
-      .then(show => show).then(show => {
-        console.log("in shows form componentWillReceiveProps fetch")
-        this.setState({
-          venue: show.venue || '',
-          city: show.city || '',
-          date: show.date || '',
-          door_deal: show.door_deal || '',
-          state: show.state || '',
-          inEditMode: true
-        })
-
+    if (nextProps.match.params.id) {
+      let show = fetch(`/api/shows/${nextProps.match.params.id}`,{
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': getCookie('my_jwt_token')
+        },
+        credentials: 'same-origin'
       })
+        .then(res => res.json())
+        .then(show => show).then(show => {
+          console.log("in shows form componentWillReceiveProps fetch")
+          this.setState({
+            venue: show.venue || '',
+            city: show.city || '',
+            date: show.date || '',
+            door_deal: show.door_deal || '',
+            state: show.state || '',
+            inEditMode: true
+          })
+        })
+    }
   }
 
 

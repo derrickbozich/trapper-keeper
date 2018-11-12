@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { addExpense } from '../actions/actions'
 import { getTotals } from '../actions/actions'
 import { getExpenses } from '../actions/actions'
+import { getCookie } from '../actions/actions'
 import { deleteExpense } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 import { Button, Form, Segment, Dropdown} from 'semantic-ui-react'
@@ -26,6 +27,7 @@ class ExpensesForm extends Component {
       date: this.date(),
       payment_type: props.payment_type || '',
       kind: props.kind || '',
+      inEditMode: false,
       touched: {
           description: false,
           amount: false,
@@ -70,10 +72,11 @@ class ExpensesForm extends Component {
     e.preventDefault()
     const id = this.props.id
     const newState = {...this.state, id}
-    this.props.toggleEditMode(false)
     this.props.deleteExpense(newState)
-    this.props.getTotals()
-    this.props.getExpenses()
+    .then(() => this.props.getTotals())
+    .then(() => this.props.getExpenses() )
+    this.props.history.push('/finances')
+
   }
 
   handleSubmit = e => {
@@ -89,10 +92,9 @@ class ExpensesForm extends Component {
     }
     if (readyToSubmit) {
       e.preventDefault()
-      if (this.props.editExpense) {
+      if (this.state.editExpense) {
         const id = this.props.id
         const state = {...newState, id}
-        this.props.toggleEditMode(false)
         this.props.editExpense(state)
         .then(() => this.props.getTotals())
         .then(() => this.props.getExpenses())
@@ -102,7 +104,7 @@ class ExpensesForm extends Component {
         .then(() => this.props.getExpenses())
         this.props.history.push('/finances')
       }
-      
+
 
       this.setState({
         description:'',
@@ -116,6 +118,36 @@ class ExpensesForm extends Component {
 
   }
 
+  componentWillReceiveProps(nextProps){
+
+    if (nextProps.match.params.id) {
+      let item = fetch(`/api/expenses/${nextProps.match.params.id}`,{
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': getCookie('my_jwt_token')
+        },
+        credentials: 'same-origin'
+      })
+        .then(res => res.json())
+        .then(expense => expense).then(expense => {
+          console.log("in expenses form componentWillReceiveProps fetch")
+          this.setState({
+            description: expense.description || '',
+            amount: expense.amount || '',
+            date: expense.date || '',
+            payment_type: expense.payment_type || '',
+            kind: expense.kind || '',
+            inEditMode: true
+          })
+
+        })
+
+    }
+
+
+  }
+
+
   render(){
     const errors = this.validate(this.state.description, this.state.amount, this.state.date, this.state.payment_type, this.state.kind);
     const shouldMarkError = (field) => {
@@ -128,12 +160,12 @@ class ExpensesForm extends Component {
        <Segment stacked>
         <div className="field">
           <label>Kind</label>
-          <Dropdown fluid search selection
+          <Form.Input
                     placeholder='Kind'
                     id='kind'
                     name="expense[kind]"
+                    value={this.state.kind}
                     onChange={this.handleSelect}
-                    options={expenseOptions}
                     className={shouldMarkError('kind') ? "error" : ""}
                     onBlur={this.handleBlur('kind')}
           />
@@ -191,9 +223,8 @@ class ExpensesForm extends Component {
                     onBlur={this.handleBlur('payment_type')}
                     />
         </div>
-        <Button className="ui button" type="submit">{this.props.inEditMode ? "Submit Changes" : "Submit"}</Button>
-        <Button style={this.props.inEditMode ? {display: 'true'} : {display: 'none'}}
-                className="ui button" onClick={this.handleDelete}>Delete</Button>
+        <Button className="ui button" type="submit">{this.state.inEditMode ? "Submit Changes" : "Submit"}</Button>
+        <Button className="ui button" onClick={this.handleDelete}>Delete</Button>
         </Segment>
       </Form>
     )
@@ -202,7 +233,14 @@ class ExpensesForm extends Component {
 
 
 const mapStateToProps = state => {
-  return {inEditMode: state.global.inEditMode}
+  if (state.global.editItem) {
+    return {
+      expense: state.global.editItem,
+      id: state.global.editItem.id,
+    }
+  } else {
+    return {}
+  }
 }
 
 

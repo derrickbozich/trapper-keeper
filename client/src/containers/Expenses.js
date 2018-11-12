@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { Table, Button } from 'semantic-ui-react'
 import { getExpenses } from '../actions/actions'
+import { getExpense } from '../actions/actions'
 import { editExpense } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 import ExpensesForm from './ExpensesForm'
@@ -71,4 +72,4 @@ const mapStateToProps = state =>{
 
 }
 
-export default connect(mapStateToProps, { getExpenses, editExpense, toggleEditMode })(Expenses)
+export default connect(mapStateToProps, { getExpenses, getExpense, editExpense, toggleEditMode })(Expenses)

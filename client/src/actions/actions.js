@@ -332,6 +332,20 @@ export function getExpenses(){
   }
 }
 
+export function getExpense(id){
+  return dispatch => {
+    return fetch(`/api/expenses/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': getCookie('my_jwt_token')
+      },
+      credentials: 'same-origin'
+    })
+    .then(res => res.json())
+    .then(expense => dispatch({ type: 'ADD_EDIT_ITEM', payload: expense }));
+  }
+}
+
 export function getSales(){
   return dispatch => {
     return fetch('/api/items/sales', {

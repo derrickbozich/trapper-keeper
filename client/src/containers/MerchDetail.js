@@ -21,7 +21,7 @@ class MerchDetail extends Component {
     // and the sell count ex. ['11/12/2018', 3, 3, 2]
     // this will make it easier to map rows from later
     const generateRowData = () => {
-      if (this.props.sales.length !== 0) {
+      if (this.props.sales !== {}) {
         this.props.sales.forEach(sale => {
           let row = []
           row.push(sale.date)
@@ -47,7 +47,14 @@ class MerchDetail extends Component {
     }
 
     // store rows componet into a variable
-    const rows = generateRows()
+    let rows;
+    let p = this.props.sales
+    debugger
+    if (this.props.sales !== null && this.props.sales !== undefined ) {
+      debugger
+      rows = generateRows()
+    }
+
 
     let headers
     if (this.props.items.length !== 0) {
