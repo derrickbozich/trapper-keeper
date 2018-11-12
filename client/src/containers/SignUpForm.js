@@ -33,14 +33,16 @@ class SignUpForm extends Component{
   handleSubmit = e => {
     const error = this.validate(this.state.name, this.state.email, this.state.password)
     const keys = Object.keys(this.state)
+    delete keys.touched
     let readyToSubmit = true;
-    for (let i = 0; i < keys.length - 1; i++){
+    for (let i = 0; i < keys.length; i++){
       if (error[keys[i]] === true) {
         readyToSubmit = false
       }
     }
     if (readyToSubmit) {
       this.props.createUser(this.state)
+      this.props.history.push('/finances')
       this.setState({
         name: '',
         email: '',
@@ -109,7 +111,7 @@ class SignUpForm extends Component{
               </Segment>
             </Form>
             <Message>
-              New to us? <a href='#'>Sign Up</a>
+              New to us? <a>Sign Up</a>
             </Message>
           </Grid.Column>
         </Grid>

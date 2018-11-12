@@ -10,13 +10,14 @@ class Checkout extends Component {
 
   handleClickCash = (e, value) => {
     this.props.checkoutCash(this.props.currentCart)
-    this.props.getSales()
+    .then(() => this.props.getSales())
+
     this.props.history.push('/finances')
   }
 
   handleClickCredit = (e, value) => {
     this.props.checkoutCredit(this.props.currentCart)
-    this.props.getSales()
+    .then(() => this.props.getSales())
     this.props.history.push('/finances')
   }
 

@@ -2,18 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { logOutUser } from '../actions/actions'
+import { validJwtToken } from '../actions/actions'
 
 
 
 class NavBar extends Component {
   handleClick = () => {
-    if (this.props.loggedIn) {
+    if (validJwtToken()) {
       this.props.logOutUser()
-
-
-      // this.context.history.push('/')
+      // this.props.context.history.push('/')
     } else {
-      // this.context.history.push('/users/login')
+      // this.props.context.history.push('/users/login')
     }
 
   }
@@ -30,7 +29,7 @@ class NavBar extends Component {
         <Link className="item" to="/shows" >Shows</Link>
         <Link className="item" to="/register" >Register</Link>
         <Link className="item" to="/users/login" >Login</Link>
-        <Link className="item" to="/test" >Test</Link>
+        <Link className="item" to="/uploads" >Image Upload</Link>
 
         <div className="right menu">
           <div className="item">
@@ -41,7 +40,7 @@ class NavBar extends Component {
           </div>
 
           <a className="ui item" onClick={this.handleClick}>
-            {this.props.loggedIn ? "Logout" : "Login"}
+            {validJwtToken() ? "Logout" : "Login"}
           </a>
       </div>
       </div>

@@ -94,12 +94,15 @@ class ExpensesForm extends Component {
         const state = {...newState, id}
         this.props.toggleEditMode(false)
         this.props.editExpense(state)
+        .then(() => this.props.getTotals())
+        .then(() => this.props.getExpenses())
       } else {
         this.props.addExpense(newState)
+        .then(() => this.props.getTotals())
+        .then(() => this.props.getExpenses())
         this.props.history.push('/finances')
       }
-      this.props.getTotals()
-      this.props.getExpenses()
+      
 
       this.setState({
         description:'',

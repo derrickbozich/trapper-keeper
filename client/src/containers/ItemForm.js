@@ -63,8 +63,10 @@ class ItemForm extends Component {
         const newState = {...this.state, id}
         this.props.toggleEditMode(false)
         this.props.editItem(newState)
+        .then(() => this.props.getItems())
       } else {
         this.props.addItem(this.state)
+        .then(() => this.props.getItems())
         this.props.history.push('/sales/new')
         this.setState({
           name:'',
@@ -73,7 +75,6 @@ class ItemForm extends Component {
           kind:''
         })
       }
-      this.props.getItems()
     }
   }
 

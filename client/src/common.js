@@ -1,3 +1,30 @@
+import ItemForm from './containers/ItemForm'
+import ExpensesForm from './containers/ExpensesForm'
+import ShowsForm from './containers/ShowsForm'
+import ShoppingPage from './components/ShoppingPage'
+import ItemsPage from './containers/ItemsPage'
+import FinancePage from './containers/FinancePage'
+import ShowsPage from './containers/ShowsPage'
+import LoginForm from './containers/LoginForm'
+import SignUpForm from './containers/SignUpForm'
+import ImageUpload from './containers/ImageUpload'
+import Checkout from './components/Checkout'
+import NavBar from './components/NavBar'
+
+export const routes = [
+ {path: '/items/new', component: ItemForm },
+ {path: '/expenses/new', component: ExpensesForm },
+ {path: '/sales/new', component: ShoppingPage },
+ {path: '/checkout', component: Checkout },
+ {path: '/finances', component: FinancePage },
+ {path: '/shows/new', component: ShowsForm },
+ {path: '/items', component: ItemsPage },
+ {path: '/shows', component: ShowsPage },
+ {path: '/register', component: SignUpForm },
+ {path: '/users/login', component: LoginForm },
+ {path: '/uploads', component: ImageUpload }
+]
+
 export const expenseOptions = [
   { key: 'food', value: 'food', text: 'Food' },
   { key: 'gas', value: 'gas', text: 'Gas' },

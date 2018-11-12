@@ -272,7 +272,8 @@ export function getData(){
       credentials: 'same-origin'
     })
     .then(res => res.json())
-    .then(data => dispatch({ type: 'GET_DATA', payload: data }));
+    .then(data => dispatch({ type: 'GET_DATA', payload: data }))
+    // .then(() => dispatch({ type: 'TOGGLE_GOT_DATA', payload: true}));
   }
 }
 
@@ -332,6 +333,18 @@ export function getTotals(){
   }
 }
 
+export function validJwtToken() {
+  return fetch('/api/expenses', {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': getCookie('my_jwt_token')
+    },
+    credentials: 'same-origin'
+  }).then(res => res.json())
+    .then(expenses => {
+      return expenses[0].id ? true : false
+    })
+}
 
 export function getCookie(cname){
   const name = cname + "=";

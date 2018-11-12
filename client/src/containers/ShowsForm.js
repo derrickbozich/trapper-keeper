@@ -32,6 +32,11 @@ class ShowsForm extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    debugger
+  }
+
+
   handleBlur = (field) => (evt) => {
     this.setState({
       touched: { ...this.state.touched, [field]: true },

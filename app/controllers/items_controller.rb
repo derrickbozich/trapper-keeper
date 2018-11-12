@@ -5,6 +5,11 @@ class ItemsController < ApplicationController
     render json: @items, status: 200
   end
 
+  def show
+    @item = Item.find_by_id(params[:id])
+    render json: @item, status: 200
+  end
+
   def create
     @item = Item.create(item_params)
     @current_user.items << @item
@@ -27,6 +32,10 @@ class ItemsController < ApplicationController
     @item_id = @item.id
     @item.destroy
     render json: @item_id, status: 202
+  end
+
+  def upload
+    binding.pry
   end
 
   private

@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   scope '/api' do
     get '/items', to: 'items#index'
     post '/items/new', to: 'items#create'
+    get '/items/:id', to: 'items#show'
     patch '/items/:id/edit', to: 'items#update'
     delete '/items/:id/delete', to: 'items#destroy'
 
@@ -12,6 +13,8 @@ Rails.application.routes.draw do
 
     post '/carts/new/cash', to: 'carts#create_cash'
     post '/carts/new/credit', to: 'carts#create_credit'
+
+    post '/uploads', to: 'items#upload'
 
     get '/items/sales', to: 'items#sales'
 

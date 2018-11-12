@@ -1,60 +1,61 @@
 import React, { Component } from 'react';
-import ItemForm from './containers/ItemForm'
+// import ItemForm from './containers/ItemForm'
 import ExpensesForm from './containers/ExpensesForm'
-import ShowsForm from './containers/ShowsForm'
+// import ShowsForm from './containers/ShowsForm'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import ShoppingPage from './components/ShoppingPage'
-import ItemsPage from './containers/ItemsPage'
-import FinancePage from './containers/FinancePage'
-import ShowsPage from './containers/ShowsPage'
-import LoginForm from './containers/LoginForm'
-import SignUpForm from './containers/SignUpForm'
-import Checkout from './components/Checkout'
+// import ShoppingPage from './components/ShoppingPage'
+// import ItemsPage from './containers/ItemsPage'
+// import FinancePage from './containers/FinancePage'
+// import ShowsPage from './containers/ShowsPage'
+// import LoginForm from './containers/LoginForm'
+// import SignUpForm from './containers/SignUpForm'
+// import ImageUpload from './containers/ImageUpload'
+// import Checkout from './components/Checkout'
 import NavBar from './components/NavBar'
 import { connect } from 'react-redux'
 // import { getItems, getExpenses, getSales} from './actions/actions'
 import { getData } from './actions/actions'
 import { toggleGotData } from './actions/actions'
 // import { getCookie } from './actions/actions'
+import { validJwtToken } from './actions/actions'
 import { logInUser } from './actions/actions'
+import { routes } from './common'
+
+
+
 
 
 class App extends Component {
 
-  // componentWillMount(){
-  //   this.props.getItems()
-  //   this.props.getExpenses()
-  //   this.props.getSales()
-  //
-  // }
   componentDidMount(){
     console.log("in App - Component Did Mount")
+    if (validJwtToken()) {
+      this.props.getData()
+    }
+  }
 
-    this.props.getData()
+  shouldComponentUpdate(){
+    const result = validJwtToken()
+    if (result && this.props.gotData === false) {
+      this.props.getData()
+      .then(()=> this.props.toggleGotData(true))
+    }
+    console.log("in App - should Component Update result: " + result)
+    return result ? true : false
   }
 
 
+
+
   render() {
-    // const cookie = getCookie('my_jwt_cookie')
-    // if (cookie !== '' && !this.props.gotData) {
-    //   this.props.getData()
-    //   this.props.toggleGotData(true)
-    // }
     return (
       <Router>
         <div>
           <NavBar />
-          <Route exact path="/" render={() => <div>Home</div>} />
-          <Route exact path='/items/new' component={ItemForm}/>
-          <Route exact path='/expenses/new' component={ExpensesForm}/>
-          <Route exact path='/sales/new' component={ShoppingPage}/>
-          <Route exact path='/checkout' component={Checkout}/>
-          <Route exact path='/finances' component={FinancePage}/>
-          <Route exact path='/shows/new' component={ShowsForm}/>
-          <Route exact path='/items' component={ItemsPage}/>
-          <Route exact path='/shows' component={ShowsPage}/>
-          <Route exact path='/register' component={SignUpForm}/>
-          <Route exact path='/users/login' component={LoginForm}/>
+          <Route exact path='/expenses/new' component={ExpensesForm} />
+          {routes.map(({path, component}) => {
+            return <Route key={Math.random()*100000}exact path={path} component={component} />
+          })}
         </div>
       </Router>
     );

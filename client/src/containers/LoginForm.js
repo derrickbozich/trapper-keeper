@@ -23,14 +23,16 @@ class LoginForm extends Component{
   handleSubmit = e => {
     const error = this.validate(this.state.email, this.state.password)
     const keys = Object.keys(this.state)
+    delete keys.touched
     let readyToSubmit = true;
-    for (let i = 0; i < keys.length - 1; i++){
+    for (let i = 0; i < keys.length; i++){
       if (error[keys[i]] === true) {
         readyToSubmit = false
       }
     }
     if (readyToSubmit) {
       this.props.logInUser(this.state)
+      this.props.history.push('/finances')
       this.setState({
         email: '',
         password: ''

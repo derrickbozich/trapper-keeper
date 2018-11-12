@@ -2,11 +2,15 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { Table, Button } from 'semantic-ui-react'
 import ShowsForm from './ShowsForm'
+import Spinner from '../components/Spinner'
 import { editShow } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 
-
 class Door extends Component {
+
+  state = {
+    showId: ''
+  }
 
 
   random = () => {
@@ -14,16 +18,19 @@ class Door extends Component {
   }
 
   handleClick = (e, { value }) => {
-    this.setState({
-      showId: value
-    })
+    // this.updateShowId(value)
+
+    this.setState({showId: value})
     this.props.toggleEditMode(true)
   }
 
-  render(){
 
-    if (this.props.inEditMode) {
-      const show = this.props.shows.find(show => show.id === parseInt(this.state.showId, 10))
+  render(){
+      if (this.props.inEditMode ) {
+      const show = this.props.shows.find(show => show.id == this.state.showId)
+      // let s = this.props.shows
+      // let i = this.state.showId
+      // debugger
       return(
         <ShowsForm id={this.state.showId}
                    date={show.date}
