@@ -34,15 +34,15 @@ class App extends Component {
     }
   }
 
-  shouldComponentUpdate(){
-    const result = validJwtToken()
-    if (result && this.props.gotData === false) {
-      this.props.getData()
-      .then(()=> this.props.toggleGotData(true))
-    }
-    console.log("in App - should Component Update result: " + result)
-    return result ? true : false
-  }
+  // shouldComponentUpdate(){
+  //   const result = validJwtToken()
+  //   if (result && this.props.gotData === false) {
+  //     this.props.getData()
+  //     .then(()=> this.props.toggleGotData(true))
+  //   }
+  //   console.log("in App - should Component Update result: " + result)
+  //   return result ? true : false
+  // }
 
 
 
@@ -79,8 +79,6 @@ const mapStateToProps = state => {
     state.shows = state.data.shows
     state.totals = state.data.totals
     state.carts = state.data.carts
-    state.currentCart = []
-    state.data = []
   }
 
 }

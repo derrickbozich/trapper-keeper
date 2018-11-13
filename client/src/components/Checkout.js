@@ -11,14 +11,13 @@ class Checkout extends Component {
   handleClickCash = (e, value) => {
     this.props.checkoutCash(this.props.currentCart)
     .then(() => this.props.getSales())
-
-    this.props.history.push('/finances')
+    .then(() => this.props.history.push('/finances'))
   }
 
   handleClickCredit = (e, value) => {
     this.props.checkoutCredit(this.props.currentCart)
     .then(() => this.props.getSales())
-    this.props.history.push('/finances')
+    .then(() => this.props.history.push('/finances'))
   }
 
   render(){
@@ -46,13 +45,8 @@ class Checkout extends Component {
 }
 
 const mapStateToProps = state => {
-  if (state.currentCart) {
-    return {
-      currentCart: state.currentCart,
-      sales: state.sales
-    }
-  } else {
-    return {}
+  return {
+    currentCart: state.currentCart
   }
 }
 

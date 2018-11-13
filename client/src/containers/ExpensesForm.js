@@ -5,9 +5,9 @@ import { getTotals } from '../actions/actions'
 import { getExpenses } from '../actions/actions'
 import { getCookie } from '../actions/actions'
 import { deleteExpense } from '../actions/actions'
+import { editExpense } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 import { Button, Form, Segment, Dropdown} from 'semantic-ui-react'
-
 import { expenseOptions } from '../common'
 import { paymentTypes } from '../common'
 
@@ -34,7 +34,7 @@ class ExpensesForm extends Component {
           date: false,
           payment_type: false,
           kind: false
-        }
+      }
     }
   }
 
@@ -72,10 +72,11 @@ class ExpensesForm extends Component {
     e.preventDefault()
     const id = this.props.id
     const newState = {...this.state, id}
-    this.props.deleteExpense(newState)
-    .then(() => this.props.getTotals())
-    .then(() => this.props.getExpenses() )
     this.props.history.push('/finances')
+    this.props.deleteExpense(newState)
+    // .then(() => this.props.getTotals())
+    // .then(() => this.props.getExpenses())
+
 
   }
 
@@ -84,6 +85,7 @@ class ExpensesForm extends Component {
     let readyToSubmit = true;
     let newState = this.state
     delete newState.touched
+    delete newState.inEditMode
     const keys = Object.keys(newState)
     for (let i = 0; i < keys.length; i++){
       if (error[keys[i]] === true) {
@@ -91,28 +93,34 @@ class ExpensesForm extends Component {
       }
     }
     if (readyToSubmit) {
+      const path = this.props.history.location.pathname
       e.preventDefault()
-      if (this.state.editExpense) {
-        const id = this.props.id
-        const state = {...newState, id}
+      if (path.includes("edit")) {
+        const regex = /\d+/g;
+        let m = path.match(regex)
+
+
+        const id = parseInt(m[0],10)
+        const state = {...this.state, id}
+        this.props.history.push('/finances')
         this.props.editExpense(state)
-        .then(() => this.props.getTotals())
-        .then(() => this.props.getExpenses())
+        // .then(() => this.props.getTotals())
+        // .then(() => this.props.getExpenses())
       } else {
         this.props.addExpense(newState)
-        .then(() => this.props.getTotals())
-        .then(() => this.props.getExpenses())
+        // .then(() => this.props.getTotals())
+        // .then(() => this.props.getExpenses())
         this.props.history.push('/finances')
       }
 
 
-      this.setState({
-        description:'',
-        amount:'',
-        date:this.date(),
-        payment_type:'',
-        kind:''
-      })
+      // this.setState({
+      //   description:'',
+      //   amount:'',
+      //   date:this.date(),
+      //   payment_type:'',
+      //   kind:''
+      // })
     }
 
 
@@ -139,12 +147,8 @@ class ExpensesForm extends Component {
             kind: expense.kind || '',
             inEditMode: true
           })
-
         })
-
     }
-
-
   }
 
 
@@ -161,11 +165,11 @@ class ExpensesForm extends Component {
         <div className="field">
           <label>Kind</label>
           <Form.Input
-                    placeholder='Kind'
                     id='kind'
                     name="expense[kind]"
+                    placeholder='Kind'
                     value={this.state.kind}
-                    onChange={this.handleSelect}
+                    onChange={this.handleChange}
                     className={shouldMarkError('kind') ? "error" : ""}
                     onBlur={this.handleBlur('kind')}
           />
@@ -244,4 +248,4 @@ const mapStateToProps = state => {
 }
 
 
-export default connect(mapStateToProps,{ addExpense, getTotals, getExpenses, toggleEditMode, deleteExpense })(ExpensesForm)
+export default connect(mapStateToProps,{ addExpense, getTotals, getExpenses, toggleEditMode, deleteExpense, editExpense })(ExpensesForm)

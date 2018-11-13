@@ -383,7 +383,7 @@ export function validJwtToken() {
     credentials: 'same-origin'
   }).then(res => res.json())
     .then(expenses => {
-      return expenses[0].id ? true : false
+      return expenses ? true : false
     })
 }
 

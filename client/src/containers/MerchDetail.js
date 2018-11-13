@@ -14,6 +14,10 @@ class MerchDetail extends Component {
   return Math.floor(Math.random() * 10000000)
   }
 
+  componentWillReceiveProps(nextProps){
+  
+  }
+
   render(){
     // An array that all row data is going to be put into
     let rowsData = []
@@ -21,7 +25,7 @@ class MerchDetail extends Component {
     // and the sell count ex. ['11/12/2018', 3, 3, 2]
     // this will make it easier to map rows from later
     const generateRowData = () => {
-      if (this.props.sales !== {}) {
+      if (this.props.sales !== null && this.props.sales !== undefined) {
         this.props.sales.forEach(sale => {
           let row = []
           row.push(sale.date)
@@ -49,9 +53,7 @@ class MerchDetail extends Component {
     // store rows componet into a variable
     let rows;
     let p = this.props.sales
-    debugger
     if (this.props.sales !== null && this.props.sales !== undefined ) {
-      debugger
       rows = generateRows()
     }
 

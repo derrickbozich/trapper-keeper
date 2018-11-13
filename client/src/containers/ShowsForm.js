@@ -115,11 +115,17 @@ class ShowsForm extends Component {
         const id = this.props.id
         const newState = {...this.state,id}
         this.props.editShow(newState)
-        this.props.history.push('/shows')
+        // .then(() => this.props.getShows())
+        .then(() => this.props.history.push('/shows'))
+
       } else {
         this.props.addShow(this.state)
-        this.props.getTotals()
-        this.props.history.push('/shows')
+        // .then(() => this.props.getShows())
+        // .then(() => this.props.getTotals())
+        .then(() => this.props.history.push('/shows'))
+
+
+
       }
     }
 
