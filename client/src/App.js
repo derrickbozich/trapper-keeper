@@ -34,15 +34,15 @@ class App extends Component {
     }
   }
 
-  // shouldComponentUpdate(){
-  //   const result = validJwtToken()
-  //   if (result && this.props.gotData === false) {
-  //     this.props.getData()
-  //     .then(()=> this.props.toggleGotData(true))
-  //   }
-  //   console.log("in App - should Component Update result: " + result)
-  //   return result ? true : false
-  // }
+  shouldComponentUpdate(){
+    const result = validJwtToken()
+    if (result && this.props.gotData === false) {
+      this.props.getData()
+      .then(()=> this.props.toggleGotData(true))
+    }
+    console.log("in App - should Component Update result: " + result)
+    return result ? true : false
+  }
 
 
 
