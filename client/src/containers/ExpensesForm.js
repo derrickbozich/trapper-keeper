@@ -7,6 +7,7 @@ import { getCookie } from '../actions/actions'
 import { deleteExpense } from '../actions/actions'
 import { editExpense } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
+import { renderTotals } from '../actions/actions'
 import { Button, Form, Segment, Dropdown} from 'semantic-ui-react'
 import { expenseOptions } from '../common'
 import { paymentTypes } from '../common'
@@ -72,12 +73,30 @@ class ExpensesForm extends Component {
     e.preventDefault()
     const id = this.props.id
     const newState = {...this.state, id}
-    this.props.history.push('/finances')
+
     this.props.deleteExpense(newState)
+    .then(() => {
+      let data = this.props.data
+      let id = this.props.id
+      let newExpenses = data.expenses.filter(expense => expense.id != id)
+      let newData = data
+      newData.expenses = newExpenses
+      this.props.renderTotals(newData)
+    })
+    this.props.history.push('/finances')
     // .then(() => this.props.getTotals())
     // .then(() => this.props.getExpenses())
+  }
 
-
+  calcTotals = (id) => {
+    let data = this.props.data
+    const expense = data.expenses.find(expense => expense.id === id)
+    const index = data.expenses.indexOf(expense)
+    let state = this.state
+    state.amount = parseInt(state.amount,10)
+    let d = data.expenses
+    data.expenses.splice(index, 1, state);
+    this.props.renderTotals(data)
   }
 
   handleSubmit = e => {
@@ -98,16 +117,23 @@ class ExpensesForm extends Component {
       if (path.includes("edit")) {
         const regex = /\d+/g;
         let m = path.match(regex)
-
-
         const id = parseInt(m[0],10)
         const state = {...this.state, id}
-        this.props.history.push('/finances')
         this.props.editExpense(state)
-        // .then(() => this.props.getTotals())
-        // .then(() => this.props.getExpenses())
+        .then(() => {
+          this.calcTotals(id)
+        })
+        this.props.history.push('/finances')
       } else {
         this.props.addExpense(newState)
+        .then(() => {
+          let data = this.props.data
+          let state = this.state
+          state.amount = parseInt(state.amount,10)
+          let newExpenses = [...data.expenses, state]
+          data.expenses = newExpenses
+          this.props.renderTotals(data)
+        })
         // .then(() => this.props.getTotals())
         // .then(() => this.props.getExpenses())
         this.props.history.push('/finances')
@@ -237,15 +263,13 @@ class ExpensesForm extends Component {
 
 
 const mapStateToProps = state => {
-  if (state.global.editItem) {
     return {
       expense: state.global.editItem,
       id: state.global.editItem.id,
+      data: state
     }
-  } else {
-    return {}
-  }
+
 }
 
 
-export default connect(mapStateToProps,{ addExpense, getTotals, getExpenses, toggleEditMode, deleteExpense, editExpense })(ExpensesForm)
+export default connect(mapStateToProps,{ addExpense,renderTotals, getTotals, getExpenses, toggleEditMode, deleteExpense, editExpense })(ExpensesForm)

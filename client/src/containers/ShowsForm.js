@@ -95,7 +95,14 @@ class ShowsForm extends Component {
     const id = this.props.id
     const newState = {...this.state,id}
     this.props.deleteShow(newState)
-    this.props.getTotals()
+    .then(() => {
+      let data = this.props.data
+      let id = this.props.id
+      let newShows = data.shows.filter(show => show.id != id)
+      let newData = data
+      newData.shows = newShows
+      this.props.renderTotals(newData)
+    })
     this.props.history.push('/shows')
   }
 
