@@ -14,9 +14,6 @@ class MerchDetail extends Component {
   return Math.floor(Math.random() * 10000000)
   }
 
-  componentWillReceiveProps(nextProps){
-
-  }
 
   render(){
     // An array that all row data is going to be put into

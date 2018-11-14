@@ -8,12 +8,14 @@ import { validJwtToken } from '../actions/actions'
 
 class NavBar extends Component {
   handleClick = () => {
-    if (validJwtToken()) {
+
+    if (this.props.loggedIn) {
       this.props.logOutUser()
-      // this.props.context.history.push('/')
+      // this.props.history.push('/')
     } else {
-      // this.props.context.history.push('/users/login')
+      // this.props.history.push('/users/login')
     }
+
 
   }
   render(){
@@ -40,7 +42,7 @@ class NavBar extends Component {
           </div>
 
           <a className="ui item" onClick={this.handleClick}>
-            {validJwtToken() ? "Logout" : "Login"}
+            {this.props.loggedIn ? "Logout" : "Login"}
           </a>
       </div>
       </div>

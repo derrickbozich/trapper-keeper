@@ -2,31 +2,34 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
 import { logOutUser } from '../actions/actions'
-import { validJwtToken } from '../actions/actions'
+import { logInUser } from '../actions/actions'
 
 
 
-class NavBar extends Component {
+
+class InitialNavBar extends Component {
+
+  // state = {
+  //   loggedIn: this.props.loggedIn
+  // }
+
   handleClick = () => {
-    if (validJwtToken()) {
-      this.props.logOutUser()
-      // this.props.context.history.push('/')
-    } else {
-      // this.props.context.history.push('/users/login')
-    }
 
+    if (this.props.loggedIn) {
+      this.props.logOutUser()
+      // this.props.history.push('/')
+    } else {
+      // this.props.logInUser()
+      // this.props.history.push('/users/login')
+    }
   }
+
+
+
   render(){
     return(
       <div className="ui secondary  menu">
-        <Link className="item" to="/" >Home</Link>
-        <Link className="item" to="/sales/new" > New Sale </Link>
-        <Link className="item" to="/items/new" >New Item</Link>
-        <Link className="item" to="/expenses/new" >New Expense</Link>
-        <Link className="item" to="/finances" >Finances</Link>
-        <Link className="item" to="/shows/new" >Add a Show</Link>
-        <Link className="item" to="/items" >Items</Link>
-        <Link className="item" to="/shows" >Shows</Link>
+
         <Link className="item" to="/register" >Register</Link>
         <Link className="item" to="/users/login" >Login</Link>
 
@@ -39,7 +42,7 @@ class NavBar extends Component {
           </div>
 
           <a className="ui item" onClick={this.handleClick}>
-            {validJwtToken() ? "Logout" : "Login"}
+            {this.props.loggedIn ? "Logout" : "Login"}
           </a>
       </div>
       </div>
@@ -52,4 +55,4 @@ const mapStateToProps = state => {
   return {loggedIn: state.global.loggedIn}
 }
 
-export default connect(mapStateToProps, { logOutUser })(NavBar)
+export default connect(mapStateToProps, { logOutUser, logInUser })(InitialNavBar)
