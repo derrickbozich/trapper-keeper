@@ -27,22 +27,22 @@ import { routes } from './common'
 
 class App extends Component {
 
-  componentDidMount(){
-    console.log("in App - Component Did Mount")
-    if (validJwtToken()) {
-      this.props.getData()
-    }
-  }
+  // componentDidMount(){
+  //   console.log("in App - Component Did Mount")
+  //   if (validJwtToken()) {
+  //     this.props.getData()
+  //   }
+  // }
 
-  shouldComponentUpdate(){
-    const result = validJwtToken()
-    if (result && this.props.gotData === false) {
-      this.props.getData()
-      .then(()=> this.props.toggleGotData(true))
-    }
-    console.log("in App - should Component Update result: " + result)
-    return result ? true : false
-  }
+  // shouldComponentUpdate(){
+  //   const result = validJwtToken()
+  //   if (result && this.props.gotData === false) {
+  //     this.props.getData()
+  //     .then(()=> this.props.toggleGotData(true))
+  //   }
+  //   console.log("in App - should Component Update result: " + result)
+  //   return result ? true : false
+  // }
 
 
 
@@ -65,23 +65,19 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  if (state.data.length === 0) {
-    return {
-      loggedIn: state.global.loggedIn,
-      gotData: state.global.gotData
-    }
-  } else {
-    console.log('in app, rewriting props')
-    state.items = state.data.items
-    state.expenses = state.data.expenses
-    state.sales = state.data.sales
-    state.shows = state.data.shows
-    state.totals = state.data.totals
-    state.carts = state.data.carts
-  }
-
-}
+// const mapStateToProps = state => {
+//   return{
+//     items:state.data.items,
+//     expenses: state.data.expenses,
+//     sales: state.data.sales,
+//     shows: state.data.shows,
+//     totals: state.data.totals,
+//     carts: state.data.carts
+//
+//   }
+//
+//
+// }
 
 // export default connect(mapStateToProps, {getItems, getExpenses, getSales })(App);
-export default connect(mapStateToProps, { getData, toggleGotData, logInUser  })(App);
+export default connect(null, { getData, toggleGotData, logInUser  })(App);

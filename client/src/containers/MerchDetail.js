@@ -15,7 +15,7 @@ class MerchDetail extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-  
+
   }
 
   render(){
@@ -59,7 +59,7 @@ class MerchDetail extends Component {
 
 
     let headers
-    if (this.props.items.length !== 0) {
+    if (this.props.items !== undefined) {
       headers = this.props.items.map(item => {
         return(
             <Table.HeaderCell key={this.random()}>{item.name}</Table.HeaderCell>

@@ -62,14 +62,7 @@ class Expenses extends Component {
 }
 
 const mapStateToProps = state =>{
-  if (state.expenses !== undefined) {
-    return {
-      expenses: state.expenses
-    }
-  } else {
-    return {}
-  }
-
+  return {expenses: state.expenses}
 }
 
 export default connect(mapStateToProps, { getExpenses, getExpense, editExpense, toggleEditMode })(Expenses)

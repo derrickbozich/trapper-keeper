@@ -360,6 +360,12 @@ export function getSales(){
   }
 }
 
+export function updateSales(sales){
+  return dispatch => {
+    return dispatch({ type: 'UPDATE_SALES', payload: sales });
+  }
+}
+
 export function getTotals(){
   return dispatch => {
     return fetch('/api/totals', {
@@ -371,6 +377,50 @@ export function getTotals(){
     })
     .then(res => res.json())
     .then(totals => dispatch({ type: 'GET_TOTALS', payload: totals }));
+  }
+}
+
+export function renderTotals(data){
+  return dispatch => {
+
+    function calcItem(collection, item){
+      let total = 0;
+      collection.forEach(thing => {
+        let amount = thing[item]
+        total += amount
+      })
+      return total
+    }
+
+    function getTotals(){
+      const grossDoor = calcItem(data.shows, "door_deal");
+      const grossMerch = calcItem(data.sales, "total");
+      const grossIncome = grossDoor + grossMerch;
+      const expenses = calcItem(data.expenses, "amount");
+      const merchFees = calcItem(data.sales, "wholesale_total");
+      const squareTotal = calcItem(data.sales, "square_total");
+      const agentFees = grossDoor * 0.1;
+      const netDoor = grossDoor - agentFees;
+      const netMerch = grossMerch - merchFees - squareTotal;
+      const netIncome = netDoor + netMerch - expenses
+
+      return {
+        gross_merch: grossMerch,
+        net_merch: netMerch,
+        wholesale_total: merchFees,
+        square_total: squareTotal,
+        gross_door: grossDoor,
+        net_door: netDoor,
+        booking_fee: agentFees,
+        gross_income: grossIncome,
+        expenses: expenses,
+        net_income: netIncome
+      }
+    }
+
+  const totals = getTotals()
+
+  dispatch({ type: 'RENDER_TOTALS', payload: totals });
   }
 }
 

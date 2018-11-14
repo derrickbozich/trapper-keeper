@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { addShow } from '../actions/actions'
 import { Button, Form, Segment, Dropdown} from 'semantic-ui-react'
 import { getShows } from '../actions/actions'
-import { getTotals } from '../actions/actions'
+import { renderTotals } from '../actions/actions'
 import { deleteShow } from '../actions/actions'
 import { editShow } from '../actions/actions'
 import { getCookie } from '../actions/actions'
@@ -74,9 +74,8 @@ class ShowsForm extends Component {
   }
 
   date = () => {
-    const d = new Date();
-    const date = `${d.getMonth()+1}/${d.getDate()}/${d.getFullYear()}`
-    return date
+    let d = new Date()
+    return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`
   }
 
   handleChange = e => {
@@ -100,6 +99,17 @@ class ShowsForm extends Component {
     this.props.history.push('/shows')
   }
 
+  calcTotals = (id) => {
+    let data = this.props.data
+    const show = data.shows.find(show => show.id === id)
+    const index = data.shows.indexOf(show)
+    let state = this.state
+    state.door_deal = parseInt(state.door_deal,10)
+    let d = data.shows
+    data.shows.splice(index, 1, state);
+    this.props.renderTotals(data)
+  }
+
   handleSubmit = e => {
     e.preventDefault()
     const error = this.validate(this.state.venue, this.state.city, this.state.date, this.state.door_deal, this.state.state )
@@ -111,18 +121,34 @@ class ShowsForm extends Component {
       }
     }
     if (readyToSubmit) {
-      if (this.state.inEditMode) {
+      let path = this.props.match.url
+      if (path.includes('edit')) {
+
         const id = this.props.id
         const newState = {...this.state,id}
         this.props.editShow(newState)
+        .then(() => {
+          this.calcTotals(id)
+        })
+
         // .then(() => this.props.getShows())
-        .then(() => this.props.history.push('/shows'))
+        this.props.history.push('/shows')
 
       } else {
         this.props.addShow(this.state)
+        .then(() => {
+          let data = this.props.data
+          let state = this.state
+          state.door_deal = parseInt(state.door_deal,10)
+          let shows = [...this.props.data.shows, state]
+          data.shows = shows
+          this.props.renderTotals(data)
+
+        })
+
         // .then(() => this.props.getShows())
         // .then(() => this.props.getTotals())
-        .then(() => this.props.history.push('/shows'))
+        this.props.history.push('/shows')
 
 
 
@@ -221,15 +247,12 @@ class ShowsForm extends Component {
 }
 
 const mapStateToProps = state => {
-  if (state.global.editItem) {
     return {
+      data: state,
       show: state.global.editItem,
       id: state.global.editItem.id,
       inEditMode: true
     }
-  } else {
-    return {}
-  }
 }
 
-export default connect(mapStateToProps,{ addShow, getShows, editShow, deleteShow, getTotals, toggleEditMode })(ShowsForm)
+export default connect(mapStateToProps,{ addShow, getShows, editShow, deleteShow, renderTotals, toggleEditMode })(ShowsForm)

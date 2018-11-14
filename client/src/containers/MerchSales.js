@@ -49,11 +49,7 @@ class MerchSales extends Component {
 }
 
 const mapStateToProps = state =>{
-  if (state.sales.length !== 0) {
-    return {sales: state.sales}
-  } else {
-    return {}
-  }
+  return {sales: state.sales}
 }
 
 

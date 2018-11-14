@@ -26,7 +26,7 @@ class Door extends Component {
 
 
   render(){
-
+  
 
       let rows
       if (this.props.shows !== undefined) {

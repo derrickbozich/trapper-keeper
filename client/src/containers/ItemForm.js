@@ -68,11 +68,11 @@ class ItemForm extends Component {
         delete newState.touched
         delete newState.inEditMode
         this.props.editItem(newState)
-        .then(() => this.props.getItems())
+        // .then(() => this.props.getItems())
         this.props.history.push('/items')
       } else {
         this.props.addItem(this.state)
-        .then(() => this.props.getItems())
+        // .then(() => this.props.getItems())
         this.props.history.push('/items')
         this.setState({
           name:'',

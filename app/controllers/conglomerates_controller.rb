@@ -1,4 +1,5 @@
 class ConglomeratesController < ApplicationController
+  
   def index
     @data = Conglomerate.get_data(@current_user.id)
     render json: @data.to_json, status: 200

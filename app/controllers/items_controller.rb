@@ -36,6 +36,7 @@ class ItemsController < ApplicationController
 
   def upload
     binding.pry
+    
   end
 
   private
