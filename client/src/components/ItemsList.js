@@ -26,7 +26,7 @@ class ItemsList extends React.Component {
     }
     return(
       <div>
-        <Card.Group >
+        <Card.Group itemsPerRow={3} >
           {items}
         </Card.Group>
 

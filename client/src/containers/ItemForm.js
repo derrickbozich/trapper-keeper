@@ -125,7 +125,7 @@ class ItemForm extends Component {
       return hasError ? shouldShow : false;
     };
     return(
-      <Form className="ui form" onSubmit={this.handleSubmit}>
+      <Form className="ui form" onSubmit={this.handleSubmit} >
         <Segment stacked>
           <div className="field">
             <label>Name</label>

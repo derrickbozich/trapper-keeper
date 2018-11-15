@@ -3,7 +3,7 @@ class Conglomerate < ApplicationRecord
     merch = Cart.calc_merch(id)
     door = Show.calc_door(id)
     expenses = Expense.calc_expenses(id)
-    gross_income = {gross_income: (door[:gross_door]  + merch[:gross_merch]).to_i }
+    gross_income = {gross_income: (door[:gross_door]  + merch[:gross_merch]).round(2) }
     net_income = {net_income: (door[:net_door]  + merch[:net_merch] - expenses[:expenses]).to_i }
     merch.merge(door).merge(gross_income).merge(expenses).merge(net_income)
   end

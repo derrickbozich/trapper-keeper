@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { Table, Button } from 'semantic-ui-react'
+import { Table, Button, Segment } from 'semantic-ui-react'
 import ShowsForm from './ShowsForm'
 import Spinner from '../components/Spinner'
 import { editShow } from '../actions/actions'
@@ -26,12 +26,12 @@ class Door extends Component {
 
 
   render(){
-  
+
 
       let rows
       if (this.props.shows !== undefined) {
         rows = this.props.shows.map(show => {
-          return <Table.Row key={this.random()}>
+          return <Table.Row key={this.random()} >
                     <Table.Cell>{show.date}</Table.Cell>
                     <Table.Cell>{show.venue}</Table.Cell>
                     <Table.Cell>{show.city}</Table.Cell>
@@ -45,9 +45,10 @@ class Door extends Component {
 
       return(
         <div>
-        <Table basic='very'>
+        <Segment>
+        <Table basic='very' unstackable fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }} >
          <Table.Header>
-           <Table.Row>
+           <Table.Row >
              <Table.HeaderCell>Date</Table.HeaderCell>
              <Table.HeaderCell>Venue</Table.HeaderCell>
              <Table.HeaderCell>City</Table.HeaderCell>
@@ -61,6 +62,7 @@ class Door extends Component {
           {rows}
          </Table.Body>
         </Table>
+        </Segment>
         </div>
       )
   }

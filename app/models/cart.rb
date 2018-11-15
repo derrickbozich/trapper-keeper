@@ -53,7 +53,7 @@ class Cart < ApplicationRecord
       date_hash[:date] = date
       date_hash[:total] = total
       date_hash[:wholesale_total] = wholesale_total
-      date_hash[:square_total] = square_total
+      date_hash[:square_total] = square_total.round(0)
       date_hash[:sold_items_count] = sold_items_count
 
       # push daily values into data array
@@ -72,7 +72,7 @@ class Cart < ApplicationRecord
       wholesale_total += cart.wholesale_total
       square_total += cart.square_total
     end
-    net_merch = total - wholesale_total - square_total
+    net_merch = (total - wholesale_total - square_total).round(2)
     {gross_merch: total, net_merch: net_merch, wholesale_total: wholesale_total, square_total: square_total}
   end
 end

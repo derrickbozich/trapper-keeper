@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { Table } from 'semantic-ui-react'
+import { Table , Segment} from 'semantic-ui-react'
 // import { getSales } from '../actions/actions'
 // import { getShows } from '../actions/actions'
 
@@ -15,7 +15,8 @@ class Totals extends Component {
     const totals = this.props.totals
     return(
       <div>
-      <Table basic='very'>
+      <Segment>
+      <Table basic='very' unstackable fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}>
       <Table.Header>
       <Table.Row >
          <Table.HeaderCell>Totals</Table.HeaderCell>
@@ -61,6 +62,7 @@ class Totals extends Component {
         </Table.Row>
        </Table.Body>
       </Table>
+      </Segment>
       </div>
     )
   }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { Table, Button } from 'semantic-ui-react'
+import { Table, Button, Segment } from 'semantic-ui-react'
 import { getExpenses } from '../actions/actions'
 import { getExpense } from '../actions/actions'
 import { editExpense } from '../actions/actions'
@@ -40,7 +40,8 @@ class Expenses extends Component {
 
       return(
         <div>
-        <Table basic='very'>
+        <Segment>
+        <Table basic='very' unstackable fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}>
          <Table.Header>
            <Table.Row>
              <Table.HeaderCell>Date</Table.HeaderCell>
@@ -56,6 +57,7 @@ class Expenses extends Component {
           {rows}
          </Table.Body>
         </Table>
+        </Segment>
         </div>
       )
   }

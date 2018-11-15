@@ -389,7 +389,7 @@ export function renderTotals(data){
         let amount = thing[item]
         total += amount
       })
-      return total
+      return total.toFixed(2)
     }
 
     function getTotals(){

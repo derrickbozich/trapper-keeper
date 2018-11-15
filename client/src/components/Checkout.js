@@ -19,12 +19,11 @@ class Checkout extends Component {
     let total = 0 ;
     let wholesale_total = 0;
     let square_total = 0;
-    let soldItemsCount = []
     let updatedSale = {...sale}
     cart.forEach(item => {
       total += item.price
       wholesale_total += item.wholesale_price
-      let itemIndex = this.props.items.indexOf(item )
+      let itemIndex = this.props.items.indexOf(item)
       updatedSale.sold_items_count[itemIndex] ++
     })
 

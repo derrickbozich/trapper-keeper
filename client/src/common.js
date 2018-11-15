@@ -5,11 +5,18 @@ import ShoppingPage from './components/ShoppingPage'
 import ItemsPage from './containers/ItemsPage'
 import FinancePage from './containers/FinancePage'
 import ShowsPage from './containers/ShowsPage'
+import MerchDetail from './containers/MerchDetail'
+import MerchSales from './containers/MerchSales'
+import Door from './containers/Door'
+import Expenses from './containers/Expenses'
+import Totals from './containers/Totals'
 import LoginForm from './containers/LoginForm'
 import SignUpForm from './containers/SignUpForm'
 import ImageUpload from './containers/ImageUpload'
 import Checkout from './components/Checkout'
 import NavBar from './components/NavBar'
+import { Menu } from 'semantic-ui-react';
+import { Link } from 'react-router-dom'
 
 export const routes = [
  {path: '/items/new', component: ItemForm },
@@ -22,7 +29,12 @@ export const routes = [
  {path: '/shows', component: ShowsPage },
  {path: '/register', component: SignUpForm },
  {path: '/users/login', component: LoginForm },
- {path: '/uploads', component: ImageUpload }
+ {path: '/uploads', component: ImageUpload },
+ {path: '/merchDetail', component: MerchDetail },
+ {path: '/merchSales', component: MerchSales },
+ {path: '/expenses', component: Expenses },
+ {path: '/door', component: Door },
+
 ]
 
 export const expenseOptions = [
@@ -41,6 +53,35 @@ export const paymentTypes = [
   { key: 'credit', value: 'credit', text: 'Credit' }
 ]
 
+export const date = () => {
+  let d = new Date()
+  return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`
+}
+
+export const mobileRightItems = [
+  { as:{ Link }, content: "Finances", to: "/finances" },
+  { as:{ Link }, content: "New Sale", to: "/sales/new" },
+  { as: "a", content: "New Expense", to: "/expenses/new" },
+  { as: "a", content: "Shows", to: "/shows" },
+  { as: "a", content: "Items", to: "/items" },
+  { as: "a", content: "New Item", to: "/items/new" },
+  { as: "a", content: "Login", to: "/users/login" },
+  { as: "a", content: "Logout", to: "/users/logout" },
+  { as: "a", content: "Register", to: "/register" }
+]
+
+export const leftItems = [
+  { as:{ Link }, content: "Finances", to: "/finances" },
+  { as:{ Link }, content: "New Sale", to: "/sales/new" },
+  { as: "a", content: "New Expense", to: "/expenses/new" },
+  { as: "a", content: "Shows", to: "/shows" },
+  { as: "a", content: "Items", to: "/items" },
+  { as: "a", content: "New Item", to: "/items/new" },
+];
+export const rightItems = [
+  { as: "a", content: "Login", to: "/users/login" },
+  { as: "a", content: "Register", to: "/register" }
+];
 
 export const stateOptions =
               [ { key: 'AK', value: 'AK', text: 'Alaska' },

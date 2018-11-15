@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom';
+import { Menu, Dropdown } from 'semantic-ui-react'
 import { logOutUser } from '../actions/actions'
 import { validJwtToken } from '../actions/actions'
 
@@ -20,32 +21,48 @@ class NavBar extends Component {
   }
   render(){
     return(
-      <div className="ui secondary  menu">
-        <Link className="item" to="/" >Home</Link>
-        <Link className="item" to="/sales/new" > New Sale </Link>
-        <Link className="item" to="/items/new" >New Item</Link>
-        <Link className="item" to="/expenses/new" >New Expense</Link>
-        <Link className="item" to="/finances" >Finances</Link>
-        <Link className="item" to="/shows/new" >Add a Show</Link>
-        <Link className="item" to="/items" >Items</Link>
-        <Link className="item" to="/shows" >Shows</Link>
-        <Link className="item" to="/register" >Register</Link>
-        <Link className="item" to="/users/login" >Login</Link>
-        <Link className="item" to="/uploads" >Image Upload</Link>
+      <Menu horizontal="true">
+        <Dropdown item text='Shows'>
+          <Dropdown.Menu>
+            <Dropdown.Item><Link className="item" to="/shows" >Shows</Link></Dropdown.Item>
+            <Dropdown.Item><Link className="item" to="/shows/new" >Add a Show</Link></Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+        <Dropdown item text="Merch">
+          <Dropdown.Menu>
+            <Dropdown.Item><Link className="item" to="/sales/new" > New Sale </Link></Dropdown.Item>
+            <Dropdown.Item><Link className="item" to="/items/new" >New Item</Link></Dropdown.Item>
+            <Dropdown.Item><Link className="item" to="/items" >Items</Link></Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+        <Dropdown item text="Finances">
+          <Dropdown.Menu>
+            <Dropdown.Item><Link className="item" to="/expenses/new" > New Expense</Link></Dropdown.Item>
+            <Dropdown.Item><Link className="item" to="/finances" >Finances</Link></Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+        <Dropdown item text="Login/Logout/SignUp">
+          <Dropdown.Menu>
+            <Dropdown.Item><Link className="item" to="/register" >Register</Link></Dropdown.Item>
+            <Dropdown.Item><Link className="item" to="/users/login" >Login</Link></Dropdown.Item>
+            <Dropdown.Item><Link className="item" to="/items" >Items</Link></Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      </Menu>
 
-        <div className="right menu">
-          <div className="item">
-            <div className="ui icon input">
-              <input type="text" placeholder="Search..." />
-              <i className="search link icon"></i>
-            </div>
-          </div>
 
-          <a className="ui item" onClick={this.handleClick}>
-            {this.props.loggedIn ? "Logout" : "Login"}
-          </a>
-      </div>
-      </div>
+
+
+
+
+
+
+
+
+
+
+
+
     )
   }
 

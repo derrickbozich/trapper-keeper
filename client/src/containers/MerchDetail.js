@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { Table } from 'semantic-ui-react'
+import { Table, Segment } from 'semantic-ui-react'
 import { getSales } from '../actions/actions'
 
 // import { uuid } from 'uuid'
@@ -65,7 +65,8 @@ class MerchDetail extends Component {
     }
     return(
       <div>
-        <Table basic='very'>
+      <Segment>
+        <Table basic='very' unstackable fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}>
          <Table.Header>
            <Table.Row>
            <Table.HeaderCell>Date</Table.HeaderCell>
@@ -77,6 +78,7 @@ class MerchDetail extends Component {
           {rows}
          </Table.Body>
         </Table>
+        </Segment>
       </div>
     )
   }
