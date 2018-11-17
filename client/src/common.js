@@ -63,6 +63,7 @@ export const mobileRightItems = [
   { as:{ Link }, content: "New Sale", to: "/sales/new" },
   { as: "a", content: "New Expense", to: "/expenses/new" },
   { as: "a", content: "Shows", to: "/shows" },
+  { as: "a", content: "New Show", to: "/shows/new" },
   { as: "a", content: "Items", to: "/items" },
   { as: "a", content: "New Item", to: "/items/new" },
   { as: "a", content: "Login", to: "/users/login" },

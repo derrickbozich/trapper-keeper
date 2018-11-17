@@ -15,8 +15,8 @@ class Totals extends Component {
     const totals = this.props.totals
     return(
       <div>
-      <Segment>
-      <Table basic='very' unstackable fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}>
+      <Segment basic>
+      <Table basic='very' unstackable fixedheader='false' style={{ width: "auto", tableLayout: "auto" }}>
       <Table.Header>
       <Table.Row >
          <Table.HeaderCell>Totals</Table.HeaderCell>

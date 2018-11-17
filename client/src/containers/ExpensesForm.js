@@ -11,21 +11,18 @@ import { renderTotals } from '../actions/actions'
 import { Button, Form, Segment, Dropdown} from 'semantic-ui-react'
 import { expenseOptions } from '../common'
 import { paymentTypes } from '../common'
+import { date } from '../common'
 
 
 
 class ExpensesForm extends Component {
-  date = () => {
-    const d = new Date();
-    const date = `${d.getMonth()+1}/${d.getDate()}/${d.getFullYear()}`
-    return date
-  }
+
   constructor(props) {
     super(props);
     this.state = {
       description: props.description || '',
       amount: props.amount || '',
-      date: this.date(),
+      date: date(),
       payment_type: props.payment_type || '',
       kind: props.kind || '',
       inEditMode: false,
@@ -134,19 +131,9 @@ class ExpensesForm extends Component {
           data.expenses = newExpenses
           this.props.renderTotals(data)
         })
-        // .then(() => this.props.getTotals())
-        // .then(() => this.props.getExpenses())
+
         this.props.history.push('/finances')
       }
-
-
-      // this.setState({
-      //   description:'',
-      //   amount:'',
-      //   date:this.date(),
-      //   payment_type:'',
-      //   kind:''
-      // })
     }
 
 
@@ -239,7 +226,7 @@ class ExpensesForm extends Component {
           <Form.Input type="text"
                  id="date"
                  name="expense[date]"
-                 placeholder={this.date()}
+                 placeholder={date()}
                  value={this.state.date}
                  onChange={this.handleChange}
                  className={shouldMarkError('date') ? "error" : ""}

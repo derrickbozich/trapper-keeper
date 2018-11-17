@@ -65,8 +65,8 @@ class MerchDetail extends Component {
     }
     return(
       <div>
-      <Segment>
-        <Table basic='very' unstackable fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}>
+      <Segment basic>
+        <Table basic='very' unstackable fixedheader='false' style={{ width: "auto", tableLayout: "auto" }}>
          <Table.Header>
            <Table.Row>
            <Table.HeaderCell>Date</Table.HeaderCell>
@@ -78,7 +78,7 @@ class MerchDetail extends Component {
           {rows}
          </Table.Body>
         </Table>
-        </Segment>
+      </Segment >
       </div>
     )
   }

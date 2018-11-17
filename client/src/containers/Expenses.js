@@ -6,6 +6,7 @@ import { getExpense } from '../actions/actions'
 import { editExpense } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 import ExpensesForm from './ExpensesForm'
+import MyTable from '../components/MyTable'
 
 class Expenses extends Component {
 
@@ -24,42 +25,10 @@ class Expenses extends Component {
   }
 
   render(){
-    let rows
-    if (this.props.expenses !== undefined) {
-      rows = this.props.expenses.map(expense => {
-        return <Table.Row key={this.random()}>
-                  <Table.Cell>{expense.date}</Table.Cell>
-                  <Table.Cell>{expense.kind}</Table.Cell>
-                  <Table.Cell>{expense.description}</Table.Cell>
-                  <Table.Cell>{expense.amount}</Table.Cell>
-                  <Table.Cell>{expense.payment_type}</Table.Cell>
-                  <Table.Cell><Button content="Edit" onClick={this.handleClick}  value={expense.id} /></Table.Cell>
-               </Table.Row>
-      })
-    }
+    const headers = ["Kind", "Description", "Amount", "Date", "Payment Type"]
+    const rows = this.props.expenses
 
-      return(
-        <div>
-        <Segment>
-        <Table basic='very' unstackable fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }}>
-         <Table.Header>
-           <Table.Row>
-             <Table.HeaderCell>Date</Table.HeaderCell>
-             <Table.HeaderCell>Type</Table.HeaderCell>
-             <Table.HeaderCell>Description</Table.HeaderCell>
-             <Table.HeaderCell>Amount</Table.HeaderCell>
-             <Table.HeaderCell>Payment Type</Table.HeaderCell>
-             <Table.HeaderCell>Edit</Table.HeaderCell>
-           </Table.Row>
-         </Table.Header>
-
-         <Table.Body>
-          {rows}
-         </Table.Body>
-        </Table>
-        </Segment>
-        </div>
-      )
+    return <MyTable headers={headers} rows={rows} />
   }
 }
 

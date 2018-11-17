@@ -46,8 +46,7 @@ const NavBarMobile = ({
 
         <Menu.Menu position="right">
           <Menu.Item>
-            <Icon name="sidebar" />
-            <Dropdown>
+            <Dropdown icon='sidebar'>
                 <Dropdown.Menu>
                   {mobileDropdownItems()}
                   <Dropdown.Item><Link className="item" to="/finances" >Finances</Link></Dropdown.Item>

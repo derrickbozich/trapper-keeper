@@ -1,11 +1,12 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { Table, Button, Segment } from 'semantic-ui-react'
+import { Table, Button, Segment} from 'semantic-ui-react'
 import ShowsForm from './ShowsForm'
 import Spinner from '../components/Spinner'
 import { editShow } from '../actions/actions'
 import { getShow } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
+import MyTable from '../components/MyTable'
 
 class Door extends Component {
 
@@ -27,44 +28,10 @@ class Door extends Component {
 
   render(){
 
+      const headers = ["Date", "Venue", "City", "State", "Payment"]
+      const rows= this.props.shows
+      return <MyTable headers={headers} rows={rows} />
 
-      let rows
-      if (this.props.shows !== undefined) {
-        rows = this.props.shows.map(show => {
-          return <Table.Row key={this.random()} >
-                    <Table.Cell>{show.date}</Table.Cell>
-                    <Table.Cell>{show.venue}</Table.Cell>
-                    <Table.Cell>{show.city}</Table.Cell>
-                    <Table.Cell>{show.state}</Table.Cell>
-                    <Table.Cell>{show.door_deal}</Table.Cell>
-                    <Table.Cell><Button content="Edit" onClick={this.handleClick} value={show.id} /></Table.Cell>
-
-                 </Table.Row>
-        })
-      }
-
-      return(
-        <div>
-        <Segment>
-        <Table basic='very' unstackable fixedHeader={false} style={{ width: "auto", tableLayout: "auto" }} >
-         <Table.Header>
-           <Table.Row >
-             <Table.HeaderCell>Date</Table.HeaderCell>
-             <Table.HeaderCell>Venue</Table.HeaderCell>
-             <Table.HeaderCell>City</Table.HeaderCell>
-             <Table.HeaderCell>State</Table.HeaderCell>
-             <Table.HeaderCell>Payment</Table.HeaderCell>
-             <Table.HeaderCell>Edit</Table.HeaderCell>
-           </Table.Row>
-         </Table.Header>
-
-         <Table.Body>
-          {rows}
-         </Table.Body>
-        </Table>
-        </Segment>
-        </div>
-      )
   }
 }
 
