@@ -62,10 +62,6 @@ GEM
     concurrent-ruby (1.1.1)
     crass (1.0.4)
     debug_inspector (0.0.3)
-    dotenv (2.5.0)
-    dotenv-rails (2.5.0)
-      dotenv (= 2.5.0)
-      railties (>= 3.2, < 6.0)
     erubis (2.7.0)
     execjs (2.7.0)
     ffi (1.9.25)
@@ -184,7 +180,6 @@ DEPENDENCIES
   bcrypt
   byebug
   coffee-rails (~> 4.1.0)
-  dotenv-rails
   foreman (~> 0.82.0)
   jbuilder (~> 2.0)
   jquery-rails
