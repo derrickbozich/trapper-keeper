@@ -19,7 +19,14 @@ class Checkout extends Component {
     let total = 0 ;
     let wholesale_total = 0;
     let square_total = 0;
-    let updatedSale = {...sale}
+    let updatedSale
+    if (sale.sold_items_count !== undefined) {
+      updatedSale = {...sale}
+    } else {
+      let sold_items_count = []
+      this.props.items.forEach(item => sold_items_count.push(0))
+      updatedSale = {...sale, sold_items_count: sold_items_count, total: 0, wholesale_total: 0, square_total: 0}
+    }
     cart.forEach(item => {
       total += item.price
       wholesale_total += item.wholesale_price
@@ -31,6 +38,7 @@ class Checkout extends Component {
     updatedSale.total += total;
     updatedSale.wholesale_total += wholesale_total;
     updatedSale.square_total += square_total;
+    updatedSale.square_total = parseFloat(updatedSale.square_total.toFixed(2), 10)
 
     return updatedSale
   }
@@ -48,9 +56,9 @@ class Checkout extends Component {
       sales[index] = updatedSale
       this.props.updateSales(sales)
     } else {
-      const sale = {date: this.date()}
+      let sale = {date: this.date()}
       let updatedSale = this.calcTotals(sale, cart, payment_type)
-      this.props.updateSales({...sales, updatedSale})
+      this.props.updateSales([...sales, updatedSale])
     }
   }
 

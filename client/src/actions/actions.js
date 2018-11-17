@@ -27,7 +27,8 @@ export function logInUser(state){
         'X-CSRF-Token': getCookie('my_csrf_token')
       },
       credentials: 'same-origin'
-    }).then(res => dispatch({ type: 'LOG_IN' }));
+    }).then(res => dispatch({ type: 'LOG_IN' }))
+    .then(() => window.location.reload(true))
   };
 }
 
@@ -42,7 +43,8 @@ export function logOutUser(state){
       },
       credentials: 'same-origin'
     }).then(res => res.json())
-    .then(user => dispatch({ type: 'LOG_OUT'}) );
+    .then(user => dispatch({ type: 'LOG_OUT'}) )
+    .then(() => window.location.reload(true))
   };
 }
 
@@ -395,7 +397,7 @@ export function renderTotals(data){
     function getTotals(){
       const grossDoor = calcItem(data.shows, "door_deal");
       const grossMerch = calcItem(data.sales, "total");
-      const grossIncome = grossDoor + grossMerch;
+      const grossIncome = parseFloat(grossDoor, 10) + parseFloat(grossMerch, 10);
       const expenses = calcItem(data.expenses, "amount");
       const merchFees = calcItem(data.sales, "wholesale_total");
       const squareTotal = calcItem(data.sales, "square_total");
@@ -413,6 +415,7 @@ export function renderTotals(data){
         net_door: netDoor,
         booking_fee: agentFees,
         gross_income: grossIncome,
+        square_total: squareTotal,
         expenses: expenses,
         net_income: netIncome
       }

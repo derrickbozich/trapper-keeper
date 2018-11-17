@@ -182,8 +182,14 @@ class ExpensesForm extends Component {
     const errors = this.validate(this.state.description, this.state.amount, this.state.date, this.state.payment_type, this.state.kind);
     const shouldMarkError = (field) => {
       const hasError = errors[field];
-      const shouldShow = this.state.touched[field];
-      return hasError ? shouldShow : false;
+      try {
+        let shouldShow = this.state.touched[field];
+        return hasError ? shouldShow : false;
+      } catch (e) {
+        let shouldShow = true;
+        return hasError ? shouldShow : false;
+        console.log(e)
+      }
     };
     return(
       <Form className="ui form" onSubmit={this.handleSubmit}>

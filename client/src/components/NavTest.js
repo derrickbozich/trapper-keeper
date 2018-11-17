@@ -14,6 +14,7 @@ import {
 import { rightItems } from '../common'
 import { mobileRightItems } from '../common'
 import { leftItems } from '../common'
+import { getCookie } from '../actions/actions'
 
 const random = () => {
   return Math.floor(Math.random()*100000)

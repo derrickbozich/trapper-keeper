@@ -1,5 +1,4 @@
 import React,{Component} from 'react'
-// import { addItem } from '../Client'
 import { connect } from 'react-redux'
 import { addItem } from '../actions/actions'
 import { getItems } from '../actions/actions'
@@ -7,7 +6,7 @@ import { editItem } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 import { deleteItem } from '../actions/actions'
 import { getCookie } from '../actions/actions'
-import { Button, Form, Segment, Dropdown} from 'semantic-ui-react'
+import { Button, Form, Segment, Dropdown, Header} from 'semantic-ui-react'
 
 
 class ItemForm extends Component {
@@ -121,68 +120,79 @@ class ItemForm extends Component {
     const errors = this.validate(this.state.name, this.state.price, this.state.wholesale_price, this.state.kind);
     const shouldMarkError = (field) => {
       const hasError = errors[field];
-      const shouldShow = this.state.touched[field];
-      return hasError ? shouldShow : false;
+      try {
+        let shouldShow = this.state.touched[field];
+        return hasError ? shouldShow : false;
+      } catch (e) {
+        let shouldShow = true;
+        return hasError ? shouldShow : false;
+        console.log(e)
+      }
     };
     return(
-      <Form className="ui form" onSubmit={this.handleSubmit} >
-        <Segment stacked>
-          <div className="field">
-            <label>Name</label>
-            <Form.Input type="text"
-                   id="name"
-                   name="item[name]"
-                   placeholder="Item Name"
-                   value={this.state.name}
-                   onChange={this.handleChange}
-                   className={shouldMarkError('name') ? "error" : ""}
-                   onBlur={this.handleBlur('name')}
-                    />
-          </div>
+      <div>
+        <Header as="h1" content="Item Form" ></Header>
+        <Form className="ui form" onSubmit={this.handleSubmit} >
+          <Segment stacked>
+            <div className="field">
+              <label>Name</label>
+              <Form.Input type="text"
+                     id="name"
+                     name="item[name]"
+                     placeholder="Item Name"
+                     value={this.state.name}
+                     onChange={this.handleChange}
+                     className={shouldMarkError('name') ? "error" : ""}
+                     onBlur={this.handleBlur('name')}
+                      />
+            </div>
 
-          <div className="field">
-            <label>Price</label>
-            <Form.Input type="text"
-                   id="price"
-                   name="item[price]"
-                   placeholder="Price"
-                   value={this.state.price}
-                   onChange={this.handleChange}
-                   className={shouldMarkError('price') ? "error" : ""}
-                   onBlur={this.handleBlur('price')}
-                   />
-          </div>
+            <div className="field">
+              <label>Price</label>
+              <Form.Input type="text"
+                     id="price"
+                     name="item[price]"
+                     placeholder="Price"
+                     value={this.state.price}
+                     onChange={this.handleChange}
+                     className={shouldMarkError('price') ? "error" : ""}
+                     onBlur={this.handleBlur('price')}
+                     />
+            </div>
 
-          <div className="field">
-            <label>Wholesale Price</label>
-            <Form.Input type="text"
-                        id="wholesale_price"
-                        name="item[wholesale_price]"
-                        placeholder="Wholesale Price"
-                        value={this.state.wholesale_price}
-                        onChange={this.handleChange}
-                        className={shouldMarkError('wholesale_price') ? "error" : ""}
-                        onBlur={this.handleBlur('wholesale_price')}
-                         />
-          </div>
+            <div className="field">
+              <label>Wholesale Price</label>
+              <Form.Input type="text"
+                          id="wholesale_price"
+                          name="item[wholesale_price]"
+                          placeholder="Wholesale Price"
+                          value={this.state.wholesale_price}
+                          onChange={this.handleChange}
+                          className={shouldMarkError('wholesale_price') ? "error" : ""}
+                          onBlur={this.handleBlur('wholesale_price')}
+                           />
+            </div>
 
-          <div className="field">
-            <label>Style</label>
-            <Form.Input type="text"
-                        id="kind"
-                        name="item[kind]"
-                        placeholder="Type"
-                        value={this.state.kind}
-                        onChange={this.handleChange}
-                        className={shouldMarkError('kind') ? "error" : ""}
-                        onBlur={this.handleBlur('kind')}
-                         />
-          </div>
+            <div className="field">
+              <label>Style</label>
+              <Form.Input type="text"
+                          id="kind"
+                          name="item[kind]"
+                          placeholder="Type"
+                          value={this.state.kind}
+                          onChange={this.handleChange}
+                          className={shouldMarkError('kind') ? "error" : ""}
+                          onBlur={this.handleBlur('kind')}
+                           />
+            </div>
 
-          <Button className="ui button" type="submit">{this.state.inEditMode ? "Submit Changes" : "Submit"}</Button>
-          <Button className="ui button" onClick={this.handleDelete}>Delete</Button>
-        </Segment>
-      </Form>
+            <Button className="ui button" type="submit">{this.state.inEditMode ? "Submit Changes" : "Submit"}</Button>
+            <Button className="ui button" onClick={this.handleDelete}>Delete</Button>
+          </Segment>
+        </Form>
+
+      </div>
+
     )
   }
 }

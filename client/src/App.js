@@ -17,7 +17,7 @@ import { connect } from 'react-redux'
 // import { getItems, getExpenses, getSales} from './actions/actions'
 import { getData } from './actions/actions'
 import { toggleGotData } from './actions/actions'
-// import { getCookie } from './actions/actions'
+import { getCookie } from './actions/actions'
 import { validJwtToken } from './actions/actions'
 import { logInUser } from './actions/actions'
 import { logOutUser } from './actions/actions'
@@ -31,9 +31,14 @@ class App extends Component {
 
   // {this.props.loggedIn ? <NavBar rightItems={rightItems} leftItems={leftItems} /> : <InitialNavBar /> }
 
+componentWillReceiveProps(){
+  if (getCookie('my_jwt_token') !== '') {
+    this.props.logInUser()
+  }
+}
 
   render() {
-    if (this.props.loggedIn) {
+    if (getCookie('my_jwt_token') !== '') {
       return (
         <Router>
           <div>
