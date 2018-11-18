@@ -15,6 +15,14 @@ export function createUser(state){
   };
 }
 
+export function autoLogin(){
+  return (dispatch) => {
+   dispatch({ type: 'LOG_IN' })
+  };
+}
+
+
+
 export function logInUser(state){
   return (dispatch) => {
     // dispatch({ type: 'START_ADDING_CATS_REQUEST' });

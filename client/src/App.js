@@ -20,29 +20,39 @@ import { toggleGotData } from './actions/actions'
 import { getCookie } from './actions/actions'
 import { validJwtToken } from './actions/actions'
 import { logInUser } from './actions/actions'
+import { autoLogin } from './actions/actions'
 import { logOutUser } from './actions/actions'
 import { routes } from './common'
 import { rightItems } from './common'
+import { loggedInRightItems } from './common'
+import { loggedInMobileRightItems } from './common'
 import { mobileRightItems } from './common'
 import { leftItems } from './common'
+import { loggedInLeftItems } from './common'
 
 
 class App extends Component {
 
   // {this.props.loggedIn ? <NavBar rightItems={rightItems} leftItems={leftItems} /> : <InitialNavBar /> }
 
-componentWillReceiveProps(){
+componentDidMount(){
   if (getCookie('my_jwt_token') !== '') {
-    this.props.logInUser()
+    this.props.autoLogin()
   }
 }
 
+// componentWillReceiveProps(){
+//   if (getCookie('my_jwt_token') !== '') {
+//     this.props.autoLogin()
+//   }
+// }
+
   render() {
-    if (getCookie('my_jwt_token') !== '') {
+    if (this.props.loggedIn) {
       return (
         <Router>
           <div>
-            <NavBar rightItems={rightItems} mobileRightItems={mobileRightItems} leftItems={leftItems} loggedIn={this.props.loggedIn} logOutUser={this.props.logOutUser} />
+            <NavBar rightItems={loggedInRightItems} mobileRightItems={loggedInMobileRightItems} leftItems={loggedInLeftItems} loggedIn={this.props.loggedIn} logOutUser={this.props.logOutUser} />
             <Route path='/shows/:id/edit' component={ShowsForm} />
             <Route path='/items/:id/edit' component={ItemForm} />
             <Route path='/expenses/:id/edit' component={ExpensesForm} />
@@ -58,7 +68,7 @@ componentWillReceiveProps(){
       return (
         <Router>
           <div>
-           <InitialNavBar />
+           <NavBar rightItems={rightItems} mobileRightItems={mobileRightItems} leftItems={leftItems} loggedIn={this.props.loggedIn} logOutUser={this.props.logOutUser} />
             <Route exact path='/users/login' component={LoginForm} />
             <Route exact path='/register' component={SignUpForm} />
           </div>
@@ -76,4 +86,4 @@ const mapStateToProps = state => {
       gotData: state.global.gotData
     }
 }
-export default connect(mapStateToProps, { getData, toggleGotData, logInUser, logOutUser  })(App);
+export default connect(mapStateToProps, { getData, toggleGotData, logInUser, autoLogin, logOutUser  })(App);

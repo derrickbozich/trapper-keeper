@@ -46,6 +46,8 @@ class MerchSales extends Component {
       </Table>
       </Segment>
       </div>
+
+      
     )
   }
 }

@@ -59,6 +59,26 @@ export const date = () => {
 }
 
 export const mobileRightItems = [
+  { as: "a", content: "Login", to: "/users/login" },
+  { as: "a", content: "Register", to: "/register" }
+]
+
+export const loggedInMobileRightItems = [
+  { as: "a", content: "Finances", to: "/finances" },
+  { as: "a", content: "New Sale", to: "/sales/new" },
+  { as: "a", content: "New Expense", to: "/expenses/new" },
+  { as: "a", content: "Shows", to: "/shows" },
+  { as: "a", content: "New Show", to: "/shows/new" },
+  { as: "a", content: "Items", to: "/items" },
+  { as: "a", content: "New Item", to: "/items/new" },
+  { as: "a", content: "Logout", to: "/users/logout" }
+]
+
+export const leftItems = [
+
+];
+
+export const loggedInLeftItems = [
   { as:{ Link }, content: "Finances", to: "/finances" },
   { as:{ Link }, content: "New Sale", to: "/sales/new" },
   { as: "a", content: "New Expense", to: "/expenses/new" },
@@ -66,22 +86,14 @@ export const mobileRightItems = [
   { as: "a", content: "New Show", to: "/shows/new" },
   { as: "a", content: "Items", to: "/items" },
   { as: "a", content: "New Item", to: "/items/new" },
-  { as: "a", content: "Login", to: "/users/login" },
-  { as: "a", content: "Logout", to: "/users/logout" },
-  { as: "a", content: "Register", to: "/register" }
-]
-
-export const leftItems = [
-  { as:{ Link }, content: "Finances", to: "/finances" },
-  { as:{ Link }, content: "New Sale", to: "/sales/new" },
-  { as: "a", content: "New Expense", to: "/expenses/new" },
-  { as: "a", content: "Shows", to: "/shows" },
-  { as: "a", content: "Items", to: "/items" },
-  { as: "a", content: "New Item", to: "/items/new" },
 ];
 export const rightItems = [
   { as: "a", content: "Login", to: "/users/login" },
   { as: "a", content: "Register", to: "/register" }
+];
+
+export const loggedInRightItems = [
+
 ];
 
 export const stateOptions =

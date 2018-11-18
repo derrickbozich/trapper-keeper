@@ -5,11 +5,12 @@ const MyTable = ({headers, rows}) => {
 
   if (headers !== undefined) {
     const headerComponent = headers.map((header) => {
-      return <Table.HeaderCell>{header}</Table.HeaderCell>
+      return <Table.HeaderCell key={Math.random()*1000000} >{header}</Table.HeaderCell>
     })
 
     let headerKeys = Object.keys(rows[0])
     let newHeaderKeys = headerKeys.filter(key => key !== 'id')
+
 
     let rowsComponents = rows.map((row) => {
       let newRow = row
@@ -17,9 +18,10 @@ const MyTable = ({headers, rows}) => {
       delete newRow.user_id
       delete newRow.created_at
       delete newRow.updated_at
+      delete newRow.user
       let rowValues = Object.values(newRow)
-      let components = rowValues.map(value => <Table.Cell>{value}</Table.Cell> )
-      return <Table.Row key={Math.random()*1000000} > {components} </Table.Row >
+      let components = rowValues.map(value => <Table.Cell key={Math.random()*1000000}>{value}</Table.Cell> )
+      return <Table.Row key={Math.random()*1000000}>{components}</Table.Row >
 
     })
     return(

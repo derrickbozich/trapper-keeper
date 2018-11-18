@@ -1,7 +1,7 @@
 import React from 'react'
 import Item from './Item'
 import { connect } from 'react-redux'
-import { Card } from 'semantic-ui-react'
+import { Card, Segment } from 'semantic-ui-react'
 
 
 
@@ -26,9 +26,11 @@ class ItemsList extends React.Component {
     }
     return(
       <div>
-        <Card.Group itemsPerRow={3} >
-          {items}
-        </Card.Group>
+        <Segment basic >
+          <Card.Group itemsPerRow={3} >
+            {items}
+          </Card.Group>
+        </Segment>
 
       </div>
     )
