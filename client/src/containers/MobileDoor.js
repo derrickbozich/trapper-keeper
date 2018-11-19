@@ -35,7 +35,7 @@ class MobileDoor extends Component {
                   <Table.Cell >{show.date} </Table.Cell>
                   <Table.Cell>{show.venue}</Table.Cell>
                   <Table.Cell>{show.city}</Table.Cell>
-                  <Table.Cell>{show.door_deal}</Table.Cell>
+                  <Table.Cell>${show.door_deal}</Table.Cell>
                   <Table.Cell><Button onClick={this.handleClick} value={show.id} content="edit" /></Table.Cell>
 
                </Table.Row>

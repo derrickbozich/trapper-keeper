@@ -4,14 +4,10 @@ body {
   font-family: sans-serif;
 }
 
-/* .App {
-  margin-top: 7em;
-} */
-
-.white {
-  color: white
-}
-
 .error {
   border: red;
+}
+
+.white{
+  color: #eaeaea;
 }

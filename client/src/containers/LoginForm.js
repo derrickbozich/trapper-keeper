@@ -48,7 +48,7 @@ class LoginForm extends Component{
 
   handleClick = () => {
     // this.context.history.push('/register')
-    this.props.router.push('/register')
+    this.props.history.push('/register')
   }
 
   validate = (email, password) => {
@@ -66,51 +66,52 @@ class LoginForm extends Component{
       return hasError ? shouldShow : false;
     };
     return(
-      <div className='login-form'>
+      <Segment basic>
+        <div className='login-form'>
+          <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='top'>
+            <Grid.Column style={{ maxWidth: 450 }}>
+              <Header as='h2' color='black' textAlign='center'>
+                Log In
+              </Header>
+              <Form size='large' onSubmit={this.handleSubmit}>
+                <Segment stacked>
+                  <Form.Input fluid icon='user'
+                              id='email'
+                              iconPosition='left'
+                              placeholder='E-mail address'
+                              name='user[email]'
+                              value={this.state.email}
+                              onChange={this.handleChange}
+                              className={shouldMarkError('email') ? "error" : ""}
+                              onBlur={this.handleBlur('email')}
+                               />
 
-        <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='top'>
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as='h2' color='black' textAlign='center'>
-              Log In
-            </Header>
-            <Form size='large' onSubmit={this.handleSubmit}>
-              <Segment stacked>
-                <Form.Input fluid icon='user'
-                            id='email'
-                            iconPosition='left'
-                            placeholder='E-mail address'
-                            name='user[email]'
-                            value={this.state.email}
-                            onChange={this.handleChange}
-                            className={shouldMarkError('email') ? "error" : ""}
-                            onBlur={this.handleBlur('email')}
-                             />
+                  <Form.Input
+                    fluid
+                    icon='lock'
+                    iconPosition='left'
+                    placeholder='Password'
+                    type='password'
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                    name='user[password]'
+                    id='password'
+                    className={shouldMarkError('password') ? "error" : ""}
+                    onBlur={this.handleBlur('password')}
+                  />
 
-                <Form.Input
-                  fluid
-                  icon='lock'
-                  iconPosition='left'
-                  placeholder='Password'
-                  type='password'
-                  value={this.state.password}
-                  onChange={this.handleChange}
-                  name='user[password]'
-                  id='password'
-                  className={shouldMarkError('password') ? "error" : ""}
-                  onBlur={this.handleBlur('password')}
-                />
-
-                <Button color='black' type='submit' fluid size='large'>
-                  Login
-                </Button>
-              </Segment>
-            </Form>
-            <Message>
-              New to us? <a onClick={this.handleClick}>Sign Up</a>
-            </Message>
-          </Grid.Column>
-        </Grid>
-      </div>
+                  <Button color='black' type='submit' fluid size='large'>
+                    Login
+                  </Button>
+                </Segment>
+              </Form>
+              <Message>
+                New to us? <a onClick={this.handleClick}>Sign Up</a>
+              </Message>
+            </Grid.Column>
+          </Grid>
+        </div>
+      </Segment>
     )
   }
 }

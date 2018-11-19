@@ -27,7 +27,7 @@ class ItemsList extends React.Component {
     let items;
     if (this.props.items.length !== 0) {
       items = this.props.items.map(item => {
-        return <Card key={random()}>
+        return <Card key={random()} style={{ maxWidth: 250 }}>
                   <Card.Content >
                     <Card.Header textAlign='center'>{item.name}</Card.Header>
                     <Card.Description textAlign='center'>{item.kind}</Card.Description>

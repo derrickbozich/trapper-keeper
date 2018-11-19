@@ -2,18 +2,9 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { Table, Segment } from 'semantic-ui-react'
 import { getSales } from '../actions/actions'
-
-// import { uuid } from 'uuid'
+import { random } from '../common'
 
 class MerchDetail extends Component {
-
-
-
-
-  random = () => {
-  return Math.floor(Math.random() * 10000000)
-  }
-
 
   render(){
     // An array that all row data is going to be put into
@@ -40,9 +31,9 @@ class MerchDetail extends Component {
       let r = rowsData
       let rows = r.map(row => {
         let data = row.map(r => {
-          return <Table.Cell key={this.random()}>{r}</Table.Cell>
+          return <Table.Cell key={random()}>{r}</Table.Cell>
         })
-        return <Table.Row key={this.random()}>{data}</Table.Row>
+        return <Table.Row key={random()}>{data}</Table.Row>
       })
       return rows
     }
@@ -59,7 +50,7 @@ class MerchDetail extends Component {
     if (this.props.items !== undefined) {
       headers = this.props.items.map(item => {
         return(
-            <Table.HeaderCell key={this.random()}>{item.name}</Table.HeaderCell>
+            <Table.HeaderCell key={random()}>{item.name}</Table.HeaderCell>
         )
       })
     }

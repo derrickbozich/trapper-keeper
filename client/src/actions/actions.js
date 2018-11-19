@@ -412,9 +412,9 @@ export function renderTotals(data){
       const agentFees = grossDoor * 0.1;
       const netDoor = grossDoor - agentFees;
       const netMerch = grossMerch - merchFees - squareTotal;
-      const netIncome = parseFloat(netDoor).toFixed(2) + parseFloat(netMerch).toFixed(2) - expenses
+      const netIncome = parseFloat(netDoor + netMerch - expenses, 10).toFixed(2)
 
-      squareTotal = parseFloat(squareTotal).toFixed(2)
+      squareTotal = parseFloat(squareTotal, 10).toFixed(2)
 
       return {
         gross_merch: grossMerch,

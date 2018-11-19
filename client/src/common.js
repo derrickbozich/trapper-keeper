@@ -84,7 +84,7 @@ export const date = () => {
 
 export const mobileRightItems = [
   { as: "a", content: "Login", to: "/users/login" },
-  { as: "a", content: "Register", to: "/register" }
+  { as: "a", content: "Sign Up", to: "/register" }
 ]
 
 export const loggedInMobileRightItems = [

@@ -32,7 +32,7 @@ class MobileExpenses extends Component {
         return <Table.Row key={this.random()}>
                   <Table.Cell >{expense.date} </Table.Cell>
                   <Table.Cell>{expense.description}</Table.Cell>
-                  <Table.Cell>{expense.amount} </Table.Cell>  
+                  <Table.Cell>${expense.amount} </Table.Cell>  
                   <Table.Cell><Button onClick={this.handleClick} value={expense.id} content="edit" /></Table.Cell>
 
                </Table.Row>

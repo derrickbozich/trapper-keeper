@@ -56,7 +56,6 @@ class ShowsForm extends Component {
     }
   }
 
-
   handleBlur = (field) => (evt) => {
     this.setState({
       touched: { ...this.state.touched, [field]: true },
@@ -177,8 +176,8 @@ class ShowsForm extends Component {
       }
     };
     return(
-      <div>
-        <Segment basic>
+      <div className='center'>
+        <Segment basic style={{ maxWidth: 450 }}>
         <Header as="h1" content="Shows Form" ></Header>
         <Form className="ui form" onSubmit={this.handleSubmit}>
           <Segment stacked>
@@ -251,9 +250,7 @@ class ShowsForm extends Component {
           </Segment>
         </Form>
         </Segment>
-
       </div>
-
     )
   }
 }

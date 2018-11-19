@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import { Button, Form, Grid, Header,  Message, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { createUser } from '../actions/actions'
+import { Link } from 'react-router-dom';
+
 
 class SignUpForm extends Component{
 
@@ -65,57 +67,59 @@ class SignUpForm extends Component{
       return hasError ? shouldShow : false;
     };
     return(
-      <div className='login-form'>
-        <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='top'>
-          <Grid.Column style={{ maxWidth: 450 }}>
-            <Header as='h2' color='black' textAlign='center'>
-              Sign Up
-            </Header>
-            <Form size='large' onSubmit={this.handleSubmit}>
-              <Segment stacked>
-                <Form.Input fluid icon='user'
-                                  id='name'
-                                  iconPosition='left'
-                                  placeholder='Band Name'
-                                  name='user[name]'
-                                  value={this.state.name}
-                                  onChange={this.handleChange}
-                                  className={shouldMarkError('name') ? "error" : ""}
-                                  onBlur={this.handleBlur('name')}
+      <Segment basic>
+        <div className='login-form'>
+          <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='top'>
+            <Grid.Column style={{ maxWidth: 450 }}>
+              <Header as='h2' color='black' textAlign='center'>
+                Sign Up
+              </Header>
+              <Form size='large' onSubmit={this.handleSubmit}>
+                <Segment stacked>
+                  <Form.Input fluid icon='user'
+                                    id='name'
+                                    iconPosition='left'
+                                    placeholder='Band Name'
+                                    name='user[name]'
+                                    value={this.state.name}
+                                    onChange={this.handleChange}
+                                    className={shouldMarkError('name') ? "error" : ""}
+                                    onBlur={this.handleBlur('name')}
+                                    />
+                  <Form.Input fluid icon='user'
+                                    id='email'
+                                    iconPosition='left'
+                                    placeholder='E-mail address'
+                                    name='user[email]'
+                                    value={this.state.email}
+                                    onChange={this.handleChange}
+                                    className={shouldMarkError('email') ? "error" : ""}
+                                    onBlur={this.handleBlur('email')}
+                                    />
+                  <Form.Input fluid icon='lock'
+                                    iconPosition='left'
+                                    placeholder='Password'
+                                    type='password'
+                                    value={this.state.password}
+                                    onChange={this.handleChange}
+                                    name='user[password]'
+                                    id='password'
+                                    className={shouldMarkError('password') ? "error" : ""}
+                                    onBlur={this.handleBlur('password')}
                                   />
-                <Form.Input fluid icon='user'
-                                  id='email'
-                                  iconPosition='left'
-                                  placeholder='E-mail address'
-                                  name='user[email]'
-                                  value={this.state.email}
-                                  onChange={this.handleChange}
-                                  className={shouldMarkError('email') ? "error" : ""}
-                                  onBlur={this.handleBlur('email')}
-                                  />
-                <Form.Input fluid icon='lock'
-                                  iconPosition='left'
-                                  placeholder='Password'
-                                  type='password'
-                                  value={this.state.password}
-                                  onChange={this.handleChange}
-                                  name='user[password]'
-                                  id='password'
-                                  className={shouldMarkError('password') ? "error" : ""}
-                                  onBlur={this.handleBlur('password')}
-                                />
 
-                <Button color='black' type='submit' fluid size='large'>
-                  SignUp
-                </Button>
-              </Segment>
-            </Form>
-            <Message>
-              New to us? <a>Sign Up</a>
-            </Message>
-          </Grid.Column>
-        </Grid>
-      </div>
+                  <Button color='black' type='submit' fluid size='large'>
+                    SignUp
+                  </Button>
+                </Segment>
+              </Form>
+              <Message>
+                Already have an account? <Link to='/users/login'>Login</Link>
+              </Message>
+            </Grid.Column>
+          </Grid>
+        </div>
+      </Segment>
     )
   }
 }

@@ -19,10 +19,10 @@ class MerchSales extends Component {
       rows = this.props.sales.map(sale => {
         return <Table.Row key={this.random()}>
                   <Table.Cell >{sale.date} </Table.Cell>
-                  <Table.Cell>{sale.total}</Table.Cell>
-                  <Table.Cell>{sale.wholesale_total}</Table.Cell>
-                  <Table.Cell>{sale.square_total} </Table.Cell>
-                  <Table.Cell>{sale.total - sale.wholesale_total - sale.square_total}</Table.Cell>
+                  <Table.Cell>${sale.total}</Table.Cell>
+                  <Table.Cell>${sale.wholesale_total}</Table.Cell>
+                  <Table.Cell>${sale.square_total} </Table.Cell>
+                  <Table.Cell>${sale.total - sale.wholesale_total - sale.square_total}</Table.Cell>
                </Table.Row>
       })
     }
@@ -47,7 +47,7 @@ class MerchSales extends Component {
       </Segment>
       </div>
 
-      
+
     )
   }
 }

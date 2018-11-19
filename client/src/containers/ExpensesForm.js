@@ -180,7 +180,7 @@ class ExpensesForm extends Component {
     };
     return(
       <div>
-        <Segment basic >
+        <Segment basic style={{ maxWidth: 450 }} >
         <Header as="h1" content="Expenses Form" ></Header>
         <Form className="ui form" onSubmit={this.handleSubmit}>
          <Segment stacked>

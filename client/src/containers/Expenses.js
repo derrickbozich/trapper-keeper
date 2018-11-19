@@ -5,6 +5,7 @@ import { getExpenses } from '../actions/actions'
 import { getExpense } from '../actions/actions'
 import { editExpense } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
+import { random } from '../common'
 import ExpensesForm from './ExpensesForm'
 import MyTable from '../components/MyTable'
 
@@ -20,20 +21,16 @@ class Expenses extends Component {
     expenseId: ''
   }
 
-  random = () => {
-  return Math.floor(Math.random() * 100000)
-  }
-
   render(){
 
     let rows
     if (this.props.expenses !== undefined) {
       rows = this.props.expenses.map(expense => {
-        return <Table.Row key={this.random()}>
+        return <Table.Row key={random()}>
                   <Table.Cell >{expense.date} </Table.Cell>
                   <Table.Cell>{expense.kind}</Table.Cell>
                   <Table.Cell>{expense.description}</Table.Cell>
-                  <Table.Cell>{expense.amount} </Table.Cell>
+                  <Table.Cell>${expense.amount}</Table.Cell>
                   <Table.Cell>{expense.payment_type}</Table.Cell>
                   <Table.Cell><Button onClick={this.handleClick} value={expense.id} content="edit" /></Table.Cell>
 

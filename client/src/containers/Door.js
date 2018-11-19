@@ -7,6 +7,7 @@ import { editShow } from '../actions/actions'
 import { getShow } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 import MyTable from '../components/MyTable'
+import { random } from '../common'
 
 class Door extends Component {
 
@@ -29,12 +30,12 @@ class Door extends Component {
     let rows
     if (this.props.shows !== undefined) {
       rows = this.props.shows.map(show => {
-        return <Table.Row key={this.random()}>
+        return <Table.Row key={random()}>
                   <Table.Cell >{show.date} </Table.Cell>
                   <Table.Cell>{show.venue}</Table.Cell>
                   <Table.Cell>{show.city}</Table.Cell>
                   <Table.Cell>{show.state} </Table.Cell>
-                  <Table.Cell>{show.door_deal}</Table.Cell>
+                  <Table.Cell>${show.door_deal}</Table.Cell>
                   <Table.Cell><Button onClick={this.handleClick} value={show.id} content="edit" /></Table.Cell>
 
                </Table.Row>
