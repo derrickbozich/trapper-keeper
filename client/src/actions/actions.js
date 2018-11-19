@@ -408,11 +408,13 @@ export function renderTotals(data){
       const grossIncome = parseFloat(grossDoor, 10) + parseFloat(grossMerch, 10);
       const expenses = calcItem(data.expenses, "amount");
       const merchFees = calcItem(data.sales, "wholesale_total");
-      const squareTotal = calcItem(data.sales, "square_total");
+      let squareTotal = calcItem(data.sales, "square_total");
       const agentFees = grossDoor * 0.1;
       const netDoor = grossDoor - agentFees;
       const netMerch = grossMerch - merchFees - squareTotal;
       const netIncome = netDoor + netMerch - expenses
+
+      squareTotal = parseFloat(squareTotal).toFixed(2)
 
       return {
         gross_merch: grossMerch,

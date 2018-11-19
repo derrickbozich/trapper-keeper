@@ -22,19 +22,19 @@ const random = () => {
   return Math.floor(Math.random()*100000)
 }
 
-
-const NavBarMobile = ({children, leftItems, rightItems,logOutUser}) => (
+const NavBarMobile = ({loggedIn, leftItems, rightItems,logOutUser}) => (
 
       <Menu inverted pointing>
         <Menu.Item>
-          <Image src='https://i.imgur.com/NCpIB3gt.jpg' style={{ width:40}} />
+          <Link to='/'><Image src='https://i.imgur.com/NCpIB3gt.jpg' style={{ width:40}} /></Link>
         </Menu.Item>
 
         <Menu.Menu position="right">
           <Menu.Item>
             <Dropdown icon='sidebar'>
                 <Dropdown.Menu>
-                  {leftItems.map((item, i) => <Dropdown.Item key={i} text={item.content} as={Link} to={item.to} />)}
+                  {rightItems.map((item, i) => <Dropdown.Item key={i} text={item.content} as={Link} to={item.to} />)}
+                  { loggedIn ? <Menu.Item onClick={logOutUser} content="Logout" /> : <div></div> }
               </Dropdown.Menu>
             </Dropdown>
           </Menu.Item>

@@ -131,6 +131,7 @@ class ItemForm extends Component {
     };
     return(
       <div>
+        <Segment basic>
         <Header as="h1" content="Item Form" ></Header>
         <Form className="ui form" onSubmit={this.handleSubmit} >
           <Segment stacked>
@@ -190,6 +191,7 @@ class ItemForm extends Component {
             <Button className="ui button" onClick={this.handleDelete}>Delete</Button>
           </Segment>
         </Form>
+        </Segment>
 
       </div>
 

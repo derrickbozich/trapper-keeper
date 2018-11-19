@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 
 // import { connect } from 'react-redux'
 import {  Grid, Menu, Segment } from 'semantic-ui-react'
-import Expenses from './Expenses'
+import MobileExpenses from './MobileExpenses'
 import MerchSales from './MerchSales'
 import MerchDetail from './MerchDetail'
-import Door from './Door'
+import MobileDoor from './MobileDoor'
 import Totals from './Totals'
 import { Link } from 'react-router-dom';
 
@@ -28,13 +28,13 @@ export default class FinancePageMobile extends Component {
     let view;
     switch (activeItem) {
       case 'Expenses':
-        view =  <Expenses history={this.props.history} />
+        view =  <MobileExpenses history={this.props.history} />
         break;
       case 'Sales':
         view =  <MerchSales history={this.props.history} />
         break;
       case 'Door':
-        view =  <Door history={this.props.history} />
+        view =  <MobileDoor history={this.props.history} />
         break;
       case 'Totals':
         view =  <Totals history={this.props.history} />

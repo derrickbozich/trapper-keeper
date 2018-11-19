@@ -8,7 +8,7 @@ import { deleteExpense } from '../actions/actions'
 import { editExpense } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 import { renderTotals } from '../actions/actions'
-import { Button, Form, Segment, Dropdown} from 'semantic-ui-react'
+import { Button, Form, Segment, Dropdown, Header} from 'semantic-ui-react'
 import { expenseOptions } from '../common'
 import { paymentTypes } from '../common'
 import { date } from '../common'
@@ -179,77 +179,83 @@ class ExpensesForm extends Component {
       }
     };
     return(
-      <Form className="ui form" onSubmit={this.handleSubmit}>
-       <Segment stacked>
-        <div className="field">
-          <label>Kind</label>
-          <Form.Input
-                    id='kind'
-                    name="expense[kind]"
-                    placeholder='Kind'
-                    value={this.state.kind}
-                    onChange={this.handleChange}
-                    className={shouldMarkError('kind') ? "error" : ""}
-                    onBlur={this.handleBlur('kind')}
-          />
-        </div>
+      <div>
+        <Segment basic >
+        <Header as="h1" content="Expenses Form" ></Header>
+        <Form className="ui form" onSubmit={this.handleSubmit}>
+         <Segment stacked>
+          <div className="field">
+            <label>Kind</label>
+            <Form.Input
+                      id='kind'
+                      name="expense[kind]"
+                      placeholder='Kind'
+                      value={this.state.kind}
+                      onChange={this.handleChange}
+                      className={shouldMarkError('kind') ? "error" : ""}
+                      onBlur={this.handleBlur('kind')}
+            />
+          </div>
 
-        <div className="field">
-          <label>Description</label>
-          <Form.Input type="text"
-                 id="description"
-                 name="expense[description]"
-                 placeholder="Description"
-                 value={this.state.description}
-                 onChange={this.handleChange}
-                 className={shouldMarkError('description') ? "error" : ""}
-                 onBlur={this.handleBlur('description')}
+          <div className="field">
+            <label>Description</label>
+            <Form.Input type="text"
+                   id="description"
+                   name="expense[description]"
+                   placeholder="Description"
+                   value={this.state.description}
+                   onChange={this.handleChange}
+                   className={shouldMarkError('description') ? "error" : ""}
+                   onBlur={this.handleBlur('description')}
 
-                 />
-        </div>
+                   />
+          </div>
 
-        <div className="field">
-          <label>Amount</label>
-          <Form.Input type="text"
-                 id="amount"
-                 name="expense[amount]"
-                 placeholder="Amount"
-                 value={this.state.amount}
-                 onChange={this.handleChange}
-                 className={shouldMarkError('amount') ? "error" : ""}
-                 onBlur={this.handleBlur('amount')}
-                 />
-        </div>
+          <div className="field">
+            <label>Amount</label>
+            <Form.Input type="text"
+                   id="amount"
+                   name="expense[amount]"
+                   placeholder="Amount"
+                   value={this.state.amount}
+                   onChange={this.handleChange}
+                   className={shouldMarkError('amount') ? "error" : ""}
+                   onBlur={this.handleBlur('amount')}
+                   />
+          </div>
 
-        <div className="field">
-          <label>Date</label>
-          <Form.Input type="text"
-                 id="date"
-                 name="expense[date]"
-                 placeholder={date()}
-                 value={this.state.date}
-                 onChange={this.handleChange}
-                 className={shouldMarkError('date') ? "error" : ""}
-                 onBlur={this.handleBlur('date')}
-                 />
-        </div>
+          <div className="field">
+            <label>Date</label>
+            <Form.Input type="text"
+                   id="date"
+                   name="expense[date]"
+                   placeholder={date()}
+                   value={this.state.date}
+                   onChange={this.handleChange}
+                   className={shouldMarkError('date') ? "error" : ""}
+                   onBlur={this.handleBlur('date')}
+                   />
+          </div>
 
-        <div className="field">
-          <label>Payment Type</label>
-          <Dropdown fluid search selection
-                    placeholder='Payment Type'
-                    name="expense[payment_type]"
-                    id='payment_type'
-                    onChange={this.handleSelect}
-                    options={paymentTypes}
-                    className={shouldMarkError('payment_type') ? "error" : ""}
-                    onBlur={this.handleBlur('payment_type')}
-                    />
-        </div>
-        <Button className="ui button" type="submit">{this.state.inEditMode ? "Submit Changes" : "Submit"}</Button>
-        <Button className="ui button" onClick={this.handleDelete}>Delete</Button>
+          <div className="field">
+            <label>Payment Type</label>
+            <Dropdown fluid search selection
+                      placeholder='Payment Type'
+                      name="expense[payment_type]"
+                      id='payment_type'
+                      onChange={this.handleSelect}
+                      options={paymentTypes}
+                      className={shouldMarkError('payment_type') ? "error" : ""}
+                      onBlur={this.handleBlur('payment_type')}
+                      />
+          </div>
+          <Button className="ui button" type="submit">{this.state.inEditMode ? "Submit Changes" : "Submit"}</Button>
+          <Button className="ui button" onClick={this.handleDelete}>Delete</Button>
+          </Segment>
+        </Form>
         </Segment>
-      </Form>
+      </div>
+
     )
   }
 }

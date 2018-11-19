@@ -23,6 +23,7 @@ import { logInUser } from './actions/actions'
 import { autoLogin } from './actions/actions'
 import { logOutUser } from './actions/actions'
 import { routes } from './common'
+import { fakeRoutes } from './common'
 import { rightItems } from './common'
 import { loggedInRightItems } from './common'
 import { loggedInMobileRightItems } from './common'
@@ -68,9 +69,10 @@ componentDidMount(){
       return (
         <Router>
           <div>
-           <NavBar rightItems={rightItems} mobileRightItems={mobileRightItems} leftItems={leftItems} loggedIn={this.props.loggedIn} logOutUser={this.props.logOutUser} />
-            <Route exact path='/users/login' component={LoginForm} />
-            <Route exact path='/register' component={SignUpForm} />
+            <NavBar rightItems={rightItems} mobileRightItems={mobileRightItems} leftItems={leftItems} loggedIn={this.props.loggedIn} logOutUser={this.props.logOutUser} />
+            {fakeRoutes.map(({path, component}) => {
+              return <Route key={Math.random()*100000}exact path={path} component={component} />
+            })}
           </div>
         </Router>
       );

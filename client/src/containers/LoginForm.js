@@ -38,7 +38,6 @@ class LoginForm extends Component{
         password: ''
       })
     }
-
   }
 
   handleChange = (e, {value}) => {

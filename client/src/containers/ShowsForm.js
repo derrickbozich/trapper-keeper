@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import { connect } from 'react-redux'
 import { addShow } from '../actions/actions'
-import { Button, Form, Segment, Dropdown} from 'semantic-ui-react'
+import { Button, Form, Segment, Dropdown, Header} from 'semantic-ui-react'
 import { getShows } from '../actions/actions'
 import { renderTotals } from '../actions/actions'
 import { deleteShow } from '../actions/actions'
@@ -103,7 +103,7 @@ class ShowsForm extends Component {
       newData.shows = newShows
       this.props.renderTotals(newData)
     })
-    this.props.history.push('/shows')
+    this.props.history.push('/finances')
   }
 
   calcTotals = (id) => {
@@ -137,9 +137,7 @@ class ShowsForm extends Component {
         .then(() => {
           this.calcTotals(id)
         })
-
-        // .then(() => this.props.getShows())
-        this.props.history.push('/shows')
+        this.props.history.push('/finances')
 
       } else {
         this.props.addShow(this.state)
@@ -152,13 +150,7 @@ class ShowsForm extends Component {
           this.props.renderTotals(data)
 
         })
-
-        // .then(() => this.props.getShows())
-        // .then(() => this.props.getTotals())
-        this.props.history.push('/shows')
-
-
-
+        this.props.history.push('/finances')
       }
     }
 
@@ -185,76 +177,83 @@ class ShowsForm extends Component {
       }
     };
     return(
-      <Form className="ui form" onSubmit={this.handleSubmit}>
-        <Segment stacked>
-        <div className="field">
-          <label>Date</label>
-          <Form.Input type="text"
-                 id="date"
-                 name="show[date]"
-                 placeholder="Date"
-                 value={this.state.date}
-                 onChange={this.handleChange}
-                 className={shouldMarkError('date') ? "error" : ""}
-                 onBlur={this.handleBlur('date')}
-                  />
-        </div>
+      <div>
+        <Segment basic>
+        <Header as="h1" content="Shows Form" ></Header>
+        <Form className="ui form" onSubmit={this.handleSubmit}>
+          <Segment stacked>
+          <div className="field">
+            <label>Date</label>
+            <Form.Input type="text"
+                   id="date"
+                   name="show[date]"
+                   placeholder="Date"
+                   value={this.state.date}
+                   onChange={this.handleChange}
+                   className={shouldMarkError('date') ? "error" : ""}
+                   onBlur={this.handleBlur('date')}
+                    />
+          </div>
 
-        <div className="field">
-          <label>Venue</label>
-          <Form.Input type="text"
-                 id="venue"
-                 name="show[venue]"
-                 placeholder="Venue"
-                 value={this.state.venue}
-                 onChange={this.handleChange}
-                 className={shouldMarkError('venue') ? "error" : ""}
-                 onBlur={this.handleBlur('venue')}
-                 />
-        </div>
+          <div className="field">
+            <label>Venue</label>
+            <Form.Input type="text"
+                   id="venue"
+                   name="show[venue]"
+                   placeholder="Venue"
+                   value={this.state.venue}
+                   onChange={this.handleChange}
+                   className={shouldMarkError('venue') ? "error" : ""}
+                   onBlur={this.handleBlur('venue')}
+                   />
+          </div>
 
-        <div className="field">
-          <label>City</label>
-          <Form.Input type="text"
-                 id="city"
-                 name="show[city]"
-                 placeholder="City"
-                 value={this.state.city}
-                 onChange={this.handleChange}
-                 className={shouldMarkError('city') ? "error" : ""}
-                 onBlur={this.handleBlur('city')}
-                 />
-        </div>
+          <div className="field">
+            <label>City</label>
+            <Form.Input type="text"
+                   id="city"
+                   name="show[city]"
+                   placeholder="City"
+                   value={this.state.city}
+                   onChange={this.handleChange}
+                   className={shouldMarkError('city') ? "error" : ""}
+                   onBlur={this.handleBlur('city')}
+                   />
+          </div>
 
-        <div className="field">
-          <label>State</label>
-          <Form.Input
-                    placeholder='State'
-                    id='state'
-                    name="show[state]"
-                    onChange={this.handleSelect}
-                    value={this.state.state}
-                    className={shouldMarkError('state') ? "error" : ""}
-                    onBlur={this.handleBlur('state')}
-                     />
-        </div>
+          <div className="field">
+            <label>State</label>
+            <Form.Input
+                      placeholder='State'
+                      id='state'
+                      name="show[state]"
+                      onChange={this.handleSelect}
+                      value={this.state.state}
+                      className={shouldMarkError('state') ? "error" : ""}
+                      onBlur={this.handleBlur('state')}
+                       />
+          </div>
 
-        <div className="field">
-          <label>Door Deal</label>
-          <Form.Input type="text"
-                 placeholder='Door Deal'
-                 name="show[door_deal]"
-                 id='door_deal'
-                 value={this.state.door_deal}
-                 onChange={this.handleChange}
-                 className={shouldMarkError('door_deal') ? "error" : ""}
-                 onBlur={this.handleBlur('door_deal')}
-                 />
-        </div>
-        <Button className="ui button" type="submit">{this.state.inEditMode ? 'Submit Changes' : 'Submit'}</Button>
-        <Button className="ui button" onClick={this.handleDelete}>Delete</Button>
+          <div className="field">
+            <label>Door Deal</label>
+            <Form.Input type="text"
+                   placeholder='Door Deal'
+                   name="show[door_deal]"
+                   id='door_deal'
+                   value={this.state.door_deal}
+                   onChange={this.handleChange}
+                   className={shouldMarkError('door_deal') ? "error" : ""}
+                   onBlur={this.handleBlur('door_deal')}
+                   />
+          </div>
+          <Button className="ui button" type="submit">{this.state.inEditMode ? 'Submit Changes' : 'Submit'}</Button>
+          <Button className="ui button" onClick={this.handleDelete}>Delete</Button>
+          </Segment>
+        </Form>
         </Segment>
-      </Form>
+
+      </div>
+
     )
   }
 }

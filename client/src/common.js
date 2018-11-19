@@ -14,6 +14,8 @@ import LoginForm from './containers/LoginForm'
 import SignUpForm from './containers/SignUpForm'
 import ImageUpload from './containers/ImageUpload'
 import Checkout from './components/Checkout'
+import DefaultPage from './components/DefaultPage'
+import Home from './components/Home'
 import NavBar from './components/NavBar'
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
@@ -34,7 +36,24 @@ export const routes = [
  {path: '/merchSales', component: MerchSales },
  {path: '/expenses', component: Expenses },
  {path: '/door', component: Door },
-
+ {path: '/', component: Home }
+]
+export const fakeRoutes = [
+ {path: '/items/new', component: DefaultPage },
+ {path: '/expenses/new', component: DefaultPage },
+ {path: '/sales/new', component: DefaultPage },
+ {path: '/checkout', component: DefaultPage },
+ {path: '/finances', component: DefaultPage },
+ {path: '/shows/new', component: DefaultPage },
+ {path: '/items', component: DefaultPage },
+ {path: '/shows', component: DefaultPage },
+ {path: '/register', component: SignUpForm },
+ {path: '/users/login', component: LoginForm },
+ {path: '/uploads', component: DefaultPage },
+ {path: '/merchDetail', component: DefaultPage },
+ {path: '/merchSales', component: DefaultPage },
+ {path: '/expenses', component: DefaultPage },
+ {path: '/door', component: DefaultPage },
 ]
 
 export const expenseOptions = [
@@ -64,14 +83,12 @@ export const mobileRightItems = [
 ]
 
 export const loggedInMobileRightItems = [
+  { as: "a", content: "New Expense", to: "/expenses/new" },
   { as: "a", content: "Finances", to: "/finances" },
   { as: "a", content: "New Sale", to: "/sales/new" },
-  { as: "a", content: "New Expense", to: "/expenses/new" },
-  { as: "a", content: "Shows", to: "/shows" },
   { as: "a", content: "New Show", to: "/shows/new" },
-  { as: "a", content: "Items", to: "/items" },
   { as: "a", content: "New Item", to: "/items/new" },
-  { as: "a", content: "Logout", to: "/users/logout" }
+  { as: "a", content: "Items", to: "/items" }
 ]
 
 export const leftItems = [

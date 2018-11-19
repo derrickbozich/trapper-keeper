@@ -14,7 +14,6 @@ class Door extends Component {
     showId: ''
   }
 
-
   random = () => {
   return Math.floor(Math.random() * 100000)
   }
@@ -24,7 +23,6 @@ class Door extends Component {
     this.props.getShow(value)
     this.props.history.push(`/shows/${value}/edit`)
   }
-
 
   render(){
 
@@ -63,11 +61,7 @@ class Door extends Component {
       </Table>
       </Segment>
       </div>
-
-
     )
-
-
   }
 }
 
