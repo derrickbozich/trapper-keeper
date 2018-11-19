@@ -59,6 +59,10 @@ class LoginForm extends Component{
     };
   }
 
+
+
+
+
   render(){
     const errors = this.validate(this.state.email, this.state.password);
     const shouldMarkError = (field) => {

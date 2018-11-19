@@ -404,7 +404,6 @@ export function renderTotals(data){
 
     function getTotals(){
       let s = data
-      debugger
       const grossDoor = calcItem(data.shows, "door_deal");
       const grossMerch = calcItem(data.sales, "total");
       const grossIncome = parseFloat(grossDoor, 10) + parseFloat(grossMerch, 10);

@@ -3,6 +3,7 @@ import ItemForm from './containers/ItemForm'
 import ExpensesForm from './containers/ExpensesForm'
 import ShowsForm from './containers/ShowsForm'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import Recaptcha from 'react-recaptcha'
 // import ShoppingPage from './components/ShoppingPage'
 // import ItemsPage from './containers/ItemsPage'
 // import FinancePage from './containers/FinancePage'
@@ -42,11 +43,6 @@ componentDidMount(){
   }
 }
 
-// componentWillReceiveProps(){
-//   if (getCookie('my_jwt_token') !== '') {
-//     this.props.autoLogin()
-//   }
-// }
 
   render() {
     if (this.props.loggedIn) {

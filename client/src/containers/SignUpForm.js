@@ -3,6 +3,8 @@ import { Button, Form, Grid, Header,  Message, Segment } from 'semantic-ui-react
 import { connect } from 'react-redux'
 import { createUser } from '../actions/actions'
 import { Link } from 'react-router-dom';
+import Recaptcha from 'react-recaptcha'
+
 
 
 class SignUpForm extends Component{
@@ -11,6 +13,7 @@ class SignUpForm extends Component{
     name: '',
     email: '',
     password: '',
+    verified: false,
     touched: {
         name: false,
         email: false,
@@ -42,8 +45,14 @@ class SignUpForm extends Component{
         readyToSubmit = false
       }
     }
+    if (!this.state.verified) {
+      readyToSubmit = false
+    }
     if (readyToSubmit) {
-      this.props.createUser(this.state)
+      let stateCopy = this.state
+      delete stateCopy.verified
+      delete stateCopy.touched
+      this.props.createUser(stateCopy)
       this.props.history.push('/finances')
       this.setState({
         name: '',
@@ -59,6 +68,21 @@ class SignUpForm extends Component{
     })
 
   }
+
+  // specifying verify callback function
+  verifyRecaptcha = response => {
+    if (response) {
+      this.setState({
+        verified: true
+      })
+    }
+  }
+
+  // specifying your onload callback function
+  recaptchaLoaded = () => {
+    console.log("Recaptcha Loaded")
+  }
+
   render(){
     const errors = this.validate(this.state.name, this.state.email, this.state.password);
     const shouldMarkError = (field) => {
@@ -113,6 +137,14 @@ class SignUpForm extends Component{
                   </Button>
                 </Segment>
               </Form>
+              <Segment basic>
+              <Recaptcha
+                 sitekey="6LeEqnsUAAAAAAkD_hKMbL2q-MKAHJ9-V6TeQBgH"
+                 render="explicit"
+                 onloadCallback={this.recaptchaLoaded}
+                 verifyCallback={this.verifyRecaptcha}
+               />
+              </Segment>
               <Message>
                 Already have an account? <Link to='/users/login'>Login</Link>
               </Message>
