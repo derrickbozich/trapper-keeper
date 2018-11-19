@@ -192,9 +192,7 @@ class ItemForm extends Component {
           </Segment>
         </Form>
         </Segment>
-
       </div>
-
     )
   }
 }

@@ -13,7 +13,6 @@ import FinancePageMobile from './FinancePageMobile'
 
 class FinancePage extends React.Component {
 
-
   render(){
     return(
       <div>
@@ -24,11 +23,7 @@ class FinancePage extends React.Component {
           <FinancePageDesktop history={this.props.history} ></FinancePageDesktop >
         </Responsive>
       </div>
-
-
     )
-
-
   }
 }
 

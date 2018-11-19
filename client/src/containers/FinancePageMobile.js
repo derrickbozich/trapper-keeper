@@ -8,6 +8,7 @@ import MerchDetail from './MerchDetail'
 import MobileDoor from './MobileDoor'
 import Totals from './Totals'
 import { Link } from 'react-router-dom';
+import { random } from '../common';
 
 export default class FinancePageMobile extends Component {
   state = { activeItem: 'Expenses' }
@@ -51,7 +52,7 @@ export default class FinancePageMobile extends Component {
       <div>
         <Menu attached='top' tabular widths={5}>
           {items.map(item => {
-            return   <Menu.Item name={item.name} active={activeItem === item.name} onClick={this.handleItemClick} />
+            return   <Menu.Item key={random()} name={item.name} active={activeItem === item.name} onClick={this.handleItemClick} />
           })}
         </Menu>
         {view}

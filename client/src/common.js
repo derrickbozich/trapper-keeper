@@ -20,6 +20,10 @@ import NavBar from './components/NavBar'
 import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 
+export function random(){
+  return Math.floor(Math.random()*1000000000)
+}
+
 export const routes = [
  {path: '/items/new', component: ItemForm },
  {path: '/expenses/new', component: ExpensesForm },
@@ -54,6 +58,7 @@ export const fakeRoutes = [
  {path: '/merchSales', component: DefaultPage },
  {path: '/expenses', component: DefaultPage },
  {path: '/door', component: DefaultPage },
+ {path: '/', component: Home }
 ]
 
 export const expenseOptions = [

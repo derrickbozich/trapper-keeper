@@ -13,21 +13,19 @@ import {
 } from "semantic-ui-react";
 import { rightItems } from '../common'
 import { mobileRightItems } from '../common'
+import { random } from '../common'
 import { leftItems } from '../common'
 import { getCookie } from '../actions/actions'
 import { connect } from 'react-redux'
 
-
-const random = () => {
-  return Math.floor(Math.random()*100000)
-}
-
 const NavBarMobile = ({loggedIn, leftItems, rightItems,logOutUser}) => (
 
-      <Menu inverted pointing>
+      <Menu inverted pointing borderless>
         <Menu.Item>
           <Link to='/'><Image src='https://i.imgur.com/NCpIB3gt.jpg' style={{ width:40}} /></Link>
         </Menu.Item>
+
+        <Menu.Item as='h1' fitted='horizontally' header>Manager</Menu.Item>
 
         <Menu.Menu position="right">
           <Menu.Item>
@@ -43,11 +41,13 @@ const NavBarMobile = ({loggedIn, leftItems, rightItems,logOutUser}) => (
 );
 
 const NavBarDesktop = ({ leftItems, rightItems, loggedIn, logOutUser }) => (
-  <Menu inverted pointing >
+  <Menu inverted pointing borderless >
 
     <Menu.Item>
-      <Image src='https://i.imgur.com/NCpIB3gt.jpg' style={{ width:40}} />
+      <Link to='/'><Image src='https://i.imgur.com/NCpIB3gt.jpg' style={{ width:40}} /></Link>
     </Menu.Item>
+
+    <Menu.Item as='h1' fitted='horizontally' header>Manager</Menu.Item>
 
     {leftItems.map(item => (
       <Menu.Item key={random()} as={Link} to={item.to} content={item.content}  />

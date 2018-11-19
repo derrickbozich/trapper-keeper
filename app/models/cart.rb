@@ -70,9 +70,10 @@ class Cart < ApplicationRecord
     @current_user.carts.each do |cart|
       total += cart.total
       wholesale_total += cart.wholesale_total
-      square_total += cart.square_total.round(2)
+      square_total += cart.square_total.to_f.round(2)
     end
-    net_merch = (total - wholesale_total - square_total).round(2)
+    net_merch = (total - wholesale_total - square_total).to_f.round(2)
+    square_total = square_total.round(2)
     {gross_merch: total, net_merch: net_merch, wholesale_total: wholesale_total, square_total: square_total}
   end
 end

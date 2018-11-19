@@ -3,6 +3,7 @@ import Item from './Item'
 import { connect } from 'react-redux'
 import { addItemToCart } from '../actions/actions'
 import { getItem } from '../actions/actions'
+import { random } from '../common'
 import { Card, Segment, Icon, Button } from 'semantic-ui-react'
 
 class ItemsList extends React.Component {
@@ -26,7 +27,7 @@ class ItemsList extends React.Component {
     let items;
     if (this.props.items.length !== 0) {
       items = this.props.items.map(item => {
-        return <Card >
+        return <Card key={random()}>
                   <Card.Content >
                     <Card.Header textAlign='center'>{item.name}</Card.Header>
                     <Card.Description textAlign='center'>{item.kind}</Card.Description>

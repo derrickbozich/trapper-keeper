@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { List, Button } from 'semantic-ui-react'
+import { List, Button, Segment, Table } from 'semantic-ui-react'
 import CartItem from './CartItem'
 import { connect } from 'react-redux'
 import { checkoutCash } from '../actions/actions'
@@ -7,6 +7,7 @@ import { checkoutCredit } from '../actions/actions'
 import { getSales } from '../actions/actions'
 import { updateSales } from '../actions/actions'
 import { renderTotals } from '../actions/actions'
+import { random } from '../common'
 
 class Checkout extends Component {
 
@@ -84,21 +85,39 @@ class Checkout extends Component {
     let items
     let total = 0;
     if (this.props.currentCart.length !== 0) {
-      items = this.props.currentCart.map(item => <CartItem key={Math.floor(Math.random()*10000)} item={item} />)
+      items = this.props.currentCart.map(item => <Table.Row><Table.Cell key={random()}>{item.name}</Table.Cell></Table.Row>)
       this.props.currentCart.forEach(item => total += item.price)
     }
 
 
+
+
+
+
     return (
       <div>
-        <h1>Total</h1>
-        <h1>{total}</h1>
-        <h1>Cart</h1>
-        <List>
-          {items}
-        </List>
-        <Button onClick={this.handleClickCash} value='cash' secondary>Cash</Button>
-        <Button onClick={this.handleClickCredit} value='credit' secondary>Card</Button>
+        <Segment basic textAlign='center'>
+
+          <h1>Total</h1>
+          <h1>${total}</h1>
+
+          <Table basic='very' size='large'>
+            <Table.Header>
+              <Table.Row>
+                <Table.HeaderCell>Cart</Table.HeaderCell>
+              </Table.Row>
+            </Table.Header>
+
+            <Table.Body>
+              {items}
+            </Table.Body>
+          </Table>
+
+
+          <Button onClick={this.handleClickCash} value='cash' secondary>Cash</Button>
+          <Button onClick={this.handleClickCredit} value='credit' secondary>Card</Button>
+
+        </Segment>
       </div>
     )
   }
