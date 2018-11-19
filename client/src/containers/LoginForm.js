@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import { Button, Form, Grid, Header,  Message, Segment } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { logInUser } from '../actions/actions'
+import { Link } from 'react-router-dom';
+
 
 class LoginForm extends Component{
 
@@ -47,8 +49,7 @@ class LoginForm extends Component{
   }
 
   handleClick = () => {
-    // this.context.history.push('/register')
-    this.props.history.push('/register')
+   this.props.history.push('/register')
   }
 
   validate = (email, password) => {
@@ -106,7 +107,7 @@ class LoginForm extends Component{
                 </Segment>
               </Form>
               <Message>
-                New to us? <a onClick={this.handleClick}>Sign Up</a>
+                New to us? <Link to='/register'>Sign Up</Link>
               </Message>
             </Grid.Column>
           </Grid>

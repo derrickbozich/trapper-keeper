@@ -5,7 +5,7 @@ import { Header, Segment } from 'semantic-ui-react'
 const DefaultPage = () => {
   return (
     <div>
-      <Segment basic>
+      <Segment basic textAlign='center'>
         <Header as='h2' content="Please login to access this page" />
         <LoginForm />
       </Segment>

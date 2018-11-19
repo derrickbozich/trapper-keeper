@@ -8,12 +8,18 @@ import { toggleEditMode } from '../actions/actions'
 import { random } from '../common'
 import ExpensesForm from './ExpensesForm'
 import MyTable from '../components/MyTable'
+import { Link } from 'react-router-dom';
+
 
 class Expenses extends Component {
 
   handleClick = (e, {value }) => {
     this.props.getExpense(value)
     this.props.history.push(`/expenses/${value}/edit`)
+  }
+
+  handleButton = (e, {value }) => {
+    this.props.history.push(`/expenses/new`)
   }
 
   state = {
@@ -49,6 +55,8 @@ class Expenses extends Component {
            <Table.HeaderCell>Amount</Table.HeaderCell>
            <Table.HeaderCell>Payment Type</Table.HeaderCell>
            <Table.HeaderCell>Edit</Table.HeaderCell>
+           <Table.HeaderCell><Button basic secondary onClick={this.handleButton} content="New Expense"></Button></Table.HeaderCell>
+
          </Table.Row>
        </Table.Header>
 

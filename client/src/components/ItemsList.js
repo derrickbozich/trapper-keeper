@@ -43,7 +43,6 @@ class ItemsList extends React.Component {
       console.log("no items")
     }
 
-
     return(
       <div>
         <Segment basic >

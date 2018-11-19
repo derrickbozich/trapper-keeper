@@ -7,12 +7,18 @@ import { editExpense } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 import ExpensesForm from './ExpensesForm'
 import MyTable from '../components/MyTable'
+import { Link } from 'react-router-dom';
+
 
 class MobileExpenses extends Component {
 
   handleClick = (e, {value }) => {
     this.props.getExpense(value)
     this.props.history.push(`/expenses/${value}/edit`)
+  }
+
+  handleButton = (e, {value }) => {
+    this.props.history.push(`/expenses/new`)
   }
 
   state = {
@@ -32,7 +38,7 @@ class MobileExpenses extends Component {
         return <Table.Row key={this.random()}>
                   <Table.Cell >{expense.date} </Table.Cell>
                   <Table.Cell>{expense.description}</Table.Cell>
-                  <Table.Cell>${expense.amount} </Table.Cell>  
+                  <Table.Cell>${expense.amount} </Table.Cell>
                   <Table.Cell><Button onClick={this.handleClick} value={expense.id} content="edit" /></Table.Cell>
 
                </Table.Row>
@@ -50,7 +56,6 @@ class MobileExpenses extends Component {
            <Table.HeaderCell>Edit</Table.HeaderCell>
          </Table.Row>
        </Table.Header>
-
        <Table.Body>
         {rows}
        </Table.Body>

@@ -3,7 +3,6 @@ import LoginForm from '../containers/LoginForm'
 import { Header, Segment, List, Button, Icon } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
 
-
 const Home = () => {
   return (
     <div>
