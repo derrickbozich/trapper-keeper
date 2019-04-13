@@ -1,0 +1,13 @@
+{
+  "name": "Trapper-Keeper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:derrickbozich/trapper-keeper.git",
+  "author": "Derrick Bozich",
+  "license": "MIT",
+  "scripts": {
+    "build": "cd client && npm install && npm run build && cd ..",
+    "deploy": "cp -a client/build/. public/",
+    "postinstall": "npm run build && npm run deploy && echo 'Client built!'"
+  }
+}
