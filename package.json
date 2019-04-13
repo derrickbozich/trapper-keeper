@@ -5,6 +5,9 @@
   "repository": "git@github.com:derrickbozich/trapper-keeper.git",
   "author": "Derrick Bozich",
   "license": "MIT",
+  "engines": {
+    "node": "11.11.0"
+  },
   "scripts": {
     "build": "cd client && npm install && npm run build && cd ..",
     "deploy": "cp -a client/build/. public/",

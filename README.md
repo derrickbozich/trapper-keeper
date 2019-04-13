@@ -1,3 +1,4 @@
+https://medium.com/@bruno_boehm/reactjs-ruby-on-rails-api-heroku-app-2645c93f0814
 # `create-react-app` with a server example
 
 [![Dolphins](https://d17oy1vhnax1f7.cloudfront.net/items/3A1B470B1O2h0e0j1L47/dolphins.svg)](https://www.fullstackreact.com)
