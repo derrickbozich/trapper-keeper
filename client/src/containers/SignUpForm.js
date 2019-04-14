@@ -3,7 +3,7 @@ import { Button, Form, Grid, Header,  Message, Segment } from 'semantic-ui-react
 import { connect } from 'react-redux'
 import { createUser } from '../actions/actions'
 import { Link } from 'react-router-dom';
-import Recaptcha from 'react-recaptcha'
+// import Recaptcha from 'react-recaptcha'
 
 
 
