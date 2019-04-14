@@ -16,6 +16,12 @@ class ApplicationController < ActionController::Base
     render json: data_hash, status: 200
   end
 
+  
+  def fallback_index_html
+    render :file => 'public/index.html'
+  end
+
+
 
 
   private
