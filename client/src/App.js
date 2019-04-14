@@ -47,7 +47,7 @@ componentDidMount(){
   render() {
     if (this.props.loggedIn) {
       return (
-        <Router>
+        <Router> 
           <div>
             <NavBar rightItems={loggedInRightItems} mobileRightItems={loggedInMobileRightItems} leftItems={loggedInLeftItems} loggedIn={this.props.loggedIn} logOutUser={this.props.logOutUser} />
             <Route path='/shows/:id/edit' component={ShowsForm} />

@@ -139,7 +139,7 @@ class SignUpForm extends Component{
               </Form>
               <Segment basic>
               <Recaptcha
-                 sitekey="6LeEqnsUAAAAAAkD_hKMbL2q-MKAHJ9-V6TeQBgH"
+                 sitekey="6Lf4KZ4UAAAAAOUHVpqoQzaTA4Nsw5TT61NW4fbJ"
                  render="explicit"
                  onloadCallback={this.recaptchaLoaded}
                  verifyCallback={this.verifyRecaptcha}

@@ -1,7 +1,7 @@
 {
   "name": "lookup-client",
   "version": "0.1.0",
-  "private": true,
+  "private": true, 
   "proxy": {
     "/api": {
       "target": "http://localhost:3001"
