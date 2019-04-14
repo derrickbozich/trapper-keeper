@@ -35,8 +35,10 @@ Rails.application.routes.draw do
     post 'users/login', to: 'users#login'
     get '/users/logout', to: 'users#logout'
 
-    get '*path', to: "application#fallback_index_html", constraints: ->(request) do
-      !request.xhr? && request.format.html?
-    end
+
+  end
+
+  get '*path', to: "application#fallback_index_html", constraints: ->(request) do
+    !request.xhr? && request.format.html?
   end
 end
