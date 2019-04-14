@@ -138,12 +138,12 @@ class SignUpForm extends Component{
                 </Segment>
               </Form>
               <Segment basic>
-              <Recaptcha
-                 sitekey="6Lf4KZ4UAAAAAOUHVpqoQzaTA4Nsw5TT61NW4fbJ"
-                 render="explicit"
-                 onloadCallback={this.recaptchaLoaded}
-                 verifyCallback={this.verifyRecaptcha}
-               />
+              // <Recaptcha
+              //    sitekey="6Lf4KZ4UAAAAAOUHVpqoQzaTA4Nsw5TT61NW4fbJ"
+              //    render="explicit"
+              //    onloadCallback={this.recaptchaLoaded}
+              //    verifyCallback={this.verifyRecaptcha}
+              //  />
               </Segment>
               <Message>
                 Already have an account? <Link to='/users/login'>Login</Link>
