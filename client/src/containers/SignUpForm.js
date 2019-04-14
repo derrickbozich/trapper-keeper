@@ -43,15 +43,17 @@ class SignUpForm extends Component{
     for (let i = 0; i < keys.length; i++){
       if (error[keys[i]] === true) {
         readyToSubmit = false
+        console.log(`error: ${error[keys[i]]}`);
       }
     }
-    if (!this.state.verified) {
-      readyToSubmit = false
-    }
+    // if (!this.state.verified) {
+    //   readyToSubmit = false
+    // }
     if (readyToSubmit) {
       let stateCopy = this.state
       delete stateCopy.verified
       delete stateCopy.touched
+      console.log("ready to SUBMIT");
       this.props.createUser(stateCopy)
       this.props.history.push('/finances')
       this.setState({
@@ -137,7 +139,7 @@ class SignUpForm extends Component{
                   </Button>
                 </Segment>
               </Form>
-            
+
               <Message>
                 Already have an account? <Link to='/users/login'>Login</Link>
               </Message>
