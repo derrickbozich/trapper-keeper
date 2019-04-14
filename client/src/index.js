@@ -6,7 +6,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers/index';
 import './index.css';
-import './semantic/dist/semantic.min.css';
+import './semantic/semantic.min.css';
 import {getCookie} from './actions/actions'
 const middleware = [thunk];
 
