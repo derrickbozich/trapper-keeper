@@ -3,7 +3,7 @@ import { Button, Form, Grid, Header,  Message, Segment } from 'semantic-ui-react
 import { connect } from 'react-redux'
 import { createUser } from '../actions/actions'
 import { Link } from 'react-router-dom';
-// import Recaptcha from 'react-recaptcha'
+import Recaptcha from 'react-recaptcha'
 
 
 
@@ -139,6 +139,14 @@ class SignUpForm extends Component{
                   </Button>
                 </Segment>
               </Form>
+              <Segment basic>
+              <Recaptcha
+                 sitekey="6Lf4KZ4UAAAAAOUHVpqoQzaTA4Nsw5TT61NW4fbJ"
+                 render="explicit"
+                 onloadCallback={this.recaptchaLoaded}
+                 verifyCallback={this.verifyRecaptcha}
+               />
+              </Segment>
 
               <Message>
                 Already have an account? <Link to='/users/login'>Login</Link>
