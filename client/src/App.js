@@ -16,8 +16,8 @@ import NavBar from './components/NavTest'
 import InitialNavBar from './components/InitialNavBar'
 import { connect } from 'react-redux'
 // import { getItems, getExpenses, getSales} from './actions/actions'
-import { getData } from './actions/actions'
-import { toggleGotData } from './actions/actions'
+// import { getData } from './actions/actions'
+// import { toggleGotData } from './actions/actions'
 import { getCookie } from './actions/actions'
 import { validJwtToken } from './actions/actions'
 import { logInUser } from './actions/actions'
@@ -39,7 +39,9 @@ class App extends Component {
 
 componentDidMount(){
   if (getCookie('my_jwt_token') !== '') {
-    this.props.autoLogin()
+    this.props.autoLogin();
+    // this.props.getData();
+    console.log('in App componentDidMount ');
   }
 }
 
@@ -47,7 +49,7 @@ componentDidMount(){
   render() {
     if (this.props.loggedIn) {
       return (
-        <Router> 
+        <Router>
           <div>
             <NavBar rightItems={loggedInRightItems} mobileRightItems={loggedInMobileRightItems} leftItems={loggedInLeftItems} loggedIn={this.props.loggedIn} logOutUser={this.props.logOutUser} />
             <Route path='/shows/:id/edit' component={ShowsForm} />
@@ -81,7 +83,6 @@ componentDidMount(){
 const mapStateToProps = state => {
     return {
       loggedIn: state.global.loggedIn,
-      gotData: state.global.gotData
     }
 }
-export default connect(mapStateToProps, { getData, toggleGotData, logInUser, autoLogin, logOutUser  })(App);
+export default connect(mapStateToProps, { logInUser, autoLogin, logOutUser  })(App);

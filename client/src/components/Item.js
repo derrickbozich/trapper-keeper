@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { Card, Image, Button, Grid, Icon} from 'semantic-ui-react'
+import { Card, Button, Icon} from 'semantic-ui-react'
 import { addItemToCart } from '../actions/actions'
 import { deleteItem } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 import { getItem } from '../actions/actions'
 import { connect } from 'react-redux'
-import ItemForm from '../containers/ItemForm'
-import CartModal from './CartModal'
+// import ItemForm from '../containers/ItemForm'
+// import CartModal from './CartModal'
 
 class Item extends Component {
 

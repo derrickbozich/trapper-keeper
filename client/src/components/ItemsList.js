@@ -1,10 +1,10 @@
 import React from 'react'
-import Item from './Item'
+// import Item from './Item'
 import { connect } from 'react-redux'
 import { addItemToCart } from '../actions/actions'
 import { getItem } from '../actions/actions'
 import { random } from '../common'
-import { Card, Segment, Icon, Button } from 'semantic-ui-react'
+import { Card, Segment, Button } from 'semantic-ui-react'
 
 class ItemsList extends React.Component {
 

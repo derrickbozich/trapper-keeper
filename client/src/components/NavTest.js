@@ -1,22 +1,19 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-import { render } from "react-dom";
+// import { render } from "react-dom";
 import {
   Container,
   Image,
   Menu,
-  Icon,
-  Header,
-  Sidebar,
   Responsive,
   Dropdown
 } from "semantic-ui-react";
-import { rightItems } from '../common'
+// import { rightItems } from '../common'
 import { mobileRightItems } from '../common'
 import { random } from '../common'
-import { leftItems } from '../common'
-import { getCookie } from '../actions/actions'
-import { connect } from 'react-redux'
+// import { leftItems } from '../common'
+// import { getCookie } from '../actions/actions'
+// import { connect } from 'react-redux'
 
 const NavBarMobile = ({loggedIn, leftItems, rightItems,logOutUser}) => (
 
@@ -63,9 +60,9 @@ const NavBarDesktop = ({ leftItems, rightItems, loggedIn, logOutUser }) => (
   </Menu>
 );
 
-const NavBarChildren = ({ children }) => (
-  <Container style={{ marginTop: "5em" }}>{children}</Container>
-);
+// const NavBarChildren = ({ children }) => (
+//   <Container style={{ marginTop: "5em" }}>{children}</Container>
+// );
 
 export default class NavBar extends Component {
 

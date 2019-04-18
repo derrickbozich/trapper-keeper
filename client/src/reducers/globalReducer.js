@@ -12,6 +12,12 @@ export function globalReducer(state={inEditMode: false, loggedIn: false, gotData
       return {...state, editItem: action.payload}
     case 'LOG_OUT':
       return {...state, loggedIn: false}
+    case 'SET_LOADING':
+      return {...state, loading: true}
+    case 'DONE_LOADING':
+      return {...state, loading: false}
+
+
     default:
       return state
   }

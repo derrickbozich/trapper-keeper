@@ -287,6 +287,7 @@ export function toggleGotData(state){
 
 export function getData(){
   return dispatch => {
+    dispatch(setDataLoading())
     return fetch('/api/data', {
       headers: {
         'Content-Type': 'application/json',
@@ -299,6 +300,14 @@ export function getData(){
     // .then(() => dispatch({ type: 'TOGGLE_GOT_DATA', payload: true}));
   }
 }
+
+export function setDataLoading(){
+  return dispatch => {
+    dispatch({ type: 'SET_DATA_LOADING'})
+
+  }
+}
+
 
 export function getShows(){
   return dispatch => {
@@ -375,6 +384,7 @@ export function updateSales(sales){
     return dispatch({ type: 'UPDATE_SALES', payload: sales });
   }
 }
+
 
 export function getTotals(){
   return dispatch => {

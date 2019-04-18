@@ -9,15 +9,15 @@ import MerchDetail from './containers/MerchDetail'
 import MerchSales from './containers/MerchSales'
 import Door from './containers/Door'
 import Expenses from './containers/Expenses'
-import Totals from './containers/Totals'
+// import Totals from './containers/Totals'
 import LoginForm from './containers/LoginForm'
 import SignUpForm from './containers/SignUpForm'
 import ImageUpload from './containers/ImageUpload'
 import Checkout from './components/Checkout'
 import DefaultPage from './components/DefaultPage'
 import Home from './components/Home'
-import NavBar from './components/NavBar'
-import { Menu } from 'semantic-ui-react';
+// import NavBar from './components/NavBar'
+// import { Menu } from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 
 export function random(){

@@ -9,7 +9,7 @@ import { editExpense } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 import { renderTotals } from '../actions/actions'
 import { Button, Form, Segment, Dropdown, Header} from 'semantic-ui-react'
-import { expenseOptions } from '../common'
+// import { expenseOptions } from '../common'
 import { paymentTypes } from '../common'
 import { date } from '../common'
 

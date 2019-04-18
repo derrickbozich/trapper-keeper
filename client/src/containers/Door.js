@@ -5,11 +5,18 @@ import ShowsForm from './ShowsForm'
 import Spinner from '../components/Spinner'
 import { editShow } from '../actions/actions'
 import { getShow } from '../actions/actions'
+import { getData } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 import MyTable from '../components/MyTable'
 import { random } from '../common'
 
 class Door extends Component {
+
+  componentDidMount(){
+
+      this.props.getData();
+
+  }
 
   state = {
     showId: ''
@@ -67,15 +74,29 @@ class Door extends Component {
 }
 
 const mapStateToProps = state =>{
-  if (state.shows !== undefined) {
-    return {
-      shows: state.shows,
-      inEditMode: state.global.inEditMode
-    }
-  } else {
-    return {}
+  // if (state.shows !== undefined) {
+  //   return {
+  //     shows: state.shows,
+  //     inEditMode: state.global.inEditMode
+  //   }
+  // } else {
+  //   return {}
+  // }
+
+  const data = state.data.details
+  let shows
+
+  try{
+    shows = data.shows;
+  } catch(err) {
+    shows = undefined;
+  }
+
+  return {
+    shows: shows,
+    inEditMode: state.global.inEditMode
   }
 
 }
 
-export default connect(mapStateToProps, { editShow, toggleEditMode, getShow })(Door)
+export default connect(mapStateToProps, { editShow, toggleEditMode, getShow, getData })(Door)

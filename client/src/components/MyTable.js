@@ -8,8 +8,8 @@ const MyTable = ({headers, rows}) => {
       return <Table.HeaderCell key={Math.random()*1000000} >{header}</Table.HeaderCell>
     })
 
-    let headerKeys = Object.keys(rows[0])
-    let newHeaderKeys = headerKeys.filter(key => key !== 'id')
+    // let headerKeys = Object.keys(rows[0])
+    // let newHeaderKeys = headerKeys.filter(key => key !== 'id')
 
 
     let rowsComponents = rows.map((row) => {

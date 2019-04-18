@@ -1,11 +1,17 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { Table, Segment } from 'semantic-ui-react'
-import { getSales } from '../actions/actions'
+import { getData } from '../actions/actions'
 
 // import { uuid } from 'uuid'
 
 class MerchSales extends Component {
+
+  componentDidMount(){
+
+      this.props.getData();
+
+  }
 
 
 
@@ -53,9 +59,26 @@ class MerchSales extends Component {
 }
 
 const mapStateToProps = state =>{
-  return {sales: state.sales}
+  // return {sales: state.sales}
+  const data = state.data.details
+  let sales
+
+
+  try{
+    sales = data.sales;
+
+  } catch(err) {
+    sales = undefined;
+
+  }
+
+  return {
+    sales: sales,
+
+  }
+
 }
 
 
 
-export default connect(mapStateToProps, { getSales })(MerchSales)
+export default connect(mapStateToProps, { getData })(MerchSales)

@@ -1,10 +1,16 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { Table, Segment } from 'semantic-ui-react'
-import { getSales } from '../actions/actions'
+import { getData } from '../actions/actions'
 import { random } from '../common'
 
 class MerchDetail extends Component {
+
+  componentDidMount(){
+
+      this.props.getData();
+
+  }
 
   render(){
     // An array that all row data is going to be put into
@@ -76,11 +82,22 @@ class MerchDetail extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log("MerchDetail mapStateToProps")
+  const data = state.data.details
+  let sales
+  let items
+
+  try{
+    sales = data.sales;
+    items = data.items;
+  } catch(err) {
+    sales = undefined;
+    items = undefined;
+  }
+
   return {
-    sales: state.sales,
-    items: state.items
+    sales: sales,
+    items: items
   }
 }
 
-export default connect(mapStateToProps, { getSales })(MerchDetail)
+export default connect(mapStateToProps, {  getData })(MerchDetail)

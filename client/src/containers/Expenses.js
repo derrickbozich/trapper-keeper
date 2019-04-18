@@ -3,15 +3,22 @@ import { connect } from 'react-redux'
 import { Table, Button, Segment } from 'semantic-ui-react'
 import { getExpenses } from '../actions/actions'
 import { getExpense } from '../actions/actions'
+import { getData } from '../actions/actions'
 import { editExpense } from '../actions/actions'
 import { toggleEditMode } from '../actions/actions'
 import { random } from '../common'
-import ExpensesForm from './ExpensesForm'
-import MyTable from '../components/MyTable'
-import { Link } from 'react-router-dom';
+// import ExpensesForm from './ExpensesForm'
+// import MyTable from '../components/MyTable'
+// import { Link } from 'react-router-dom';
 
 
 class Expenses extends Component {
+
+  componentDidMount(){
+
+      this.props.getData();
+
+  }
 
   handleClick = (e, {value }) => {
     this.props.getExpense(value)
@@ -74,7 +81,18 @@ class Expenses extends Component {
 }
 
 const mapStateToProps = state =>{
-  return {expenses: state.expenses}
+ const data = state.data.details
+ let expenses
+
+ try{
+   expenses = data.expenses;
+ } catch(err) {
+   expenses = undefined;
+ }
+
+ return {
+   expenses: expenses,
+ }
 }
 
-export default connect(mapStateToProps, { getExpenses, getExpense, editExpense, toggleEditMode })(Expenses)
+export default connect(mapStateToProps, { getExpenses, getExpense, editExpense, toggleEditMode, getData })(Expenses)

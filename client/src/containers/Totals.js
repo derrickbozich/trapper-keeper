@@ -1,10 +1,16 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { Table , Segment} from 'semantic-ui-react'
-// import { getSales } from '../actions/actions'
+import { getData } from '../actions/actions'
 // import { getShows } from '../actions/actions'
 
 class Totals extends Component {
+
+  componentDidMount(){
+
+      this.props.getData();
+
+  }
 
   random = () => {
   return Math.floor(Math.random() * 100000)
@@ -73,7 +79,19 @@ class Totals extends Component {
 }
 
 const mapStateToProps = state =>{
- return {totals: state.totals}
+ // return {totals: state.totals}
+ const data = state.data.details
+ let totals
+
+ try{
+   totals = data.totals;
+ } catch(err) {
+   totals = undefined;
+ }
+
+ return {
+   totals: totals,
+ }
 }
 
-export default connect(mapStateToProps)(Totals)
+export default connect(mapStateToProps, { getData })(Totals)
