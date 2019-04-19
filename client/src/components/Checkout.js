@@ -4,12 +4,12 @@ import { Button, Segment, Table } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { checkoutCash } from '../actions/actions'
 import { checkoutCredit } from '../actions/actions'
-import { getSales } from '../actions/actions'
+// import { getSales } from '../actions/actions'
 import { getData } from '../actions/actions'
-import { setDataLoading } from '../actions/actions'
-import { updateSales } from '../actions/actions'
+// import { setDataLoading } from '../actions/actions'
+// import { updateSales } from '../actions/actions'
 // import { setLoadingSales } from '../actions/actions'
-import { renderTotals } from '../actions/actions'
+// import { renderTotals } from '../actions/actions'
 import { random } from '../common'
 
 class Checkout extends Component {
@@ -68,7 +68,8 @@ class Checkout extends Component {
 
   handleClickCash = (e, value) => {
     const cart = this.props.currentCart;
-    this.props.checkoutCash(cart);
+    this.props.checkoutCash(cart)
+    .then(() => this.props.getData())
     // this.props.getData();
 
     // this.updateSales(this.props.sales, cart, "cash")
@@ -84,6 +85,7 @@ class Checkout extends Component {
   handleClickCredit = (e, value) => {
     const cart = this.props.currentCart
     this.props.checkoutCredit(cart)
+    .then(() => this.props.getData())
     // this.updateSales(this.props.sales, cart, "credit")
     // const data = this.props.data
     // this.props.renderTotals(data)
@@ -156,4 +158,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { checkoutCash, getData, checkoutCredit, getSales, updateSales, renderTotals, setDataLoading })(Checkout)
+export default connect(mapStateToProps, { checkoutCash, getData, checkoutCredit})(Checkout)
