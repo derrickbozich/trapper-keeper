@@ -36,7 +36,7 @@ export function logInUser(state){
       },
       credentials: 'same-origin'
     }).then(res => dispatch({ type: 'LOG_IN' }))
-    .then(() => window.location.reload(true))
+    // .then(() => window.location.reload(true))
   };
 }
 
@@ -52,7 +52,7 @@ export function logOutUser(state){
       credentials: 'same-origin'
     }).then(res => res.json())
     .then(user => dispatch({ type: 'LOG_OUT'}) )
-    .then(() => window.location.reload(true))
+    // .then(() => window.location.reload(true))
   };
 }
 
